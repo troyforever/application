@@ -1,0 +1,12 @@
+[ 2017-03-17T10:45:20+08:00 ] ::1 /application/index.php/Password
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+ERR: 无法加载模块:Password
+
+[ 2017-03-17T10:45:43+08:00 ] ::1 /application/index.php/Password/Password/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Password
+
