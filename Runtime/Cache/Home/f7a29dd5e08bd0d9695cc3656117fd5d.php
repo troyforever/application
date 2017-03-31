@@ -22,14 +22,26 @@
   </head>
   <body onresize="resize()" onload="resize()">
     <div id="content">
+      <form id="account-box" method="POST">
       <input id="uid" style="width:300px" data-options="value:'<?php echo $tid ?>'"><br><br>
-      <input id="phone" style="width:300px" data-options="value:'<?php echo $phone ?>'"><br><br>
-      <input id="email" style="width:300px" data-options="value:'<?php echo $email ?>'"><br><br>
+      <input id="phone" name="phone" style="width:300px" data-options="value:'<?php echo $phone ?>'"><br><br>
+      <input id="email" name="email" style="width:300px" data-options="value:'<?php echo $email ?>'"><br><br>
       <input id="state" style="width:300px"><br><br>
       <input id="time" style="width:300px" data-options="value:'<?php echo $time ?>'"><br><br><br>
       <a id="submit">提交</a>
-      <a id="cancel" style="float:right">重置</a>
+      <a id="cancel" style="float:right">刷新</a>
+      </form>
     </div>
+    <!--<div id="check-box">
+      <p id="email-lab"><?php echo $email ?></p>
+      <input id="check" style="width:180px"/>
+      <a id="sendMail">发送</a>
+      <div style="width:280px; margin-top:30px">
+        <a id="check-btn">验证</a>
+        <a id="check-cancel">关闭</a>
+      </div>
+    </div>-->
+    <div id="email-box"></div>
     <script type="text/javascript">
       var APP = "/application/index.php" ;
       var PUBLIC = "/application/Public" ;

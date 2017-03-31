@@ -9,6 +9,15 @@ class AccountController extends CommonController {
     	$this -> assign($data) -> display() ;
     }
 
+	public function accountDo(){
+		$data['phone'] = I('post.phone') ;
+		$data['email'] = I('post.email') ;
+
+		$user = M('User') ;
+
+		$this -> ajaxReturn($user -> where("tid='%s'",session('tid')) -> save($data) !== false ? true : false) ;
+	}
+
     public function info() {
 
 		$base = D('Base');

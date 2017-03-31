@@ -149,3 +149,9 @@ $("#cancel").linkbutton({
 function resize() {
 	$("#content").dialog('center');
 }
+
+$(function(){
+	if ( showMsg == '1' ){
+		$.messager.alert('提示','您尚未填写个人信息，请完善！','info');
+	}
+});
