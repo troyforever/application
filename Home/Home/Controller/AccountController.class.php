@@ -34,10 +34,19 @@ class AccountController extends CommonController {
 		$data['outlook'] = I('post.outlook') ;
 		$data['unitId'] = I('post.unit') ;
 		$data['departmentId'] = I('post.department') ;
-		
+
 		$base = M('Base') ;
 
-		$this -> ajaxReturn($base -> where("userId='%s'",session('tid')) -> save($data) !== false ? true : false ) ;
+		if($base -> where("userId='%s'",session('tid')) -> find() == null){
+			$data['userId'] = session('tid') ;
+			$this -> ajaxReturn($base -> add($data) !== false ? true : false ) ;
+		} else {
+			$this -> ajaxReturn($base -> where("userId='%s'",session('tid')) -> save($data) !== false ? true : false ) ;
+		}
+		// if ( $base -> where("userId='%s'",session('tid') -> getField('id')) != null )
+			
+
+		$this -> ajaxReturn($base -> where("userId='%s'",session('tid')) -> save($data) ) ;
 	}
 
     public function chpwd() {
