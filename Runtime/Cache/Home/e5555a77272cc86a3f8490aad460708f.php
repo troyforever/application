@@ -20,19 +20,21 @@
   </head>
   <body onresize="resize()" onload="resize()">
     <div id="content">
-      <input id="uid" style="width:300px" data-options="value:'<?php echo session('tid') ?>'"><br><br>
-      <input id="name" style="width:300px" data-options="value:'<?php echo $name ?>'"><br><br>
-      <select id="gender"style="width:300px" data-options="value:'<?php echo $gender ?>'">
+      <form id="info-box" method="POST">
+      <input id="uid" name="uid" style="width:300px" data-options="value:'<?php echo session('tid') ?>'"><br><br>
+      <input id="name" name="name" style="width:300px" data-options="value:'<?php echo $name ?>'"><br><br>
+      <select id="gender" name="gender" style="width:300px" data-options="value:'<?php echo $gender ?>'">
         <option value='1'>男</option>
         <option value='0'>女</option>
       </select><br><br>
-      <input id="birth" style="width:300px" data-options="value:'<?php echo $birth ?>'"><br><br>
-      <input id="nation" style="width:300px" data-options="value:'<?php echo $nation ?>'"><br><br>
-      <input id="outlook" style="width:300px" data-options="value:'<?php echo $outlook ?>'"><br><br>
-      <input id="unit" style="width:300px" data-options="value:<?php echo $unitid ?>"><br><br>
-      <input id="department" style="width:300px" data-options="value:<?php echo $departmentid ?>"><br><br>
+      <input id="birth" name="birth" style="width:300px" data-options="value:'<?php echo $birth ?>'"><br><br>
+      <input id="nation" name="nation" style="width:300px" data-options="value:'<?php echo $nation ?>'"><br><br>
+      <input id="outlook" name="outlook" style="width:300px" data-options="value:'<?php echo $outlook ?>'"><br><br>
+      <input id="unit" name="unit" style="width:300px" data-options="value:<?php echo $unitid ?>"><br><br>
+      <input id="department" name="department" style="width:300px" data-options="value:<?php echo $departmentid ?>"><br><br>
       <a id="submit">提交</a>
       <a id="cancel" style="float:right">刷新</a>
+      </form>
     </div>
     <script type="text/javascript">
       var PUBLIC = "/application/Public" ;

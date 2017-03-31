@@ -17,6 +17,20 @@ class AccountController extends CommonController {
 		
     }
 
+	public function infoDo(){
+		$data['name'] = I('post.name') ;
+		$data['gender'] = I('post.gender') ;
+		$data['birth'] = I('post.birth') ;
+		$data['nation'] = I('post.nation') ;
+		$data['outlook'] = I('post.outlook') ;
+		$data['unitId'] = I('post.unit') ;
+		$data['departmentId'] = I('post.department') ;
+		
+		$base = M('Base') ;
+
+		$this -> ajaxReturn($base -> where("userId='%s'",session('tid')) -> save($data) !== false ? true : false ) ;
+	}
+
     public function chpwd() {
     	$this -> display() ;
     }

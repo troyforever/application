@@ -1,3 +1,21 @@
+$("#info-box").form({
+	url : APP + '/Home/Account/infoDo' ,
+	onSubmit : function(){
+		if ( ! $("#name").textbox('isValid') ){
+			$.messager.alert('提示','请输入完整信息!','warning') ;
+			return false ;
+		}
+	},
+
+	success : function(data){
+		if(data) {
+			$.messager.alert('提示','个人信息更新成功！','info') ;
+		} else {
+			$.messager.alert('提示','个人信息更新失败！','info') ;
+		}
+	}
+});
+
 $("#content").dialog({
 	border : false ,
 	noheader : true ,
@@ -16,6 +34,10 @@ $("#name").textbox({
 	height : 30,
 	label : '姓&emsp;&emsp;名' ,
 	labelWidth : 80,
+	required : true ,
+	validType : 'length[1,5]' ,
+	missingMessage : '姓名非空' ,
+	invalidMessage : '无效姓名输入' ,
 });
 
 $("#gender").combobox({
@@ -108,6 +130,10 @@ $("#submit").linkbutton({
 	width : 140,
 	height : 30 ,
 	iconCls : 'icon-ok' ,
+
+	onClick : function(){
+		$("#info-box").form('submit') ;
+	}
 }) ;
 
 $("#cancel").linkbutton({
