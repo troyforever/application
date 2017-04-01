@@ -123,7 +123,26 @@ $("#chpwd").linkbutton({
 $(function(){
 	$("#box").layout('resize') ;
 	$("a.nav").css('outline','none') ;
+	$(document).on('keyup',function(e){
+		if ( e.keyCode == 87 && e.altKey ){
+			closeCurrentTab();
+		} else {
+			e.returnValue = false ;
+			return false ;
+		}
+	});
+
+	$("ul.tabs").on('dblclick',function(){
+		closeCurrentTab();
+	}) ;
 });
+
+function closeCurrentTab(){
+	var title = $(".tabs-selected").text() ;
+	if ( title != '欢迎页' ){
+		$("#content").tabs('close',title) ;
+	}
+}
 
 $("a.nav").on('click',function(){
 	$("a.nav").css('background','') ;
