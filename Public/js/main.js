@@ -83,6 +83,10 @@ $("#position").linkbutton({
 	width:'100%',
 	height:40,
 	text:'职称评选',
+
+	onClick : function(){
+		addTab('职称评选', APP + '/Experience/Title') ;
+	}
 });
 
 $("#teaching").linkbutton({
