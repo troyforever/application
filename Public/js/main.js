@@ -72,6 +72,10 @@ $("#job").linkbutton({
 	width:'100%',
 	height:40,
 	text:'工作经历',
+
+	onClick : function(){
+		addTab('工作经历', APP + '/Experience/Work');
+	}
 });
 
 $("#position").linkbutton({

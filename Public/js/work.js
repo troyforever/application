@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;教育经历',
+		title : '个人经历&emsp;/&emsp;工作经历',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -19,10 +19,7 @@ $(function(){
 		iconCls : 'icon-add' ,
 
 		onClick : function(){
-			if ( $("#data-box").datagrid('getRows').length >= 5 ){
-				$.messager.alert('提示','最多五条教育经历！','info') ;
-			} else
-				$("#add-box").dialog('open') ;
+			$("#add-box").dialog('open') ;
 		}
 	});
 
@@ -35,12 +32,12 @@ $(function(){
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
 			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑教育经历！','info') ;
+				$.messager.alert('提示','请先选中待编辑工作经历！','info') ;
 			} else {
 
 				$("#edit-form").form('load',{
-					'edit-school' : selected.school ,
-					'edit-degree' : selected.degree ,
+					'edit-unit' : selected.unit ,
+					'edit-job' : selected.job ,
 					'edit-from' : selected.from_time ,
 					'edit-to' : selected.to_time
 				});
@@ -60,12 +57,12 @@ $(function(){
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
 			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除教育经历！','info') ;
+				$.messager.alert('提示','请先选中待删除工作经历！','info') ;
 			} else {
-				$.messager.confirm('删除提示','您确定要删除这条教育经历吗？',function(r){
+				$.messager.confirm('删除提示','您确定要删除这条工作经历吗？',function(r){
 					if ( r ){
 						$.ajax({
-						url : APP + '/Experience/Education/delete' ,
+						url : APP + '/Experience/Work/delete' ,
 						method : 'post' ,
 						data : {id:selected.id} ,
 						async : false ,
@@ -101,15 +98,18 @@ $(function(){
 		fitColumns : true ,
 		singleSelect : true ,
 		width:'100%' ,
-		url : APP + "/Experience/Education/data" ,
+		url : APP + "/Experience/Work/data" ,
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'from_time' ,
-		loadMsg : '教育经历加载中。。。' ,
+		loadMsg : '工作经历加载中。。。' ,
 		sortOrder : 'asc' ,
 		multiSort : true ,
 		remoteSort : true ,
 		method : 'POST' ,
+		pagination : true ,
+		pageSize : 5,
+		pageList : [5],
 		columns : [[
 			{
 				field : 'ck' ,
@@ -121,15 +121,15 @@ $(function(){
 				hidden : true ,
 			},
 			{
-				field : 'school' ,
-				title : '毕业院校' ,
+				field : 'unit' ,
+				title : '工作单位' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 			},
 			{
-				field : 'degree' ,
-				title : '学位' ,
+				field : 'job' ,
+				title : '职位' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -156,7 +156,7 @@ $(function(){
 	//添加学历信息对话框
 
 	$("#add-form").form({
-		url : APP + '/Experience/Education/add' ,
+		url : APP + '/Experience/Work/add' ,
 		onSubmit : function(){
 
 			if ( $("#add-box").form('validate') ){
@@ -171,10 +171,11 @@ $(function(){
 			if ( data != 'false' ){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
-				$("#school").textbox('clear');
-				$.messager.alert('提示','教育信息更新成功！','info') ;
+				$("#add-unit").textbox('clear');
+				$("#add-job").textbox('clear');
+				$.messager.alert('提示','工作信息更新成功！','info') ;
 			} else {
-				$.messager.alert('提示','教育信息更新失败！','info') ;
+				$.messager.alert('提示','工作信息更新失败！','info') ;
 			}
 		}
 	});
@@ -182,55 +183,31 @@ $(function(){
 	$("#add-box").dialog({
 		width : 400,
 		height : 330,
-		title : '添加学历信息',
+		title : '添加工作经历信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
 	});
 
-	$("#school").textbox({
+	$("#add-unit").textbox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;校' ,
+		label : '工作单位' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '就读学校非空' ,
+		missingMessage : '工作单位非空' ,
 	});
 
-	$("#degree").combobox({
+	$("#add-job").textbox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;历' ,
+		label : '职&emsp;&emsp;位' ,
 		labelWidth : 70,
-		editable : false ,
-		textField : 'label' ,
-		valueField : 'value' ,
-		panelHeight : 115,
-		data : [
-			{
-				label : '专科',
-				value : '专科'
-			},
-			{
-				label : '本科',
-				value : '本科'
-			},
-			{
-				label : '硕士',
-				value : '硕士'
-			},
-			{
-				label : '博士',
-				value : '博士'
-			},
-			{
-				label : '其它',
-				value : '其它'
-			},
-		],
+		required : true ,
+		missingMessage : '职位非空' ,
 	});
 
-	$("#from").datebox({
+	$("#add-from").datebox({
 		width : 260,
 		height : 30,
 		panelWidth : 250,
@@ -240,7 +217,7 @@ $(function(){
 		required : true ,
 	});
 
-	$("#to").datebox({
+	$("#add-to").datebox({
 		width : 260,
 		height : 30,
 		panelWidth : 250,
@@ -266,7 +243,8 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#school").textbox('clear') ;
+			$("#add-unit").textbox('clear') ;
+			$("#add-job").textbox('clear') ;
 			$("#add-box").dialog('close') ;
 		}
 	});
@@ -276,7 +254,7 @@ $(function(){
 	$("#edit-box").dialog({
 		width : 400,
 		height : 330,
-		title : '编辑学历信息',
+		title : '编辑经过经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
 		closed : true ,
@@ -296,51 +274,29 @@ $(function(){
 			var result = eval('(' + data + ')') ;
 			if ( result ) {
 				$("#data-box").datagrid('reload') ;
-				$.messager.alert('编辑提示','教育经历编辑成功！','info') ;
+				$.messager.alert('编辑提示','工作经历编辑成功！','info') ;
 			} else {
-				$.messager.alert('编辑提示','教育经历编辑失败！','info') ;
+				$.messager.alert('编辑提示','工作经历编辑失败！','info') ;
 			}
 		}
 	});
 
-	$("#edit-school").textbox({
+	$("#edit-unit").textbox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;校' ,
+		label : '工作单位' ,
 		labelWidth : 70,
+		required : true ,
+		missingMessage : '工作单位非空' ,
 	});
 
-	$("#edit-degree").combobox({
+	$("#edit-job").textbox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;历' ,
+		label : '职&emsp;&emsp;位' ,
 		labelWidth : 70,
-		textField : 'label' ,
-		valueField : 'value' ,
-		editable : false ,
-		panelHeight : 115,
-		data : [
-			{
-				label : '专科',
-				value : '专科'
-			},
-			{
-				label : '本科',
-				value : '本科'
-			},
-			{
-				label : '硕士',
-				value : '硕士'
-			},
-			{
-				label : '博士',
-				value : '博士'
-			},
-			{
-				label : '其它',
-				value : '其它'
-			},
-		],
+		required : true ,
+		missingMessage : '工作经历非空' ,
 	});
 
 	$("#edit-from").datebox({
@@ -368,7 +324,7 @@ $(function(){
 
 		onClick : function(){
 			$("#edit-form").form('submit',{
-				url : APP + '/Experience/Education/edit?id=' + $("#data-box").datagrid('getSelected').id ,
+				url : APP + '/Experience/Work/edit?id=' + $("#data-box").datagrid('getSelected').id ,
 			}).form('clear') ;
 			$("#edit-box").dialog('close') ;
 		}
