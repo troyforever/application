@@ -61,6 +61,10 @@ $("#degree").linkbutton({
 	width:'100%',
 	height:40,
 	text:'教育经历',
+
+	onClick : function(){
+		addTab('教育经历', APP + '/Experience/Education') ;
+	}
 });
 
 $("#job").linkbutton({

@@ -1,2 +1,4 @@
 #忽略所有的日志文件
 *.log
+#忽略所有runtime目录文件
+Runtime/

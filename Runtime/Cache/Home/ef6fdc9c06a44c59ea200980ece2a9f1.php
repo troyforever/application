@@ -43,15 +43,14 @@
             <a class="nav" id="teaching" href="javascript:;"></a>
           </div>
 
-    			<div title="账号管理">   
+    			<div title="账号管理">
     		<a class="nav" id="account" href="javascript:;"></a>
             <a class="nav" id="info" href="javascript:;"></a>
             <a class="nav" id="chpwd" href="javascript:;"></a>
           </div>
     		</div>
 	  </div>
-      <!-- <div data-options="region:'east'" style="width: 150px"></div> -->
-      <div data-options="region:'center'">
+      <div data-options="region:'center',minWidth:800">
         <div id="content">
           <div data-options="title:'欢迎页'"></div>
         </div>

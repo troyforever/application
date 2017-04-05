@@ -29,7 +29,7 @@
       </select><br><br>
       <input id="birth" name="birth" style="width:300px" data-options="value:'<?php echo $birth != null ? $birth : '1980-1-1' ?>'"><br><br>
       <input id="nation" name="nation" style="width:300px" data-options="value:'<?php echo $nation != null ? $nation : '汉族' ?>'"><br><br>
-      <input id="outlook" name="outlook" style="width:300px" data-options="value:'<?php echo $outlook != null ? $nation : '群众' ?>'"><br><br>
+      <input id="outlook" name="outlook" style="width:300px" data-options="value:'<?php echo $outlook != null ? $outlook : '群众' ?>'"><br><br>
       <input id="unit" name="unit" style="width:300px" data-options="value:<?php echo $unitid != null ? $unitid : 1 ?>"><br><br>
       <input id="department" name="department" style="width:300px" data-options="value:<?php echo $departmentid != null ? $departmentid : 1 ?>"><br><br>
       <a id="submit">提交</a>
