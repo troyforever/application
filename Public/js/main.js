@@ -93,7 +93,11 @@ $("#teaching").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'教学情况',
+	text:'教学经历',
+
+	onClick : function(){
+		addTab('教学经历', APP + '/Experience/Teaching') ;
+	}
 });
 
 $("#account").linkbutton({
