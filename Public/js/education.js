@@ -40,9 +40,9 @@ $(function(){
 
 				$("#edit-form").form('load',{
 					'edit-school' : selected.school ,
+					'edit-major' : selected.major ,
 					'edit-degree' : selected.degree ,
-					'edit-from' : selected.from_time ,
-					'edit-to' : selected.to_time
+					'edit-graduation_time' : selected.graduation_time ,
 				});
 
 				$("#edit-box").dialog('open') ;
@@ -69,7 +69,7 @@ $(function(){
 						method : 'post' ,
 						data : {id:selected.id} ,
 						async : false ,
-						dataType : 'json' ,
+						dataType : 'JSON' ,
 
 						success : function(data){
 							if ( data ){
@@ -104,9 +104,9 @@ $(function(){
 		url : APP + "/Experience/Education/data" ,
 		striped : true ,
 		checkOnSelect : true ,
-		sortName : 'from_time' ,
+		sortName : 'graduation_time' ,
 		loadMsg : '教育经历加载中。。。' ,
-		sortOrder : 'asc' ,
+		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
 		method : 'POST' ,
@@ -122,7 +122,14 @@ $(function(){
 			},
 			{
 				field : 'school' ,
-				title : '毕业院校' ,
+				title : '院校' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'major' ,
+				title : '专业' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -135,22 +142,56 @@ $(function(){
 				halign : 'center' ,
 			},
 			{
-				field : 'from_time' ,
-				title : '开始日期' ,
+				field : 'graduation_time' ,
+				title : '毕业日期' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 				sortable : true ,
-				sortOrder : 'asc' , 
+				sortOrder : 'desc' , 
 			},
 			{
-				field : 'to_time' ,
-				title : '结束日期' ,
+				field : 'file_name' ,
+				title : '附件' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Education/' + value + '\')">查看</a>'
+					}
+				}
 			},
 		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#tools-edit").linkbutton('disable') ;
+				$("#tools-delete").linkbutton('disable') ;
+				$("#data-box").datagrid('appendRow',{
+					school : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'school' ,
+					colspan : 5,
+				}) ;
+			}
+		},
+
+		onBeforeLoad : function(){
+			$("#tools-edit").linkbutton('enable') ;
+			$("#tools-delete").linkbutton('enable') ;
+		},
+
+		onBeforeSelect : function(index,row){
+			if ( row == $("#data-box").datagrid('getSelected') ){
+				$("#data-box").datagrid('clearChecked') ;
+				return false ;
+			}
+		}
 	});
 
 	//添加学历信息对话框
@@ -168,20 +209,23 @@ $(function(){
 		},
 
 		success : function(data){
-			if ( data != 'false' ){
+			var result = $.parseJSON(data) ;
+			if ( result ){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
-				$("#school").textbox('clear');
-				$.messager.alert('提示','教育信息更新成功！','info') ;
+				$("#school").textbox('clear') ;
+				$("#major").textbox('clear') ;
+				$("#file_name").filebox('clear') ;
+				$.messager.alert('提示','教育信息添加成功！','info') ;
 			} else {
-				$.messager.alert('提示','教育信息更新失败！','info') ;
+				$.messager.alert('提示','教育信息添加失败！','info') ;
 			}
 		}
 	});
 
 	$("#add-box").dialog({
 		width : 400,
-		height : 330,
+		height : 350,
 		title : '添加学历信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
@@ -197,6 +241,15 @@ $(function(){
 		missingMessage : '就读学校非空' ,
 	});
 
+	$("#major").textbox({
+		width : 260,
+		height : 30,
+		label : '专&emsp;&emsp;业' ,
+		labelWidth : 70,
+		required : true ,
+		missingMessage : '专业非空' ,
+	});
+
 	$("#degree").combobox({
 		width : 260,
 		height : 30,
@@ -206,13 +259,15 @@ $(function(){
 		textField : 'label' ,
 		valueField : 'value' ,
 		panelHeight : 115,
+		required : true ,
+		value : '本科' ,
 		data : [
 			{
 				label : '专科',
 				value : '专科'
 			},
 			{
-				label : '本科',
+				label : '本科' ,
 				value : '本科'
 			},
 			{
@@ -230,24 +285,25 @@ $(function(){
 		],
 	});
 
-	$("#from").datebox({
+	$("#graduation_time").datebox({
 		width : 260,
 		height : 30,
 		panelWidth : 250,
-		label : '开始日期' ,
+		panelHeight : 250,
+		label : '毕业时间' ,
 		labelWidth : 70,
 		editable : false ,
 		required : true ,
+		value : '2017-1-1' ,
 	});
 
-	$("#to").datebox({
+	$("#file_name").filebox({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '结束日期' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		editable : false ,
-		required : true ,
+		buttonIcon : 'icon-search' ,
+		buttonText : '附件' ,
 	});
 
 	$("#add-submit").linkbutton({
@@ -275,7 +331,7 @@ $(function(){
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 400,
-		height : 330,
+		height : 350,
 		title : '编辑学历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -293,7 +349,7 @@ $(function(){
 		},
 
 		success : function(data){
-			var result = eval('(' + data + ')') ;
+			var result = $.parseJSON(data) ;
 			if ( result ) {
 				$("#data-box").datagrid('reload') ;
 				$.messager.alert('编辑提示','教育经历编辑成功！','info') ;
@@ -308,6 +364,17 @@ $(function(){
 		height : 30,
 		label : '学&emsp;&emsp;校' ,
 		labelWidth : 70,
+		required : true ,
+		missingMessage : '就读学校非空' ,
+	});
+
+	$("#edit-major").textbox({
+		width : 260,
+		height : 30,
+		label : '专&emsp;&emsp;业' ,
+		labelWidth : 70,
+		required : true ,
+		missingMessage : '专业非空' ,
 	});
 
 	$("#edit-degree").combobox({
@@ -315,9 +382,9 @@ $(function(){
 		height : 30,
 		label : '学&emsp;&emsp;历' ,
 		labelWidth : 70,
+		editable : false ,
 		textField : 'label' ,
 		valueField : 'value' ,
-		editable : false ,
 		panelHeight : 115,
 		data : [
 			{
@@ -343,22 +410,24 @@ $(function(){
 		],
 	});
 
-	$("#edit-from").datebox({
+	$("#edit-graduation_time").datebox({
 		width : 260,
 		height : 30,
 		panelWidth : 250,
-		label : '开始日期' ,
+		panelHeight : 250,
+		label : '毕业时间' ,
 		labelWidth : 70,
 		editable : false ,
+		required : true ,
 	});
 
-	$("#edit-to").datebox({
+	$("#edit-file_name").filebox({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '结束日期' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		editable : false ,
+		buttonIcon : 'icon-search' ,
+		buttonText : '附件' ,
 	});
 
 	$("#edit-submit").linkbutton({

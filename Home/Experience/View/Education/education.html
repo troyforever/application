@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>教育经历</title>
-
+    <link rel="shortcut icon" href="__PUBLIC__/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
     <!-- EasyUI -->
     <link href="__PUBLIC__/easyui/themes/default/easyui.css" rel="stylesheet">
     <link href="__PUBLIC__/easyui/themes/icon.css" rel="stylesheet">
@@ -34,11 +34,12 @@
     </div>
 
     <div id="add-box">
-        <form id="add-form" method="post">
+        <form id="add-form" method="post" enctype="multipart/form-data">
           <input id="school" name="school" /><br><br>
-          <input id="degree" name="degree"  value="本科" /><br><br>
-          <input id="from" name="from"  value="2000-1-1" /><br><br>
-          <input id="to" name="to"  value="2000-1-1" /><br><br><br>
+          <input id="major" name="major" /><br><br>
+          <input id="degree" name="degree" /><br><br>
+          <input id="graduation_time" name="graduation_time" /><br><br>
+          <input id="file_name" name="file_name" ><br><br>
           <div id="#add-btn" style="width:260px">
             <a id="add-submit">提交</a>
             <a id="add-cancel">关闭</a>
@@ -47,11 +48,12 @@
       </div>
 
       <div id="edit-box">
-        <form id="edit-form" method="POST">
+        <form id="edit-form" method="POST" enctype="multipart/form-data">
           <input id="edit-school" name="edit-school" /><br><br>
+          <input id="edit-major" name="edit-major" /><br><br>
           <input id="edit-degree" name="edit-degree" /><br><br>
-          <input id="edit-from" name="edit-from" /><br><br>
-          <input id="edit-to" name="edit-to" /><br><br><br>
+          <input id="edit-graduation_time" name="edit-graduation_time" /><br><br>
+          <input id="edit-file_name" name="edit-file_name" ><br><br>
           <div id="#edit-btn" style="width:260px">
             <a id="edit-submit">提交</a>
             <a id="edit-cancel">关闭</a>
@@ -61,6 +63,7 @@
 
     <script>
       var APP = "__APP__" ;
+      var ROOT = "__ROOT__" ;
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="__PUBLIC__/js/jquery.min.js"></script>

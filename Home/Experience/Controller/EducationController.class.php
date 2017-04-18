@@ -12,7 +12,7 @@ class EducationController extends CommonController{
 
     public function data(){
 
-        $sort = I('request.sort') != null ? I('request.sort') : 'from_time' ;
+        $sort = I('request.sort') != null ? I('request.sort') : 'graduation_time' ;
         $order = I('request.order') != null ? I('request.order') : 'desc' ;
 
         $education = M('Education') ;
@@ -24,28 +24,53 @@ class EducationController extends CommonController{
 
     public function add(){
         if ( session('?tid') ){
-            $data['school'] = I('post.school') ;
-            $data['degree'] = I('post.degree') ;
-            $data['from_time'] = I('post.from') ;
-            $data['to_time'] = I('post.to') ;
+            $data['school'] = I('school') ;
+            $data['major'] = I('major') ;
+            $data['degree'] = I('degree') ;
+            $data['graduation_time'] = I('post.graduation_time') ;
             $data['tid'] = session('tid') ;
+
+            if ( $_FILES['file_name']['name'] ){
+
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+
+                //文件上传
+                $config = array(
+                    'savePath' => './Education/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['school'] . '-' . $data['major']
+                );
+
+                $upload = new \Think\Upload($config);
+
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['file_name']['savename'] ;
+            }
 
             $education = M('Education') ;
 
-            $this -> ajaxReturn($education -> add($data)) ;
+            $this -> ajaxReturn($education -> add($data) !== false ? true : false) ;
         }
 
         $this -> ajaxReturn(false) ;
     }
 
     public function delete(){
-
+        
         if ( session('?tid') && I('post.id') != null ){
             $education = M("Education") ;
 
-            $data = $education -> where("id=" + I('post.id')) -> find() ;
+            $data = $education -> where("id=" . I('post.id')) -> find() ;
 
             if ( $data != null && $data['tid'] == session('tid') ){
+                //删除原先文件
+                $file_name = $data['file_name'] ;
+                $file = iconv('utf-8', 'gbk', './Uploads/Education/'.$file_name);
+                unlink($file);
+
                 $this -> ajaxReturn($education -> delete(I('post.id')) == 1 ? true : false ) ;
             }
         }
@@ -55,16 +80,45 @@ class EducationController extends CommonController{
 
     public function edit(){
 
-        $data['school'] = I('post.edit-school') ;
-        $data['degree'] = I('post.edit-degree') ;
-        $data['from_time'] = I('post.edit-from') ;
-        $data['to_time'] = I('post.edit-to') ;
+        if ( session('?tid') ){
+            $data['school'] = I('edit-school') ;
+            $data['major'] = I('edit-major') ;
+            $data['degree'] = I('edit-degree') ;
+            $data['graduation_time'] = I('post.edit-graduation_time') ;
+            $data['tid'] = session('tid') ;
 
-        $education = M('Education') ;
+            $education = M('Education') ;
 
-        $result = $education -> where("id=" . I('request.id') ) -> save($data) ;
+            if ( $_FILES['edit-file_name']['name'] ){
 
-        $this -> ajaxReturn($result !== false ? true : false) ;
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+
+                $file_name = $education -> where('id='.I('request.id')) -> getField('file_name') ;
+                
+                //删除原先文件
+                $file = iconv('utf-8', 'gbk', './Uploads/Education/'.$file_name);
+                unlink($file);
+                //文件上传
+                $config = array(
+                    'savePath' => './Education/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['school'] . '-' . $data['major']
+                );
+
+                $upload = new \Think\Upload($config);
+
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['edit-file_name']['savename'] ;
+            }
+
+            $result = $education -> where("id=" . I('request.id') ) -> save($data) ;
+
+            $this -> ajaxReturn($result !== false ? true : false) ;
+        }
+        $this -> ajaxReturn(false) ;
     }
 }
 
