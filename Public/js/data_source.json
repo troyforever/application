@@ -1,0 +1,30 @@
+[
+    {
+        "text" : "录入" ,
+        "value" : "录入"
+    },
+    {
+        "text" : "CSSCI" ,
+        "value" : "CSSCI"
+    },
+    {
+        "text" : "EI" ,
+        "value" : "EI"
+    },
+    {
+        "text" : "SCIE" ,
+        "value" : "SCIE"
+    },
+    {
+        "text" : "SSCI" ,
+        "value" : "SSCI"
+    },
+    {
+        "text" : "ISTP" ,
+        "value" : "ISTP"
+    },
+    {
+        "text" : "认领" ,
+        "value" : "认领"
+    }
+]

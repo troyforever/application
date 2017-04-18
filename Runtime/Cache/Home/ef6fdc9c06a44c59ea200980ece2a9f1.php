@@ -21,10 +21,14 @@
   </head>
   <body style="font-size:20px">
     <div id="box">
-      <div data-options="region:'north'" style="height: 50px">
+      <div data-options="region:'north'" class="nav-top" style="height: 50px">
+        <img src="/application/Public/images/logo.png" style="width:500px;height:50px"/>
         <a id="logout" class="easyui-linkbutton" style="float:right" onclick="javascript:window.location.href='/application/index.php/Login/Login/logout'">注销</a>
+        
       </div>
-      <div data-options="region:'south'" style="height: 50px"></div>
+      <div data-options="region:'south'" class="nav-bottom" style="height: 50px">
+        <div class="copy">CopyRight © <a href="http://cs.ujs.edu.cn" style="text-decoration: none;color:black" target="_blank">江苏大学计算机科学与通信工程学院</a></div>
+      </div>
       <div data-options="region:'west',title:'功能菜单',hideCollapsedContent:false,expandMode:'dock'" style="width: 200px">
     		<div id="nagivator">
           <div title="成果管理">

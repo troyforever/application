@@ -18,6 +18,10 @@ $("#paper").linkbutton({
 	width:'100%',
 	height:40,
 	text:'论文',
+
+	onClick : function(){
+		addTab('论文', APP + '/Achievement/Paper') ;
+	}
 });
 
 $("#book").linkbutton({

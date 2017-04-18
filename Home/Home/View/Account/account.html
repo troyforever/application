@@ -27,7 +27,7 @@
       <input id="phone" name="phone" style="width:300px" data-options="value:'<?php echo $phone ?>'"><br><br>
       <input id="email" name="email" style="width:300px" data-options="value:'<?php echo $email ?>'"><br><br>
       <input id="state" style="width:300px"><br><br>
-      <input id="time" style="width:300px" data-options="value:'<?php echo $time ?>'"><br><br><br>
+      <input id="time" style="width:300px" data-options="value:'<?php echo $add_time ?>'"><br><br><br>
       <a id="submit">提交</a>
       <a id="cancel" style="float:right">刷新</a>
       </form>
