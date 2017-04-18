@@ -38,8 +38,7 @@ $(function(){
 				$("#edit-form").form('load',{
 					'edit-unit' : selected.unit ,
 					'edit-job' : selected.job ,
-					'edit-from' : selected.from_time ,
-					'edit-to' : selected.to_time
+					'edit-length' : selected.length
 				});
 
 				$("#edit-box").dialog('open') ;
@@ -101,9 +100,9 @@ $(function(){
 		url : APP + "/Experience/Work/data" ,
 		striped : true ,
 		checkOnSelect : true ,
-		sortName : 'from_time' ,
+		sortName : 'add_time' ,
 		loadMsg : '工作经历加载中。。。' ,
-		sortOrder : 'asc' ,
+		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
 		method : 'POST' ,
@@ -135,22 +134,56 @@ $(function(){
 				halign : 'center' ,
 			},
 			{
-				field : 'from_time' ,
-				title : '开始日期' ,
+				field : 'length' ,
+				title : '工作时间(年)' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 				sortable : true ,
-				sortOrder : 'asc' , 
+				sortOrder : 'desc' ,
 			},
 			{
-				field : 'to_time' ,
-				title : '结束日期' ,
+				field : 'file_name' ,
+				title : '附件' ,
 				width : 100 ,
 				align : 'center' ,
-				halign : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Work/' + value + '\')">查看</a>'
+					}
+				}
 			},
 		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#tools-edit").linkbutton('disable') ;
+				$("#tools-delete").linkbutton('disable') ;
+				$("#data-box").datagrid('appendRow',{
+					unit : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'unit' ,
+					colspan : 4,
+				}) ;
+			}
+		},
+
+		onBeforeLoad : function(){
+			$("#tools-edit").linkbutton('enable') ;
+			$("#tools-delete").linkbutton('enable') ;
+		},
+
+		onBeforeSelect : function(index,row){
+			if ( row == $("#data-box").datagrid('getSelected') ){
+				$("#data-box").datagrid('clearChecked') ;
+				return false ;
+			}
+		}
 	});
 
 	//添加学历信息对话框
@@ -168,14 +201,14 @@ $(function(){
 		},
 
 		success : function(data){
-			if ( data != 'false' ){
+			var result = $.parseJSON(data) ;
+			if ( result ){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
-				$("#add-unit").textbox('clear');
-				$("#add-job").textbox('clear');
-				$.messager.alert('提示','工作信息更新成功！','info') ;
+				$("#add-form").form('reset');
+				$.messager.alert('提示','工作信息添加成功！','info') ;
 			} else {
-				$.messager.alert('提示','工作信息更新失败！','info') ;
+				$.messager.alert('提示','工作信息添加失败！','info') ;
 			}
 		}
 	});
@@ -207,24 +240,27 @@ $(function(){
 		missingMessage : '职位非空' ,
 	});
 
-	$("#add-from").datebox({
+	$("#add-length").numberspinner({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '开始日期' ,
+		label : '时长(年)' ,
 		labelWidth : 70,
-		editable : false ,
+		value : '2' ,
+		min : 1,
+		max : 5,
+		editable: false,
+		increment:1,
 		required : true ,
+		missingMessage : '工作时长非空'
 	});
 
-	$("#add-to").datebox({
+	$("#add-file_name").filebox({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '结束日期' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		editable : false ,
-		required : true ,
+		buttonIcon : 'icon-search' ,
+		buttonText : '附件' ,
 	});
 
 	$("#add-submit").linkbutton({
@@ -243,8 +279,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#add-unit").textbox('clear') ;
-			$("#add-job").textbox('clear') ;
+			$("#add-form").textbox('reset') ;
 			$("#add-box").dialog('close') ;
 		}
 	});
@@ -254,7 +289,7 @@ $(function(){
 	$("#edit-box").dialog({
 		width : 400,
 		height : 330,
-		title : '编辑经过经历信息',
+		title : '编辑工作经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
 		closed : true ,
@@ -299,22 +334,27 @@ $(function(){
 		missingMessage : '工作经历非空' ,
 	});
 
-	$("#edit-from").datebox({
+	$("#edit-length").numberspinner({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '开始日期' ,
+		label : '时长(年)' ,
 		labelWidth : 70,
-		editable : false ,
+		value : '2' ,
+		min : 1,
+		max : 5,
+		editable: false,
+		increment:1,
+		required : true ,
+		missingMessage : '工作时长非空'
 	});
 
-	$("#edit-to").datebox({
+	$("#edit-file_name").filebox({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '结束日期' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		editable : false ,
+		buttonIcon : 'icon-search' ,
+		buttonText : '附件' ,
 	});
 
 	$("#edit-submit").linkbutton({
@@ -336,7 +376,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#edit-form").form('clear') ;
+			$("#edit-form").form('reset') ;
 			$("#edit-box").dialog('close') ;
 		}
 	});

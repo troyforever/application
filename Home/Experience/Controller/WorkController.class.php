@@ -12,11 +12,11 @@ class WorkController extends CommonController{
 
     public function data(){
 
-        $sort = I('request.sort') != null ? I('request.sort') : 'from_time' ;
-        $order = I('request.order') != null ? I('request.order') : 'asc' ;
+        $sort = I('request.sort','add_time') ;
+        $order = I('request.order','desc') ;
 
-        $page = I('request.page') == null ? 1 : I('request.page') ;
-        $rows = I('request.rows') == null ? 5 : I('request.rows') ;
+        $page = I('request.page',1) ;
+        $rows = I('request.rows',5) ;
 
         $from = ($page-1) * $rows ;
 
@@ -33,13 +33,32 @@ class WorkController extends CommonController{
         if ( session('?tid') ){
             $data['unit'] = I('post.add-unit') ;
             $data['job'] = I('post.add-job') ;
-            $data['from_time'] = I('post.add-from') ;
-            $data['to_time'] = I('post.add-to') ;
+            $data['length'] = I('post.add-length') ;
             $data['tid'] = session('tid') ;
+
+            if ( $_FILES['add-file_name']['name'] ){
+
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+
+                //文件上传
+                $config = array(
+                    'savePath' => './Work/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['unit'] . '-' . $data['job']
+                );
+
+                $upload = new \Think\Upload($config);
+
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['add-file_name']['savename'] ;
+            }
 
             $work = M('Work') ;
 
-            $this -> ajaxReturn($work -> add($data)) ;
+            $this -> ajaxReturn($work -> add($data) !== false ? true : false ) ;
         }
 
         $this -> ajaxReturn(false) ;
@@ -52,6 +71,10 @@ class WorkController extends CommonController{
 
             $data = $work -> where("id=" + I('post.id')) -> find() ;
 
+            //删除原先文件
+                $file_name = $data['file_name'] ;
+                $file = iconv('utf-8', 'gbk', './Uploads/Work/'.$file_name);
+                unlink($file);
             if ( $data != null && $data['tid'] == session('tid') ){
                 $this -> ajaxReturn($work -> delete(I('post.id')) == 1 ? true : false ) ;
             }
@@ -68,6 +91,31 @@ class WorkController extends CommonController{
         $data['to_time'] = I('post.edit-to') ;
 
         $work = M('Work') ;
+
+        if ( $_FILES['edit-file_name']['name'] ){
+
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+
+                $file_name = $work -> where('id='.I('request.id')) -> getField('file_name') ;
+                
+                //删除原先文件
+                $file = iconv('utf-8', 'gbk', './Uploads/Work/'.$file_name);
+                unlink($file);
+                //文件上传
+                $config = array(
+                    'savePath' => './Work/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['unit'] . '-' . $data['job']
+                );
+
+                $upload = new \Think\Upload($config);
+
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['edit-file_name']['savename'] ;
+            }
 
         $result = $work -> where("id=" . I('request.id') ) -> save($data) ;
 
