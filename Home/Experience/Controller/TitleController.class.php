@@ -25,13 +25,32 @@ class TitleController extends CommonController{
     public function add(){
         if ( session('?tid') ){
             $data['title'] = I('post.add-title') ;
-            $data['from_time'] = I('post.add-from') ;
-            $data['to_time'] = I('post.add-to') ;
+            $data['title_time'] = I('post.add-title_time') ;
             $data['tid'] = session('tid') ;
 
             $title = M('Title') ;
 
-            $this -> ajaxReturn($title -> add($data)) ;
+            if ( $_FILES['add-file_name']['name'] ){
+
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+
+                //文件上传
+                $config = array(
+                    'savePath' => './Title/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['title']
+                );
+
+                $upload = new \Think\Upload($config);
+
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['add-file_name']['savename'] ;
+            }
+
+            $this -> ajaxReturn($title -> add($data) !== false ? true : false) ;
         }
 
         $this -> ajaxReturn(false) ;
@@ -44,6 +63,10 @@ class TitleController extends CommonController{
 
             $data = $title -> where("id=" + I('post.id')) -> find() ;
 
+            //删除原先文件
+                $file_name = $data['file_name'] ;
+                $file = iconv('utf-8', 'gbk', './Uploads/Title/'.$file_name);
+                unlink($file);
             if ( $data != null && $data['tid'] == session('tid') ){
                 $this -> ajaxReturn($title -> delete(I('post.id')) == 1 ? true : false ) ;
             }
@@ -59,6 +82,31 @@ class TitleController extends CommonController{
         $data['to_time'] = I('post.edit-to') ;
 
         $title = M('Title') ;
+
+        if ( $_FILES['edit-file_name']['name'] ){
+
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+
+                $file_name = $title -> where('id='.I('request.id')) -> getField('file_name') ;
+                
+                //删除原先文件
+                $file = iconv('utf-8', 'gbk', './Uploads/Title/'.$file_name);
+                unlink($file);
+                //文件上传
+                $config = array(
+                    'savePath' => './Title/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['title']
+                );
+
+                $upload = new \Think\Upload($config);
+
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['edit-file_name']['savename'] ;
+            }
 
         $result = $title -> where("id=" . I('request.id') ) -> save($data) ;
 

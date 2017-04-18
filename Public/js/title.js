@@ -103,9 +103,9 @@ $(function(){
 		url : APP + "/Experience/Title/data" ,
 		striped : true ,
 		checkOnSelect : true ,
-		sortName : 'from_time' ,
+		sortName : 'title_time' ,
 		loadMsg : '职称经历加载中。。。' ,
-		sortOrder : 'asc' ,
+		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
 		method : 'POST' ,
@@ -127,22 +127,56 @@ $(function(){
 				halign : 'center' ,
 			},
 			{
-				field : 'from_time' ,
-				title : '开始日期' ,
+				field : 'title_time' ,
+				title : '评定时间' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 				sortable : true ,
-				sortOrder : 'asc' , 
+				sortOrder : 'desc' , 
 			},
 			{
-				field : 'to_time' ,
-				title : '结束日期' ,
+				field : 'file_name' ,
+				title : '附件' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Title/' + value + '\')">查看</a>'
+					}
+				}
 			},
 		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#tools-edit").linkbutton('disable') ;
+				$("#tools-delete").linkbutton('disable') ;
+				$("#data-box").datagrid('appendRow',{
+					title : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'title' ,
+					colspan : 3,
+				}) ;
+			}
+		},
+
+		onBeforeLoad : function(){
+			$("#tools-edit").linkbutton('enable') ;
+			$("#tools-delete").linkbutton('enable') ;
+		},
+
+		onBeforeSelect : function(index,row){
+			if ( row == $("#data-box").datagrid('getSelected') ){
+				$("#data-box").datagrid('clearChecked') ;
+				return false ;
+			}
+		}
 	});
 
 	//添加职称信息对话框
@@ -150,7 +184,6 @@ $(function(){
 	$("#add-form").form({
 		url : APP + '/Experience/Title/add' ,
 		onSubmit : function(){
-
 			if ( $("#add-box").form('validate') ){
 				return true ;
 			} else {
@@ -160,13 +193,14 @@ $(function(){
 		},
 
 		success : function(data){
-			if ( data != 'false' ){
+			var result = $.parseJSON(data) ;
+			if ( result ){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
-				$("#school").textbox('clear');
-				$.messager.alert('提示','职称信息更新成功！','info') ;
+				$("#add-form").form('reset') ;
+				$.messager.alert('提示','职称信息添加成功！','info') ;
 			} else {
-				$.messager.alert('提示','职称信息更新失败！','info') ;
+				$.messager.alert('提示','职称信息添加失败！','info') ;
 			}
 		}
 	});
@@ -189,6 +223,7 @@ $(function(){
 		textField : 'label' ,
 		valueField : 'value' ,
 		panelHeight : 90,
+		value : '讲师' ,
 		data : [
 			{
 				label : '助教',
@@ -209,7 +244,7 @@ $(function(){
 		],
 	});
 
-	$("#add-from").datebox({
+	$("#add-title_time").datebox({
 		width : 260,
 		height : 30,
 		panelWidth : 250,
@@ -217,16 +252,16 @@ $(function(){
 		labelWidth : 70,
 		editable : false ,
 		required : true ,
+		value : '2017-1-1' ,
 	});
 
-	$("#add-to").datebox({
+	$("#add-file_name").filebox({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '结束日期' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		editable : false ,
-		required : true ,
+		buttonIcon : 'icon-search' ,
+		buttonText : '附件' ,
 	});
 
 	$("#add-submit").linkbutton({
@@ -245,7 +280,6 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#school").textbox('clear') ;
 			$("#add-box").dialog('close') ;
 		}
 	});
@@ -272,7 +306,7 @@ $(function(){
 		},
 
 		success : function(data){
-			var result = eval('(' + data + ')') ;
+			var result = $.parseJSON(data) ;
 			if ( result ) {
 				$("#data-box").datagrid('reload') ;
 				$.messager.alert('编辑提示','职称经历编辑成功！','info') ;
@@ -311,22 +345,24 @@ $(function(){
 		],
 	});
 
-	$("#edit-from").datebox({
+	$("#edit-title_time").datebox({
 		width : 260,
 		height : 30,
 		panelWidth : 250,
 		label : '开始日期' ,
 		labelWidth : 70,
 		editable : false ,
+		required : true ,
+		value : '2017-1-1' ,
 	});
 
-	$("#edit-to").datebox({
+	$("#edit-file_name").filebox({
 		width : 260,
 		height : 30,
-		panelWidth : 250,
-		label : '结束日期' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		editable : false ,
+		buttonIcon : 'icon-search' ,
+		buttonText : '附件' ,
 	});
 
 	$("#edit-submit").linkbutton({
