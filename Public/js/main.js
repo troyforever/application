@@ -13,6 +13,24 @@ $("#content").tabs({
 	tabWidth:100,
 });
 
+$("#logout").linkbutton({
+	width : 80,
+	height : 30,
+	plain : true,
+	iconCls : 'icon-logout' ,
+
+	onClick : function(){
+		window.location.href= APP + '/Login/Login/logout' ;
+	}
+}) ;
+
+$("#admin").linkbutton({
+	width : 80,
+	height : 30,
+	plain : true,
+	iconCls : 'icon-admin' ,
+}) ;
+
 $("#paper").linkbutton({
 	plain:true,
 	width:'100%',

@@ -5,7 +5,7 @@ class LoginController extends Controller {
     
     public function index(){
         if ( session('?tid') ){
-    	  $this -> redirect('/Home/Index') ;
+    	  $this -> redirect('/') ;
         } else {
              $this->display("login") ;
         }

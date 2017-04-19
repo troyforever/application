@@ -28,14 +28,13 @@ $("#login-box").form({
 	} ,
 
 	success : function (data){
-		console.log(data) ;
 		if ( data == 1001 ){
 			$('#username').numberbox('clear') ;
 			$('#password').passwordbox('clear') ;
 			$.messager.alert('提示','无此用户！','info') ;
 			changeCode() ;
 		} else if ( data == 1002 ){
-			window.location.href= APP + '/Home';
+			window.location.href= APP ;
 		// } else if ( data == 1004 ) {
 		// 	window.location.href= APP + '/Login/Activate' ;
 		} else{
@@ -106,6 +105,12 @@ $("#code").textbox({
 $(function(){
 	$("#password").val('密码') ;
 	$("a").css('outline','none') ;
+
+	$(document).on('keyup',function(e){
+		if ( e.keyCode == 13 ){
+			$("#login-box").form('submit') ;
+		}
+	}) ;
 });
 
 function resize(){
