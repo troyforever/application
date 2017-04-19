@@ -857,7 +857,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#edit-form").form('clear') ;
+			$("#edit-box").dialog('close') ;
 		}
 	});
 
