@@ -634,8 +634,8 @@ $(function(){
 		success : function(data){
 			var result = $.parseJSON(data) ;
 			if ( result ){
-				$("#add-box").dialog('close') ;
-				$("#add-form").form('reset') ;
+				$("#edit-box").dialog('close') ;
+				$("#edit-form").form('reset') ;
 				$("#data-box").datagrid('reload') ;
 				$.messager.alert('提示','论文信息更新成功！','info') ;
 			} else {
