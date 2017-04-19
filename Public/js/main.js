@@ -47,6 +47,10 @@ $("#book").linkbutton({
 	width:'100%',
 	height:40,
 	text:'著作',
+
+	onClick : function(){
+		addTab('著作', APP + '/Achievement/Book') ;
+	}
 });
 
 $("#science").linkbutton({
