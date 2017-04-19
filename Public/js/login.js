@@ -1,4 +1,3 @@
-$(function(){
 	$("#box").dialog({
 		title:'登录',
 		iconCls:'icon-man',
@@ -16,6 +15,7 @@ $(function(){
 		onSubmit : function (){
 			if ( $("#username").numberbox('isValid') && $("#password").passwordbox('isValid') && $("#code").textbox('isValid')){
 				if ( !checkCode($("#code").textbox('getValue')) ){
+					changeCode();
 					$.messager.alert('提示','验证码错误','info') ;
 					return false ;
 				} else{
@@ -132,6 +132,8 @@ $(function(){
 		}) ;
 		return result ;
 	}
+
+$(function(){
 
 	$("a").css('outline','none') ;
 
