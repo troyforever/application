@@ -790,10 +790,10 @@
 }
 .tagbox-label {
   position: relative;
-  display: block;
+  display: inline;
   margin: 4px 0 0 4px;
   padding: 0 20px 0 4px;
-  float: left;
+  /*float: left;*/
   vertical-align: top;
   text-decoration: none;
   -moz-border-radius: 5px 5px 5px 5px;

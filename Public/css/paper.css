@@ -1,0 +1,11 @@
+td{height : 50px}
+
+.pagination-info{line-height: 50px}
+#search-box{height:40px;margin-top: 10px;}
+.textbox-label{margin-left:10px}
+.input-cls{margin-top: 200px}
+.panel-body.panel-body-noheader.panel-body-noborder{padding-left:40px;padding-top:40px}
+#detail-box .panel-body.panel-body-noheader.panel-body-noborder{padding-left:40px;padding-top:30px}
+.item{width:420px;margin-top:20px;font-size: 14px;max-height: 80px}
+.key{display: inline-block;width: 25%;text-align:right;}
+.value{display: inline-block;width: 65%;font-weight: bold;vertical-align: top;padding-left: 20px}
