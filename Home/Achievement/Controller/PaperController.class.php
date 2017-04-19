@@ -7,17 +7,20 @@ use Think\Upload;
 class PaperController extends CommonController{
 
     public function index(){
-
-        $this -> display('paper') ;
+        if ( session('?tid') ){
+            $base = M('Base') ;
+            $name = $base -> where("userId='%s'",session('tid')) -> getField('name') ;
+            $this -> assign('name',$name) -> display('paper') ;
+        }
     }
 
     public function data(){
         //排序
-        $sort = I('request.sort') != null ? I('request.sort') : 'publish_date' ;
-        $order = I('request.order') != null ? I('request.order') : 'desc' ;
+        $sort = I('request.sort','publication_date') ;
+        $order = I('request.order','desc') ;
 
-        $page = I('request.page') == null ? 1 : I('request.page') ;
-        $rows = I('request.rows') == null ? 5 : I('request.rows') ;
+        $page = I('request.page',1) ;
+        $rows = I('request.rows',5) ;
 
         $from = ($page-1) * $rows ;
 
@@ -34,87 +37,71 @@ class PaperController extends CommonController{
         //检索
         if ( I('request.topic') != '' )
             $search['topic'] = array('like','%' . I('request.topic') . '%' );
-        if ( I('request.author') != '' )
-            $search['all_author'] = array('like','%' . I('request.author') . '%' );
         if ( I('request.from') != '' )
-            $search['publish_date'] = array('EGT',I('request.from'));
+            $search['publication_date'] = array('EGT',I('request.from'));
         if ( I('request.to') != '' )
-            $search['publish_date'] = array('ELT',I('request.to'));
+            $search['publication_date'] = array('ELT',I('request.to'));
         if ( I('request.to') != '' && I('request.from') != '')
-            $search['publish_date'] = array('BETWEEN',array(I('request.from'),I('request.to'))) ;
+            $search['publication_date'] = array('BETWEEN',array(I('request.from'),I('request.to'))) ;
 
         $search['tid'] = session('tid') ;
 
         $paper = M('Paper') ;
-
-        $data['rows'] = $paper  -> field('id,topic,all_author,science_category,final_index,score,project_source,page_type,publish_date,file_name') -> where($search) -> limit($from,$rows) -> order($sortstr) -> select () ;
+        
+        $data['rows'] = $paper -> where($search) -> limit($from,$rows) -> order($sortstr) -> select () ;
 
         $data['total'] = $paper -> where($search) -> count() ;
 
         $this -> ajaxReturn($data) ;
     }
 
+    public function find(){
+        if ( session('?tid') ){
+            $paper = M('Paper') ;
+            $this -> ajaxReturn($paper -> where('id='.I('post.id')) -> find()) ;
+        } 
+        return NULL;
+    }
+
     public function add(){
         if ( session('?tid') ){
             $data['tid'] = session('tid') ;
-            $data['topic'] = I('post.add-topic');
-            I('post.add-abstract') != "" ? $data['abstract'] = I('post.add-abstract') : null ;
-            I('post.add-keywords') != "" ? $data['keywords'] = I('post.add-keywords') : null ;
-            $data['is_translation'] = I('post.add-is_translation');
-            $data['publication'] = I('post.add-publication');
-            $data['publish_date'] = I('post.add-publish_date');
 
-            $data['first_author'] = I('post.add-first_author');
-            $data['first_author_type'] = I('post.add-first_author_type');
-            $data['correspondence_author'] = I('post.add-correspondence_author');
-            I('post.add-other_author') != "" ? $data['other_author'] = I('post.add-other_author') : null ;
-            $data['all_author'] = I('post.add-all_author');
-            $data['enter_people'] = I('post.add-enter_people');
-            $data['unit_id'] = I('post.add-unit');
+            $data['topic'] = I('add-topic') ;
+            $data['first_author'] = I('add-first_author') ;
+            $data['other_author'] = I('add-other_author') ;
+            $data['publication'] = I('add-publication') ;
+            $data['publication_date'] = I('add-publication_date') ;
 
-            $data['paper_page'] = I('post.add-paper_page');
-            $data['paper_type'] = I('post.add-paper_type');
-            $data['prime_subject'] = I('post.add-prime_subject');
-            $data['science_category'] = I('post.add-science_category');
-            $data['project_source'] = I('post.add-project_source');
+            $data['final_index'] = I('add-final_index') ;
+            $data['index_date'] = I('add-index_date') ;
+            $data['sci_partition'] = I('add-sci_partition') ;
+            $data['if'] = I('add-if') ;
+            $data['unit_id'] = I('add-unit') ;
 
-            $data['data_source'] = I('post.add-data_source');
-            $data['paper_index'] = I('post.add-index_type');
-            $data['index_type'] = I('post.add-index_type');
-            I('post.add-sci_partition') != "" ? $data['sci_partition'] = I('post.add-sci_partition') : null;
-            $data['final_index'] = I('post.add-final_index');
-            $data['index_year'] = I('post.add-index_year');
-
-            $data['audit_state'] = I('post.add-audit_state');
-            $data['audit_date'] = I('post.add-audit_date');
-            $data['audit_year'] = I('post.add-audit_year');
-            $data['score'] = I('post.add-score');
-            I('post.add-note') != "" ? $data['note'] = I('post.add-note') : null;
-            //$data['filepath'] = I('post.add-filepath');
+            $data['abstract'] = I('add-abstract') ;
+            $data['keywords'] = I('add-keywords') ;
+            $data['note'] = I('add-note') ;
 
             $paper = M('Paper') ;
 
-            $result = $paper -> add($data) ;
-
-            if ( $result !== false ){
-
+            if ( $_FILES['add-file_name']['name'] ){
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+                //文件上传
                 $config = array(
-                    // 'rootPath'=> '',
-                    'savePath'   =>    './',
-                    'autoSub'    =>    false,
-                    'saveName'=> md5($result),
-                    'exts'=>array('pdf'),
+                    'savePath' => './Paper/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['topic']
                 );
-
                 $upload = new \Think\Upload($config);
+                $info = $upload -> upload();
 
-                $info = $upload -> upload() ;
-                if ( $info ){
-                    $paper -> where('id='.$result) -> setField('file_name',md5($result));
-                }
+                $data['file_name'] = $info['add-file_name']['savename'] ;
             }
 
-            $this -> ajaxReturn( $result !== false ? true : false ) ;
+            $this -> ajaxReturn( $paper -> add($data) !== false ? true : false ) ;
         }
 
         $this -> ajaxReturn(false) ;
@@ -126,11 +113,10 @@ class PaperController extends CommonController{
             $paper = M("Paper") ;
 
             $data = $paper -> where('id='.I('post.id'))->find() ;
+
             if ( $data != null && $data['tid'] == session('tid') ){
-                if ( $data['file_name'] != NULL ){
-                    $file = './Uploads/' . md5(I('post.id')) . '.pdf' ;
-                   unlink($file);
-                }
+                $file = iconv('utf-8', 'gbk', './Uploads/Paper/'.$data['file_name']);
+                unlink($file);
                 $this -> ajaxReturn($paper -> delete(I('post.id')) == 1 ? true : false ) ;
             }
         }
@@ -140,19 +126,51 @@ class PaperController extends CommonController{
 
     public function edit(){
 
-            $data['lesson'] = I('post.edit-lesson') ;
-            $data['credit'] = I('post.edit-credit') ;
-            $data['quality'] = I('post.edit-quality') ;
-            $data['annual'] = I('post.edit-annual') ;
-            $data['term'] = I('post.edit-term') ;
-            $data['classes'] = I('post.edit-classes') ;
+            if ( session('?tid') ){
             $data['tid'] = session('tid') ;
 
-        $paper = M('Paper') ;
+            $data['topic'] = I('edit-topic') ;
+            $data['first_author'] = I('edit-first_author') ;
+            $data['other_author'] = I('edit-other_author') ;
+            $data['publication'] = I('edit-publication') ;
+            $data['publication_date'] = I('edit-publication_date') ;
 
-        $result = $paper -> where("id=" . I('request.id') ) -> save($data) ;
+            $data['final_index'] = I('edit-final_index') ;
+            $data['index_date'] = I('edit-index_date') ;
+            $data['sci_partition'] = I('edit-sci_partition') ;
+            $data['if'] = I('edit-if') ;
+            $data['unit_id'] = I('edit-unit') ;
 
-        $this -> ajaxReturn($result !== false ? true : false) ;
+            $data['abstract'] = I('edit-abstract') ;
+            $data['keywords'] = I('edit-keywords') ;
+            $data['note'] = I('edit-note') ;
+
+            $paper = M('Paper') ;
+
+            if ( $_FILES['edit-file_name']['name'] ){
+                $base = M('Base') ;
+                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+                //删除原先文件
+                $file_name = $paper -> where('id='.I('request.edit-id')) -> getField('file_name') ;
+                $file = iconv('utf-8', 'gbk', './Uploads/Paper/'.$file_name);
+                unlink($file);
+                //文件上传
+                $config = array(
+                    'savePath' => './Paper/',
+                    'autoSub' => false,
+                    'replace' => true,
+                    'saveName' => session('tid') . '-' . $name . '-' . $data['topic']
+                );
+                $upload = new \Think\Upload($config);
+                $info = $upload -> upload();
+
+                $data['file_name'] = $info['edit-file_name']['savename'] ;
+            }
+
+            $this -> ajaxReturn( $paper -> where('id='.I('post.edit-id')) -> save($data) !== false ? true : false ) ;
+        }
+
+        $this -> ajaxReturn(false) ;
     }
 }
 

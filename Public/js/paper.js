@@ -18,7 +18,61 @@ $(function(){
 		iconCls : 'icon-more' ,
 
 		onClick : function(){
-			$("#add-box").dialog('open') ;
+			var selected = $("#data-box").datagrid('getSelected') ;
+			if ( selected == null ){
+				$.messager.alert('提示','请先选中待查看论文信息！','info') ;
+			} else {
+				$.ajax({
+					url : APP + '/Achievement/paper/find' ,
+					method : 'POST' ,
+					data : { id:selected.id} ,
+					dataType : 'JSON' ,
+					async : false ,
+
+					success : function(data){
+						$("#detail-topic").text(data.topic);
+						$("#detail-first_author").text(data.first_author);
+						$("#detail-other_author").text(data.other_author ? data.other_author : '无');
+						$("#detail-publication").text(data.publication);
+						$("#detail-publication_date").text(data.publication_date);
+
+						$("#detail-final_index").text(data.final_index);
+						$("#detail-index_date").text(data.index_date);
+						$("#detail-sci_partition").text(data.sci_partition ? data.sci_partition : '无');
+						$("#detail-if").text(data.if);
+
+						$("#detail-abstract").text(data.abstract ? data.abstract : '无');
+						$("#detail-keywords").text(data.keywords ? data.keywords : '无');
+						$("#detail-note").text(data.note ? data.note : '无');
+						if ( data.file_name ){
+							$("#detail-file_name").text('点击查看') ;
+							$("#detail-file_name").attr('onclick','window.open("' + ROOT + '/Uploads/Paper/' + data.file_name + '")') ;
+						} else {
+							$("#detail-file_name").text('暂无附件').removeAttr('onclick') ;
+						}
+						// $("#edit-form").form('load',{
+						// 	'edit-id' : data.id,
+						// 	'edit-topic' : data.topic ,
+						// 	'edit-first_author' : data.first_author ,
+						// 	'edit-other_author' : data.other_author ,
+						// 	'edit-publication' : data.publication,
+						// 	'edit-publication_date' : data.publication_date,
+
+						// 	'edit-final_index' : data.final_index ,
+						// 	'edit-index_date' : data.index_date ,
+						// 	'edit-sci_partition' : data.sci_partition ,
+						// 	'edit-unit' : data.unit_id ,
+
+						// 	'edit-abstract' : data.abstract,
+						// 	'edit-keywords' : data.keywords,
+						// 	'edit-note' : data.note,
+						// });
+					}
+
+				});
+
+				$("#detail-box").dialog('open') ;
+			}
 		}
 	});
 
@@ -41,24 +95,42 @@ $(function(){
 		iconCls : 'icon-edit' ,
 
 		onClick : function(){
-			$("#edit-box").dialog('open') ;
-			// var selected = $("#data-box").datagrid('getSelected') ;
-			// if ( selected == null ){
-			// 	$.messager.alert('提示','请先选中待编辑论文信息！','info') ;
-			// } else {
+			var selected = $("#data-box").datagrid('getSelected') ;
+			if ( selected == null ){
+				$.messager.alert('提示','请先选中待编辑论文信息！','info') ;
+			} else {
+				$.ajax({
+					url : APP + '/Achievement/paper/find' ,
+					method : 'POST' ,
+					data : { id:selected.id} ,
+					dataType : 'JSON' ,
+					async : false ,
 
-			// 	$("#edit-form").form('load',{
-			// 		'edit-lesson' : selected.lesson ,
-			// 		'edit-credit' : selected.credit ,
-			// 		'edit-quality' : selected.quality ,
-			// 		'edit-annual' : selected.annual,
-			// 		'edit-term' : selected.term,
-			// 		'edit-classes' : selected.classes
-			// 	});
+					success : function(data){
 
-			// 	$("#edit-box").dialog('open') ;
-				
-			// }
+						$("#edit-form").form('load',{
+							'edit-id' : data.id,
+							'edit-topic' : data.topic ,
+							'edit-first_author' : data.first_author ,
+							'edit-other_author' : data.other_author ,
+							'edit-publication' : data.publication,
+							'edit-publication_date' : data.publication_date,
+
+							'edit-final_index' : data.final_index ,
+							'edit-index_date' : data.index_date ,
+							'edit-sci_partition' : data.sci_partition ,
+							'edit-unit' : data.unit_id ,
+
+							'edit-abstract' : data.abstract,
+							'edit-keywords' : data.keywords,
+							'edit-note' : data.note,
+						});
+					}
+
+				});
+
+				$("#edit-box").dialog('open') ;
+			}
 		}
 	});
 
@@ -97,29 +169,6 @@ $(function(){
 		}
 	});
 
-	$("#tools-import").linkbutton({
-		width : 100,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-tip' ,
-
-		onClick : function(){
-			alert('input') ;
-		}
-	});
-
-	$("#tools-export").linkbutton({
-		width : 100,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-redo' ,
-
-		onClick : function(){
-			// alert('export') ;
-			window.open(UPLOADS + '/3295c76acbf4caaed33c36b1b5fc2cb1.pdf');
-		}
-	});
-
 	$("#tools-reload").linkbutton({
 		width : 100,
 		height : 50,
@@ -134,21 +183,14 @@ $(function(){
 	//搜索栏
 
 	$("#search-topic").textbox({
-		width : 140,
+		width : 180,
 		height : 30,
 		label : '课题' ,
 		labelWidth : 30,
 	});
 
-	$("#search-author").textbox({
-		width : 140,
-		height : 30,
-		label : '作者' ,
-		labelWidth : 30,
-	});
-
 	$("#search-from").datebox({
-		width : 160,
+		width : 200,
 		height : 30,
 		label : '发表日期' ,
 		labelWidth : 60,
@@ -157,7 +199,7 @@ $(function(){
 	});
 
 	$("#search-to").datebox({
-		width : 120,
+		width : 160,
 		height : 30,
 		label : '至' ,
 		labelWidth : 20,
@@ -175,7 +217,6 @@ $(function(){
 		onClick : function(){
 			$("#data-box").datagrid('load',{
 				'topic' : $("#search-topic").textbox('getValue').trim(),
-				'author' : $("#search-author").textbox('getValue').trim(),
 				'from' : $("#search-from").datebox('getValue').trim(),
 				'to' : $("#search-to").datebox('getValue').trim()
 			}) ;
@@ -208,7 +249,7 @@ $(function(){
 		url : APP + "/Achievement/Paper/data" ,
 		striped : true ,
 		checkOnSelect : true ,
-		sortName : 'publish_date' ,
+		sortName : 'publication_date' ,
 		loadMsg : '论文信息加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
@@ -237,29 +278,22 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'all_author' ,
-				title : '所有作者' ,
-				width : 100 ,
+				field : 'publication' ,
+				title : '出版物' ,
+				width : 50,
 				align : 'center' ,
 				halign : 'center' ,
 			},
 			{
-				field : 'science_category' ,
-				title : '学科门类' ,
+				field : 'publication_date' ,
+				title : '发表时间' ,
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
 			},
 			{
 				field : 'final_index' ,
-				title : '最终收录' ,
-				width : 50 ,
-				align : 'center' ,
-				halign : 'center' ,
-			},
-			{
-				field : 'score' ,
-				title : '业绩分' ,
+				title : '论文收录' ,
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -267,27 +301,13 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'project_source' ,
-				title : '项目来源' ,
-				width : 50 ,
-				align : 'center' ,
-				halign : 'center' ,
-			},
-			{
-				field : 'page_type' ,
-				title : '版面' ,
-				width : 50 ,
-				align : 'center' ,
-				halign : 'center' ,
-			},
-			{
-				field : 'publish_date' ,
-				title : '出版日期' ,
+				field : 'if' ,
+				title : '影响因子' ,
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
 				sortable : true ,
-				sortOrder : 'desc' , 
+				sortOrder : 'desc' ,
 			},
 			{
 				field : 'file_name' ,
@@ -295,11 +315,11 @@ $(function(){
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
-				formatter: function(value,row,index){
-					if (value){
-						return "<a href='" + UPLOADS + "/" + value + ".pdf' target='_blank' style='color:blue'>附件</a>";
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
 					} else {
-						return '暂无';
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Paper/' + value + '\')">查看</a>'
 					}
 				}
 			}
@@ -321,7 +341,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'topic' ,
-					colspan : 8,
+					colspan : 6,
 				}) ;
 			}
 		},
@@ -367,53 +387,39 @@ $(function(){
 		closed : true ,
 	});
 
+	$("#detail-box").dialog({
+		title : '论文详情信息',
+		iconCls : 'icon-more' ,
+		modal : true ,
+		closed : true ,
+	});
+
 	//基本信息
 	$("#add-topic").textbox({
 		width : 400,
 		height : 30,
-		label : '课&emsp;&emsp;题' ,
+		label : '文&ensp;章&ensp;名' ,
 		labelWidth : 100,
 		required : true,
-		missingMessage : '论文主题非空' ,
+		missingMessage : '文章名非空' ,
 	});
 
-	$("#add-abstract").textbox({
-		width : 400,
-		height : 50,
-		multiline : true,
-		label : '摘&emsp;&emsp;要' ,
-		labelWidth : 100,
-	});
-
-	$("#add-keywords").textbox({
+	$("#add-first_author").textbox({
 		width : 400,
 		height : 30,
-		label : '关&ensp;键&ensp;字' ,
+		label : '第一作者' ,
+		labelWidth : 100,
+		required : true,
+		missingMessage : '第一作者非空' ,
+	});
+
+	$("#add-other_author").textbox({
+		width : 400,
+		height : 30,
+		label : '其它作者' ,
 		labelWidth : 100,
 	});
 
-	$("#add-is_translation").combobox({
-		width : 400,
-		height : 30,
-		label : '是否译文' ,
-		labelWidth : 100,
-		panelHeight : 50,
-		editable : false,
-		textField : 'text',
-		valueField : 'value' ,
-		value : 1,
-		data : [
-			{
-				text : '否' ,
-				value : 1
-			},
-			{
-				text : '是' ,
-				value : 2
-			}
-		] ,
-	});
-	
 	$("#add-publication").textbox({
 		width : 400,
 		height : 30,
@@ -423,7 +429,7 @@ $(function(){
 		missingMessage : '发表刊物非空' ,
 	});
 
-	$("#add-publish_date").datebox({
+	$("#add-publication_date").datebox({
 		width : 400,
 		height : 30,
 		label : '发表时间' ,
@@ -434,7 +440,7 @@ $(function(){
 		value : '2017-1-1' ,
 	});
 
-	$("#add-info-prev").linkbutton({
+	$("#add-base-prev").linkbutton({
 		width : 250,
 		height : 40,
 		plain : true,
@@ -445,7 +451,7 @@ $(function(){
 		}
 	});
 
-	$("#add-info-next").linkbutton({
+	$("#add-base-next").linkbutton({
 		width : 250,
 		height : 40,
 		plain : true,
@@ -455,291 +461,26 @@ $(function(){
 		}
 	});
 
-	//作者信息
-	$("#add-first_author").textbox({
-		width : 400,
-		height : 30,
-		label : '第一作者' ,
-		labelWidth : 100,
-		required : true,
-		missingMessage : '第一作者非空' ,
-	});
-
-	$("#add-first_author_type").combobox({
-		width : 400,
-		height : 30,
-		editable : false,
-		panelHeight : 50,
-		label : '作者类型' ,
-		labelWidth : 100,
-		textField : 'text',
-		valueField : 'value' ,
-		value : '1' ,
-		data : [
-			{
-				text : '老师' ,
-				value : 1
-			},
-			{
-				text : '学生' ,
-				value : 2
-			}
-		],
-	});
-
-	$("#add-correspondence_author").textbox({
-		width : 400,
-		height : 30,
-		label : '通讯作者' ,
-		labelWidth : 100,
-		required : true,
-		missingMessage : '通讯作者非空' ,
-	});
-
-	$("#add-other_author").textbox({
-		width : 400,
-		height : 30,
-		label : '其它作者' ,
-		labelWidth : 100,
-	});
-
-	$("#add-all_author").textbox({
-		width : 400,
-		height : 30,
-		label : '全部作者' ,
-		labelWidth : 100,
-		required : true,
-		missingMessage : '全部作者非空' ,
-	});
-
-	$("#add-enter_people").textbox({
-		width : 400,
-		height : 30,
-		label : '录&ensp;入&ensp;人' ,
-		labelWidth : 100,
-		required : true,
-		missingMessage : '录入人非空' ,
-	});
-
-	$("#add-author-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#add-tabs").tabs('select',0) ;
-		}
-	});
-
-	$("#add-author-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#add-tabs").tabs('select',2);
-		}
-	});
-
-	//论文分类
-	$("#add-paper_page").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/paper_page.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '版&emsp;&emsp;面' ,
-		labelWidth : 100,
-		panelHeight : 160,
-		editable : false ,
-		value : '正刊' ,
-	});
-
-	$("#add-paper_type").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/paper_type.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '类&emsp;&emsp;型' ,
-		labelWidth : 100,
-		panelHeight : 90,
-		editable : false ,
-		value : '1' ,
-	});
-
-	$("#add-prime_subject").textbox({
-		width : 400,
-		height : 30,
-		label : '第一学科' ,
-		labelWidth : 100,
-		required : true,
-		missingMessage : '第一学科非空' ,
-	});
-
-	$("#add-science_category").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/science_category.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '学科门类' ,
-		labelWidth : 100,
-		panelHeight : 150,
-		editable : false ,
-		value : '1' ,
-	});
-
-	$("#add-project_source").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/project_source.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '项目来源' ,
-		labelWidth : 100,
-		panelHeight : 100,
-		editable : false ,
-		value : 1,
-	});
-
-	$("#add-category-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#add-tabs").tabs('select',1) ;
-		}
-	});
-
-	$("#add-category-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#add-tabs").tabs('select',3);
-		}
-	});
-	
-	//论文收录
-	$("#add-data_source").tagbox({
-		width : 300,
-		height : 30,
-		editable : false,
-		label : '数据来源' ,
-		labelWidth : 100,
-		panelHeight : 155,
-		prompt : '多选',
-		url : PUBLIC + '/js/data_source.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		hasDownArrow : true,
-	});
-
-	$("#add-index_type").tagbox({
-		width : 300,
-		height : 30,
-		editable : false,
-		label : '论文收录' ,
-		prompt : '多选',
-		labelWidth : 100,
-		panelHeight : 155,
-		url : PUBLIC + '/js/index.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		hasDownArrow : true,
-	});
-
-	$("#add-sci_partition").textbox({
-		width : 400,
-		height : 30,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : 'SCI&ensp;分区' ,
-		labelWidth : 100,
-	});
-
+	//检索信息
 	$("#add-final_index").combobox({
 		width : 400,
 		height : 30,
 		editable : false,
 		label : '最终收录' ,
 		labelWidth : 100,
-		panelHeight : 155,
+		panelHeight : 135,
 		url : PUBLIC + '/js/index.json' ,
 		valueField : 'value' ,
 		textField : 'text' ,
 		value : 'SSCI' ,
 		required : true,
-		missingMessage : '最终收录非空' ,
+		missingMessage : '检索信息非空' ,
 	});
 
-	$("#add-index_year").combobox({
+	$("#add-index_date").datebox({
 		width : 400,
 		height : 30,
-		editable : false,
-		label : '收录年份' ,
-		labelWidth : 100,
-		panelHeight : 130,
-		url : PUBLIC + '/js/year.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		value : '2017' ,
-	});
-
-	$("#add-index-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#add-tabs").tabs('select',2) ;
-		}
-	});
-
-	$("#add-index-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#add-tabs").tabs('select',4);
-		}
-	});
-
-	//附加信息
-	$("#add-audit_state").combobox({
-		width : 400,
-		height : 30,
-		label : '审核状态' ,
-		labelWidth : 100,
-		panelHeight : 70,
-		textField : 'text',
-		valueField : 'value' ,
-		editable : false,
-		value : '1' ,
-		data : [
-			{
-				text : '学校通过' ,
-				value : 1
-			},
-			{
-				text : '学校不通过' ,
-				value : 2
-			},
-			{
-				text : '其它' ,
-				value : 3
-			},
-		],
-	});
-
-	$("#add-audit_date").datebox({
-		width : 400,
-		height : 30,
-		label : '审核时间' ,
+		label : '检索时间' ,
 		labelWidth : 100,
 		panelWidth : 250,
 		panelHeight : 250,
@@ -747,29 +488,23 @@ $(function(){
 		value : '2017-1-1' ,
 	});
 
-	$("#add-audit_year").combobox({
+	$("#add-sci_partition").textbox({
 		width : 400,
 		height : 30,
-		editable : false,
-		label : '审核年份' ,
+		label : 'SCI&ensp;分区' ,
 		labelWidth : 100,
-		panelHeight : 140,
-		url : PUBLIC + '/js/year.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		value : 5,
 	});
 
-	$("#add-score").numberbox({
+	$("#add-if").numberspinner({
 		width : 400,
 		height : 30,
-		label : '绩&ensp;效&ensp;分' ,
+		label : '影响因子' ,
 		labelWidth : 100,
 		min : 0,
-		max : 1000,
-		value : 100,
-		required : true,
-		missingMessage : '绩效分非空' ,
+		max : 10,
+		value : 5.0,
+		increment : 0.1,
+		precision : 2,
 	});
 
 	$("#add-unit").combobox({
@@ -786,6 +521,42 @@ $(function(){
 		value : '1' ,
 	});
 
+	$("#add-index-prev").linkbutton({
+		width : 250,
+		height : 40,
+		plain : true,
+
+		onClick : function(){
+			$("#add-tabs").tabs('select',0) ;
+		}
+	});
+
+	$("#add-index-next").linkbutton({
+		width : 250,
+		height : 40,
+		plain : true,
+
+		onClick : function(){
+			$("#add-tabs").tabs('select',2);
+		}
+	});
+
+	//详细信息
+	$("#add-abstract").textbox({
+		width : 400,
+		height : 50,
+		multiline : true,
+		label : '摘&emsp;&emsp;要' ,
+		labelWidth : 100,
+	});
+
+	$("#add-keywords").textbox({
+		width : 400,
+		height : 30,
+		label : '关&ensp;键&ensp;字' ,
+		labelWidth : 100,
+	});
+
 	$("#add-note").textbox({
 		width : 400,
 		height : 30,
@@ -798,34 +569,22 @@ $(function(){
 		height : 30,
 		label : '论文附件' ,
 		labelWidth : 100,
-		prompt : '限制上传pdf文件',
-		buttonText : '选择论文附件' ,
+		prompt : '论文附件',
+		buttonText : '论文附件' ,
 		buttonIcon : 'icon-search' ,
-		accept : 'application/pdf' ,
 	});
 
-	$("#edit-file_name").filebox({
-		width : 400,
-		height : 30,
-		label : '论文附件' ,
-		labelWidth : 100,
-		prompt : '限制上传pdf文件',
-		buttonText : '选择论文附件' ,
-		buttonIcon : 'icon-search' ,
-		accept : 'application/pdf' ,
-	});
-
-	$("#add-note-prev").linkbutton({
+	$("#add-detail-prev").linkbutton({
 		width : 250,
 		height : 40,
 		plain : true,
 
 		onClick : function(){
-			$("#add-tabs").tabs('select',3) ;
+			$("#add-tabs").tabs('select',1) ;
 		}
 	});
 
-	$("#add-note-next").linkbutton({
+	$("#add-detail-next").linkbutton({
 		width : 250,
 		height : 40,
 		plain : true,
@@ -838,6 +597,7 @@ $(function(){
 	$("#add-cancel").linkbutton({
 		width : 200,
 		height : 30,
+		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
 			$("#add-form").form('clear') ;
@@ -847,11 +607,16 @@ $(function(){
 	$("#add-submit").linkbutton({
 		width : 200,
 		height : 30,
+		iconCls : 'icon-ok' ,
 
 		onClick : function(){
 			$("#add-form").form('submit') ;
 		}
 	});
+	
+
+
+
 
 	//编辑论文信息对话框
 	$("#edit-form").form({
@@ -867,14 +632,14 @@ $(function(){
 		},
 
 		success : function(data){
-			if ( data != 'false' ){
-				// $("#data-box").datagrid('reload') ;
-				// $("#edit-box").dialog('close') ;
-				// $("#edit-lesson").textbox('clear');
-				// $("#edit-classes").textbox('clear');
-				$.messager.alert('提示','教学信息更新成功！','info') ;
+			var result = $.parseJSON(data) ;
+			if ( result ){
+				$("#add-box").dialog('close') ;
+				$("#add-form").form('reset') ;
+				$("#data-box").datagrid('reload') ;
+				$.messager.alert('提示','论文信息更新成功！','info') ;
 			} else {
-				$.messager.alert('提示','教学信息更新失败！','info') ;
+				$.messager.alert('提示','论文信息更新失败！','info') ;
 			}
 		}
 	});
@@ -890,10 +655,150 @@ $(function(){
 	$("#edit-topic").textbox({
 		width : 400,
 		height : 30,
-		label : '课&emsp;&emsp;题' ,
+		label : '文&ensp;章&ensp;名' ,
+		labelWidth : 100,
+		required : true,
+		missingMessage : '文章名非空' ,
+	});
+
+	$("#edit-first_author").textbox({
+		width : 400,
+		height : 30,
+		label : '第一作者' ,
+		labelWidth : 100,
+		required : true,
+		missingMessage : '第一作者非空' ,
+	});
+
+	$("#edit-other_author").textbox({
+		width : 400,
+		height : 30,
+		label : '其它作者' ,
 		labelWidth : 100,
 	});
 
+	$("#edit-publication").textbox({
+		width : 400,
+		height : 30,
+		label : '发表刊物' ,
+		labelWidth : 100,
+		required : true,
+		missingMessage : '发表刊物非空' ,
+	});
+
+	$("#edit-publication_date").datebox({
+		width : 400,
+		height : 30,
+		label : '发表时间' ,
+		labelWidth : 100,
+		panelWidth : 250,
+		panelHeight : 250,
+		editable : false,
+		value : '2017-1-1' ,
+	});
+
+	$("#edit-base-prev").linkbutton({
+		width : 250,
+		height : 40,
+		plain : true,
+		disabled : true,
+
+		onClick : function(){
+			
+		}
+	});
+
+	$("#edit-base-next").linkbutton({
+		width : 250,
+		height : 40,
+		plain : true,
+
+		onClick : function(){
+			$("#edit-tabs").tabs('select',1);
+		}
+	});
+
+	//检索信息
+	$("#edit-final_index").combobox({
+		width : 400,
+		height : 30,
+		editable : false,
+		label : '最终收录' ,
+		labelWidth : 100,
+		panelHeight : 135,
+		url : PUBLIC + '/js/index.json' ,
+		valueField : 'value' ,
+		textField : 'text' ,
+		value : 'SSCI' ,
+		required : true,
+		missingMessage : '检索信息非空' ,
+	});
+
+	$("#edit-index_date").datebox({
+		width : 400,
+		height : 30,
+		label : '检索时间' ,
+		labelWidth : 100,
+		panelWidth : 250,
+		panelHeight : 250,
+		editable : false,
+		value : '2017-1-1' ,
+	});
+
+	$("#edit-sci_partition").textbox({
+		width : 400,
+		height : 30,
+		label : 'SCI&ensp;分区' ,
+		labelWidth : 100,
+	});
+
+	$("#edit-if").numberspinner({
+		width : 400,
+		height : 30,
+		label : '影响因子' ,
+		labelWidth : 100,
+		min : 0,
+		max : 10,
+		value : 5.0,
+		increment : 0.1,
+		precision : 2,
+	});
+
+	$("#edit-unit").combobox({
+		width : 400,
+		height : 30,
+		url : APP + '/Home/Base/unit' ,
+		valueField : 'id' ,
+		textField : 'name' ,
+		label : '所属单位' ,
+		value : 1,
+		labelWidth : 100,
+		panelHeight : 130,
+		editable : false ,
+		value : '1' ,
+	});
+
+	$("#edit-index-prev").linkbutton({
+		width : 250,
+		height : 40,
+		plain : true,
+
+		onClick : function(){
+			$("#edit-tabs").tabs('select',0) ;
+		}
+	});
+
+	$("#edit-index-next").linkbutton({
+		width : 250,
+		height : 40,
+		plain : true,
+
+		onClick : function(){
+			$("#edit-tabs").tabs('select',2);
+		}
+	});
+
+	//详细信息
 	$("#edit-abstract").textbox({
 		width : 400,
 		height : 50,
@@ -909,204 +814,24 @@ $(function(){
 		labelWidth : 100,
 	});
 
-	$("#edit-is_translation").combobox({
+	$("#edit-note").textbox({
 		width : 400,
 		height : 30,
-		label : '是否译文' ,
-		labelWidth : 100,
-		panelHeight : 50,
-		editable : false,
-		textField : 'text',
-		valueField : 'value' ,
-		value : '否',
-		data : [
-			{
-				text : '否' ,
-				value : 0
-			},
-			{
-				text : '是' ,
-				value : 1
-			}
-		] ,
-	});
-	
-	$("#edit-publication").textbox({
-		width : 400,
-		height : 30,
-		label : '发表刊物' ,
+		label : '备&emsp;&emsp;注' ,
 		labelWidth : 100,
 	});
 
-	$("#edit-publish_date").datebox({
+	$("#edit-file_name").filebox({
 		width : 400,
 		height : 30,
-		label : '发表时间' ,
+		label : '论文附件' ,
 		labelWidth : 100,
-		panelWidth : 250,
-		panelHeight : 250,
-		editable : false,
-		value : '2017-1-1' ,
+		prompt : '论文附件',
+		buttonText : '论文附件' ,
+		buttonIcon : 'icon-search' ,
 	});
 
-	$("#edit-info-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-		disabled : true,
-
-		onClick : function(){
-			
-		}
-	});
-
-	$("#edit-info-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',1);
-		}
-	});
-
-	//作者信息
-	$("#edit-first_author").textbox({
-		width : 400,
-		height : 30,
-		label : '第一作者' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-first_author_type").combobox({
-		width : 400,
-		height : 30,
-		editable : false,
-		panelHeight : 50,
-		label : '作者类型' ,
-		labelWidth : 100,
-		textField : 'text',
-		valueField : 'value' ,
-		value : '老师' ,
-		data : [
-			{
-				text : '老师' ,
-				value : '老师' 
-			},
-			{
-				text : '学生' ,
-				value : '学生'
-			}
-		],
-	});
-
-	$("#edit-correspondence_author").textbox({
-		width : 400,
-		height : 30,
-		label : '通讯作者' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-other_author").textbox({
-		width : 400,
-		height : 30,
-		label : '其它作者' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-all_author").textbox({
-		width : 400,
-		height : 30,
-		label : '全部作者' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-enter_people").textbox({
-		width : 400,
-		height : 30,
-		label : '录&ensp;入&ensp;人' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-author-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',0) ;
-		}
-	});
-
-	$("#edit-author-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',2);
-		}
-	});
-
-	//论文分类
-	$("#edit-paper_page").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/paper_page.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '版&emsp;&emsp;面' ,
-		labelWidth : 100,
-		panelHeight : 160,
-		editable : false ,
-	});
-
-	$("#edit-paper_type").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/paper_type.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '类&emsp;&emsp;型' ,
-		labelWidth : 100,
-		panelHeight : 90,
-		editable : false ,
-		value : 1,
-	});
-
-	$("#edit-prime_subject").textbox({
-		width : 400,
-		height : 30,
-		label : '第一学科' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-science_category").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/science_category.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '学科门类' ,
-		labelWidth : 100,
-		panelHeight : 150,
-		editable : false ,
-	});
-
-	$("#edit-project_source").combobox({
-		width : 400,
-		height : 30,
-		url : PUBLIC + '/js/project_source.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : '项目来源' ,
-		labelWidth : 100,
-		panelHeight : 70,
-		editable : false ,
-		value : '1' ,
-	});
-
-	$("#edit-category-prev").linkbutton({
+	$("#edit-detail-prev").linkbutton({
 		width : 250,
 		height : 40,
 		plain : true,
@@ -1116,191 +841,7 @@ $(function(){
 		}
 	});
 
-	$("#edit-category-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',3);
-		}
-	});
-	
-	//论文收录
-	$("#edit-data_source").tagbox({
-		width : 300,
-		height : 30,
-		editable : false,
-		label : '数据来源' ,
-		labelWidth : 100,
-		panelHeight : 155,
-		prompt : '多选',
-		url : PUBLIC + '/js/data_source.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		hasDownArrow : true,
-	});
-
-	$("#edit-index_type").tagbox({
-		width : 300,
-		height : 30,
-		editable : false,
-		label : '论文收录' ,
-		prompt : '多选',
-		labelWidth : 100,
-		panelHeight : 155,
-		url : PUBLIC + '/js/index.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		hasDownArrow : true,
-	});
-
-	$("#edit-sci_partition").textbox({
-		width : 400,
-		height : 30,
-		valueField : 'value' ,
-		textField : 'text' ,
-		label : 'SCI&ensp;分区' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-final_index").combobox({
-		width : 400,
-		height : 30,
-		editable : false,
-		label : '最终收录' ,
-		labelWidth : 100,
-		panelHeight : 155,
-		url : PUBLIC + '/js/index.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		value : '1' ,
-	});
-
-	$("#edit-index_year").combobox({
-		width : 400,
-		height : 30,
-		editable : false,
-		label : '收录年份' ,
-		labelWidth : 100,
-		panelHeight : 155,
-		url : PUBLIC + '/js/year.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		value : 5,
-	});
-
-	$("#edit-index-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',2) ;
-		}
-	});
-
-	$("#edit-index-next").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',4);
-		}
-	});
-
-	//附加信息
-	$("#edit-audit_state").combobox({
-		width : 400,
-		height : 30,
-		label : '审核状态' ,
-		labelWidth : 100,
-		panelHeight : 70,
-		textField : 'text',
-		valueField : 'value' ,
-		editable : false,
-		value : '学校通过' ,
-		data : [
-			{
-				text : '学校通过' ,
-				value : '学校通过'
-			},
-			{
-				text : '学校不通过' ,
-				value : '学校不通过'
-			},
-			{
-				text : '其它' ,
-				value : '其它'
-			},
-		],
-	});
-
-	$("#edit-audit_date").datebox({
-		width : 400,
-		height : 30,
-		label : '审核时间' ,
-		labelWidth : 100,
-		panelWidth : 250,
-		panelHeight : 250,
-		editable : false,
-		value : '2017-1-1' ,
-	});
-
-	$("#edit-audit_year").combobox({
-		width : 400,
-		height : 30,
-		editable : false,
-		label : '审核年份' ,
-		labelWidth : 100,
-		panelHeight : 140,
-		url : PUBLIC + '/js/year.json' ,
-		valueField : 'value' ,
-		textField : 'text' ,
-		value : '2017' ,
-	});
-
-	$("#edit-score").numberbox({
-		width : 400,
-		height : 30,
-		label : '绩&ensp;效&ensp;分' ,
-		labelWidth : 100,
-		min : 0,
-		max : 1000,
-	});
-
-	$("#edit-unit").combobox({
-		width : 400,
-		height : 30,
-		url : APP + '/Home/Base/unit' ,
-		valueField : 'id' ,
-		textField : 'name' ,
-		label : '所属单位' ,
-		value : 1,
-		labelWidth : 100,
-		panelHeight : 130,
-		editable : false ,
-	});
-
-	$("#edit-note").textbox({
-		width : 400,
-		height : 30,
-		label : '备&emsp;&emsp;注' ,
-		labelWidth : 100,
-	});
-
-	$("#edit-note-prev").linkbutton({
-		width : 250,
-		height : 40,
-		plain : true,
-
-		onClick : function(){
-			$("#edit-tabs").tabs('select',3) ;
-		}
-	});
-
-	$("#edit-note-next").linkbutton({
+	$("#edit-detail-next").linkbutton({
 		width : 250,
 		height : 40,
 		plain : true,
@@ -1313,6 +854,7 @@ $(function(){
 	$("#edit-cancel").linkbutton({
 		width : 200,
 		height : 30,
+		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
 			$("#edit-form").form('clear') ;
@@ -1322,9 +864,10 @@ $(function(){
 	$("#edit-submit").linkbutton({
 		width : 200,
 		height : 30,
+		iconCls : 'icon-ok' ,
 
 		onClick : function(){
-			alert('submit') ;
+			$("#edit-form").form('submit') ;
 		}
 	});
 });
