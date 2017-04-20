@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;项目管理',
+		title : '个人经历&emsp;/&emsp;专利',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -32,19 +32,29 @@ $(function(){
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
 			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑项目管理！','info') ;
+				$.messager.alert('提示','请先选中待编辑专利！','info') ;
 			} else {
-				$("#edit-form").form('load',{
-					'edit-id' : selected.id ,
-					'edit-topic' : selected.topic ,
-					'edit-author' : selected.author ,
-					'edit-other_author' : selected.other_author ,
-					'edit-category' : selected.category ,
-					'edit-project_sum' : selected.project_sum ,
-					'edit-start_date' : selected.start_date ,
-					'edit-end_date' : selected.end_date 
-				});
+				$.ajax({
+					url : APP + '/Achievement/Patent/find' ,
+					data : {id:selected.id} ,
+					dataType : 'JSON' ,
+					method : 'POST' ,
+					async : false,
 
+					success : function(data){
+						console.log(data) ;
+						$("#edit-form").form('load',{
+							'edit-id' : data.id ,
+							'edit-topic' : data.topic ,
+							'edit-author' : data.author ,
+							'edit-state' : data.state,
+							'edit-category' : data.category ,
+							'edit-application_id' : data.application_id ,
+							'edit-application_date' : data.application_date ,
+							'edit-auth_date' : data.auth_date 
+						});
+					}
+				});
 				$("#edit-box").dialog('open') ;
 				
 			}
@@ -60,12 +70,12 @@ $(function(){
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
 			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除项目管理！','info') ;
+				$.messager.alert('提示','请先选中待删除专利！','info') ;
 			} else {
-				$.messager.confirm('删除提示','您确定要删除这条项目管理吗？',function(r){
+				$.messager.confirm('删除提示','您确定要删除这条专利吗？',function(r){
 					if ( r ){
 						$.ajax({
-						url : APP + '/Achievement/Project/delete' ,
+						url : APP + '/Achievement/Patent/delete' ,
 						method : 'post' ,
 						data : {id:selected.id} ,
 						async : false ,
@@ -99,28 +109,18 @@ $(function(){
 
 	//搜索栏
 
-	$("#search-id").textbox({
-		width : 180,
-		height : 30,
-		label : '编号' ,
-		labelWidth : 30,
-	});
-
 	$("#search-topic").textbox({
-		width : 180,
-		height : 30,
-		label : '课题' ,
-		labelWidth : 30,
-	});
-
-	$("#search-start_date").datebox({
 		width : 200,
 		height : 30,
-		label : '开始日期' ,
+		label : '发明名称' ,
 		labelWidth : 60,
-		editable : false,
-		panelHeight : 250,
-		panelWidth : 250
+	});
+
+	$("#search-application_id").textbox({
+		width : 200,
+		height : 30,
+		label : '申请编号' ,
+		labelWidth : 60,
 	});
 
 	$("#search-ok").linkbutton({
@@ -132,9 +132,8 @@ $(function(){
 
 		onClick : function(){
 			$("#data-box").datagrid('load',{
-				'id' : $("#search-id").textbox('getValue').trim(),
 				'topic' : $("#search-topic").textbox('getValue').trim(),
-				'start_date' : $("#search-start_date").textbox('getValue')
+				'application_id' : $("#search-application_id").textbox('getValue').trim(),
 			}) ;
 		}
 	});
@@ -157,11 +156,11 @@ $(function(){
 		fitColumns : true ,
 		singleSelect : true ,
 		width:'100%' ,
-		url : APP + "/Achievement/Project/data" ,
+		url : APP + "/Achievement/Patent/data" ,
 		striped : true ,
 		checkOnSelect : true ,
-		sortName : 'start_date' ,
-		loadMsg : '项目管理加载中。。。' ,
+		sortName : 'application_date' ,
+		loadMsg : '专利加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
@@ -176,16 +175,11 @@ $(function(){
 			},
 			{
 				field : 'id' ,
-				title : '编号' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'asc' , 
+				hidden : true,
 			},
 			{
 				field : 'topic' ,
-				title : '项目课题' ,
+				title : '发明名称' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -194,7 +188,7 @@ $(function(){
 			},
 			{
 				field : 'category' ,
-				title : '性质' ,
+				title : '发明类型' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -202,26 +196,33 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'project_sum' ,
-				title : '合同金额' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'desc' , 
-			},
-			{
-				field : 'start_date' ,
-				title : '开始日期' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'desc' , 
-			},
-			{
-				field : 'end_date' ,
+				field : 'state' ,
 				title : '状态' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'application_id' ,
+				title : '申请号' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' , 
+			},
+			{
+				field : 'application_date' ,
+				title : '申请日期' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' , 
+			},
+			{
+				field : 'auth_date' ,
+				title : '授权日期' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -247,7 +248,7 @@ $(function(){
 					if ( ! value ){
 						return "暂无" ;
 					} else {
-						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Project/' + value + '\')">查看</a>'
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Patent/' + value + '\')">查看</a>'
 					}
 				}
 			},
@@ -265,10 +266,10 @@ $(function(){
 				$("#tools-edit").linkbutton('disable') ;
 				$("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
-					id : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+					topic : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{
 					index : 0,
-					field : 'id' ,
+					field : 'topic' ,
 					colspan : 7,
 				}) ;
 			}
@@ -285,7 +286,7 @@ $(function(){
 	//添加学历信息对话框
 
 	$("#add-form").form({
-		url : APP + '/Achievement/Project/add' ,
+		url : APP + '/Achievement/Patent/add' ,
 		onSubmit : function(){
 
 			if ( $("#add-box").form('validate') ){
@@ -310,51 +311,63 @@ $(function(){
 
 	$("#add-box").dialog({
 		width : 500,
-		height : 515,
-		title : '添加项目管理信息',
+		height : 470,
+		title : '添加专利信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
 	});
 
-	$("#add-id").textbox({
-		width : 300,
-		height : 30,
-		label : '编&emsp;&emsp;号' ,
-		labelWidth : 70,
-		required : true ,
-		missingMessage : '项目编号非空' ,
-	});
-
 	$("#add-topic").textbox({
 		width : 300,
 		height : 30,
-		label : '课&emsp;&emsp;题' ,
+		label : '发明名称' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '课题非空' ,
+		missingMessage : '发明名称非空' ,
 	});
 
 	$("#add-author").textbox({
 		width : 300,
 		height : 30,
-		label : '负&ensp;责&ensp;人' ,
+		label : '发&ensp;明&ensp;人' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '责任人非空' ,
-	});
-
-	$("#add-other_author").textbox({
-		width : 300,
-		height : 30,
-		label : '参与人员' ,
-		labelWidth : 70,
+		missingMessage : '发明人非空' ,
 	});
 
 	$("#add-category").combobox({
 		width : 300,
 		height : 30,
-		label : '性&emsp;&emsp;质' ,
+		label : '类&emsp;&emsp;型' ,
+		labelWidth : 70,
+		valueField : 'value',
+		textField : 'text' ,
+		panelHeight : 70,
+		required : true ,
+		editable : false,
+		data : [
+			{
+				text : '发明' ,
+				value : '1'
+			},
+			{
+				text : '实用新型' ,
+				value : '2'
+			},
+			{
+				text : '外观设计' ,
+				value : '3'
+			}
+		],
+
+		value : 1,
+	});
+
+	$("#add-state").combobox({
+		width : 300,
+		height : 30,
+		label : '状&emsp;&emsp;态' ,
 		labelWidth : 70,
 		valueField : 'value',
 		textField : 'text' ,
@@ -363,11 +376,11 @@ $(function(){
 		editable : false,
 		data : [
 			{
-				text : '科研项目' ,
+				text : '已授权-正常' ,
 				value : '1'
 			},
 			{
-				text : '教学项目' ,
+				text : '审查中-授权' ,
 				value : '2'
 			}
 		],
@@ -375,40 +388,37 @@ $(function(){
 		value : 1,
 	});
 
-	$("#add-project_sum").numberspinner({
+	$("#add-application_id").textbox({
 		width : 300,
 		height : 30,
-		label : '金额(万)' ,
+		label : '申&emsp;请&emsp;号' ,
 		labelWidth : 70,
-		max : 9999,
-		min : 0,
-		increment : 1,
-		precision : 2,
-		value : '10' ,
+
 		required : true ,
+		missingMessage : '申请号非空' ,
 	});
 
-	$("#add-start_date").datebox({
+	$("#add-application_date").datebox({
 		width : 300,
 		height : 30,
-		label : '开始日期' ,
+		label : '申&emsp;请&emsp;日' ,
 		labelWidth : 70,
 		editable : false,
 		panelHeight : 250,
 		panelWidth : 250,
 		required : true,
-		value : '2017*-1-1' ,
-		missingMessage : '开始日期非空' ,
+		value : '2017-1-1' ,
+		missingMessage : '申请日期非空' ,
 	});
 
-	$("#add-end_date").datebox({
+	$("#add-auth_date").datebox({
 		width : 300,
 		height : 30,
-		label : '结束日期' ,
+		label : '授&emsp;权&emsp;日' ,
 		labelWidth : 70,
 		editable : false,
 		panelHeight : 250,
-		panelWidth : 250
+		panelWidth : 250,
 	});
 
 	$("#add-submit").linkbutton({
@@ -445,7 +455,7 @@ $(function(){
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 500,
-		height : 515,
+		height : 470,
 		title : '编辑经过经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -453,7 +463,7 @@ $(function(){
 	});
 
 	$("#edit-form").form({
-		url : APP + '/Achievement/Project/edit' ,
+		url : APP + '/Achievement/Patent/edit' ,
 		onSubmit : function(){
 			if ( $("#edit-box").form('validate') ){
 				return true ;
@@ -476,46 +486,54 @@ $(function(){
 		}
 	});
 
-	$("#edit-id").textbox({
-		width : 300,
-		height : 30,
-		label : '编&emsp;&emsp;号' ,
-		labelWidth : 70,
-		editable : false,
-		editable : false,
-		required : true ,
-		missingMessage : '项目编号非空' ,
-	});
-
 	$("#edit-topic").textbox({
 		width : 300,
 		height : 30,
-		label : '课&emsp;&emsp;题' ,
+		label : '发明名称' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '课题非空' ,
+		missingMessage : '发明名称非空' ,
 	});
 
 	$("#edit-author").textbox({
 		width : 300,
 		height : 30,
-		label : '负&ensp;责&ensp;人' ,
+		label : '发&ensp;明&ensp;人' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '责任人非空' ,
-	});
-
-	$("#edit-other_author").textbox({
-		width : 300,
-		height : 30,
-		label : '参与人员' ,
-		labelWidth : 70,
+		missingMessage : '发明人非空' ,
 	});
 
 	$("#edit-category").combobox({
 		width : 300,
 		height : 30,
-		label : '性&emsp;&emsp;质' ,
+		label : '类&emsp;&emsp;型' ,
+		labelWidth : 70,
+		valueField : 'value',
+		textField : 'text' ,
+		panelHeight : 70,
+		required : true ,
+		editable : false,
+		data : [
+			{
+				text : '发明' ,
+				value : '1'
+			},
+			{
+				text : '实用新型' ,
+				value : '2'
+			},
+			{
+				text : '外观设计' ,
+				value : '3'
+			}
+		],
+	});
+
+	$("#edit-state").combobox({
+		width : 300,
+		height : 30,
+		label : '状&emsp;&emsp;态' ,
 		labelWidth : 70,
 		valueField : 'value',
 		textField : 'text' ,
@@ -524,52 +542,47 @@ $(function(){
 		editable : false,
 		data : [
 			{
-				text : '科研项目' ,
-				value : 1
+				text : '已授权-正常' ,
+				value : '1'
 			},
 			{
-				text : '教学项目' ,
-				value : 2
+				text : '审查中-授权' ,
+				value : '2'
 			}
 		],
-
-		value : 1,
 	});
 
-	$("#edit-project_sum").numberspinner({
+	$("#edit-application_id").textbox({
 		width : 300,
 		height : 30,
-		label : '金额(万)' ,
+		label : '申&emsp;请&emsp;号' ,
 		labelWidth : 70,
-		max : 9999,
-		min : 0,
-		increment : 1,
-		precision : 2,
-		value : '10' ,
+
 		required : true ,
+		missingMessage : '申请号非空' ,
 	});
 
-	$("#edit-start_date").datebox({
+	$("#edit-application_date").datebox({
 		width : 300,
 		height : 30,
-		label : '开始日期' ,
+		label : '申&emsp;请&emsp;日' ,
 		labelWidth : 70,
 		editable : false,
 		panelHeight : 250,
 		panelWidth : 250,
 		required : true,
 		value : '2017*-1-1' ,
-		missingMessage : '开始日期非空' ,
+		missingMessage : '申请日期非空' ,
 	});
 
-	$("#edit-end_date").datebox({
+	$("#edit-auth_date").datebox({
 		width : 300,
 		height : 30,
-		label : '结束日期' ,
+		label : '授&emsp;权&emsp;日' ,
 		labelWidth : 70,
 		editable : false,
 		panelHeight : 250,
-		panelWidth : 250
+		panelWidth : 250,
 	});
 
 	$("#edit-submit").linkbutton({
@@ -588,6 +601,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
+			$("#edit-form").form('reset') ;
 			$("#edit-box").dialog('close') ;
 		}
 	});

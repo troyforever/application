@@ -68,7 +68,11 @@ $("#patent").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'专利获取',
+	text:'专利',
+
+	onClick : function(){
+		addTab('专利',APP + '/Achievement/Patent') ;
+	}
 });
 
 $("#prize").linkbutton({
