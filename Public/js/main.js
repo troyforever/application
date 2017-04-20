@@ -57,7 +57,11 @@ $("#science").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'科学研究',
+	text:'项目',
+	
+	onClick : function(){
+		addTab('项目', APP + '/Achievement/Project') ;
+	}
 });
 
 $("#patent").linkbutton({
