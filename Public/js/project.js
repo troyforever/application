@@ -309,7 +309,7 @@ $(function(){
 	});
 
 	$("#add-box").dialog({
-		width : 500,
+		width : 512,
 		height : 515,
 		title : '添加项目管理信息',
 		iconCls : 'icon-add' ,
@@ -444,7 +444,7 @@ $(function(){
 
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
-		width : 500,
+		width : 512,
 		height : 515,
 		title : '编辑经过经历信息',
 		iconCls : 'icon-edit' ,

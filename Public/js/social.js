@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;专利',
+		title : '个人经历&emsp;/&emsp;社会活动',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -32,28 +32,15 @@ $(function(){
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
 			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑专利！','info') ;
+				$.messager.alert('提示','请先选中待编辑社会活动！','info') ;
 			} else {
-				$.ajax({
-					url : APP + '/Achievement/Patent/find' ,
-					data : {id:selected.id} ,
-					dataType : 'JSON' ,
-					method : 'POST' ,
-					async : false,
-
-					success : function(data){
-						console.log(data) ;
-						$("#edit-form").form('load',{
-							'edit-id' : data.id ,
-							'edit-topic' : data.topic ,
-							'edit-author' : data.author ,
-							'edit-state' : data.state,
-							'edit-category' : data.category ,
-							'edit-application_id' : data.application_id ,
-							'edit-application_date' : data.application_date ,
-							'edit-auth_date' : data.auth_date 
-						});
-					}
+				console.log(selected) ;
+				$("#edit-form").form('load',{
+							'edit-id' : selected.id ,
+							'edit-topic' : selected.topic ,
+							'edit-location' : selected.location ,
+							'edit-social_date' : selected.social_date,
+							'edit-note' : selected.note
 				});
 				$("#edit-box").dialog('open') ;
 				
@@ -70,12 +57,12 @@ $(function(){
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
 			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除专利！','info') ;
+				$.messager.alert('提示','请先选中待删除社会活动！','info') ;
 			} else {
-				$.messager.confirm('删除提示','您确定要删除这条专利吗？',function(r){
+				$.messager.confirm('删除提示','您确定要删除这条社会活动吗？',function(r){
 					if ( r ){
 						$.ajax({
-						url : APP + '/Achievement/Patent/delete' ,
+						url : APP + '/Achievement/Social/delete' ,
 						method : 'post' ,
 						data : {id:selected.id} ,
 						async : false ,
@@ -112,14 +99,7 @@ $(function(){
 	$("#search-topic").textbox({
 		width : 200,
 		height : 30,
-		label : '发明名称' ,
-		labelWidth : 60,
-	});
-
-	$("#search-application_id").textbox({
-		width : 200,
-		height : 30,
-		label : '申请编号' ,
+		label : '活动主题' ,
 		labelWidth : 60,
 	});
 
@@ -133,7 +113,6 @@ $(function(){
 		onClick : function(){
 			$("#data-box").datagrid('load',{
 				'topic' : $("#search-topic").textbox('getValue').trim(),
-				'application_id' : $("#search-application_id").textbox('getValue').trim(),
 			}) ;
 		}
 	});
@@ -156,11 +135,11 @@ $(function(){
 		fitColumns : true ,
 		singleSelect : true ,
 		width:'100%' ,
-		url : APP + "/Achievement/Patent/data" ,
+		url : APP + "/Achievement/Social/data" ,
 		striped : true ,
 		checkOnSelect : true ,
-		sortName : 'application_date' ,
-		loadMsg : '专利加载中。。。' ,
+		sortName : 'social_date' ,
+		loadMsg : '社会活动加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
@@ -179,7 +158,7 @@ $(function(){
 			},
 			{
 				field : 'topic' ,
-				title : '发明名称' ,
+				title : '活动主题' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -187,8 +166,8 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'category' ,
-				title : '发明类型' ,
+				field : 'location' ,
+				title : '地点' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -196,33 +175,15 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'state' ,
-				title : '状态' ,
+				field : 'social_date' ,
+				title : '日期' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 			},
 			{
-				field : 'application_id' ,
-				title : '申请号' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'desc' , 
-			},
-			{
-				field : 'application_date' ,
-				title : '申请日期' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'desc' , 
-			},
-			{
-				field : 'auth_date' ,
-				title : '授权日期' ,
+				field : 'note' ,
+				title : '备注' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -231,9 +192,9 @@ $(function(){
 
 				formatter : function(value,row,index){
 					if ( ! value ){
-						return "进行中" ;
+						return "无" ;
 					} else {
-						return "已完成" ;
+						return value ;
 					}
 				}
 			},
@@ -248,7 +209,7 @@ $(function(){
 					if ( ! value ){
 						return "暂无" ;
 					} else {
-						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Patent/' + value + '\')">查看</a>'
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Social/' + value + '\')">查看</a>'
 					}
 				}
 			},
@@ -270,7 +231,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'topic' ,
-					colspan : 7,
+					colspan : 5,
 				}) ;
 			}
 		},
@@ -286,7 +247,7 @@ $(function(){
 	//添加学历信息对话框
 
 	$("#add-form").form({
-		url : APP + '/Achievement/Patent/add' ,
+		url : APP + '/Achievement/Social/add' ,
 		onSubmit : function(){
 
 			if ( $("#add-box").form('validate') ){
@@ -311,8 +272,8 @@ $(function(){
 
 	$("#add-box").dialog({
 		width : 512,
-		height : 470,
-		title : '添加专利信息',
+		height : 370,
+		title : '添加社会活动信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
@@ -321,105 +282,52 @@ $(function(){
 	$("#add-topic").textbox({
 		width : 300,
 		height : 30,
-		label : '发明名称' ,
+		label : '活动主题' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '发明名称非空' ,
+		missingMessage : '活动主题非空' ,
 	});
 
-	$("#add-author").textbox({
+	$("#add-location").textbox({
 		width : 300,
 		height : 30,
-		label : '发&ensp;明&ensp;人' ,
+		label : '地&emsp;&emsp;点' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '发明人非空' ,
+		missingMessage : '活动地点非空' ,
 	});
 
-	$("#add-category").combobox({
+	$("#add-social_date").datebox({
 		width : 300,
 		height : 30,
-		label : '类&emsp;&emsp;型' ,
-		labelWidth : 70,
-		valueField : 'value',
-		textField : 'text' ,
-		panelHeight : 70,
-		required : true ,
-		editable : false,
-		data : [
-			{
-				text : '发明' ,
-				value : '1'
-			},
-			{
-				text : '实用新型' ,
-				value : '2'
-			},
-			{
-				text : '外观设计' ,
-				value : '3'
-			}
-		],
-
-		value : 1,
-	});
-
-	$("#add-state").combobox({
-		width : 300,
-		height : 30,
-		label : '状&emsp;&emsp;态' ,
-		labelWidth : 70,
-		valueField : 'value',
-		textField : 'text' ,
-		panelHeight : 50,
-		required : true ,
-		editable : false,
-		data : [
-			{
-				text : '已授权-正常' ,
-				value : '1'
-			},
-			{
-				text : '审查中-授权' ,
-				value : '2'
-			}
-		],
-
-		value : 1,
-	});
-
-	$("#add-application_id").textbox({
-		width : 300,
-		height : 30,
-		label : '申&emsp;请&emsp;号' ,
-		labelWidth : 70,
-
-		required : true ,
-		missingMessage : '申请号非空' ,
-	});
-
-	$("#add-application_date").datebox({
-		width : 300,
-		height : 30,
-		label : '申&emsp;请&emsp;日' ,
+		label : '活动日期' ,
 		labelWidth : 70,
 		editable : false,
 		panelHeight : 250,
 		panelWidth : 250,
 		required : true,
 		value : '2017-1-1' ,
-		missingMessage : '申请日期非空' ,
+		missingMessage : '活动日期非空' ,
 	});
 
-	$("#add-auth_date").datebox({
+	$("#add-note").textbox({
 		width : 300,
 		height : 30,
-		label : '授&emsp;权&emsp;日' ,
+		label : '备&emsp;&emsp;注' ,
 		labelWidth : 70,
-		editable : false,
-		panelHeight : 250,
-		panelWidth : 250,
 	});
+
+
+	$("#add-file_name").filebox({
+		width : 300,
+		height : 30,
+		label : '附&emsp;&emsp;件' ,
+		labelWidth : 70,
+		prompt : '附件',
+		buttonText : '附件' ,
+		buttonIcon : 'icon-search' ,
+	});
+
 
 	$("#add-submit").linkbutton({
 		width : 120,
@@ -441,21 +349,11 @@ $(function(){
 		}
 	});
 
-	$("#add-file_name").filebox({
-		width : 300,
-		height : 30,
-		label : '附&emsp;&emsp;件' ,
-		labelWidth : 70,
-		prompt : '附件',
-		buttonText : '附件' ,
-		buttonIcon : 'icon-search' ,
-	});
-
 
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 512,
-		height : 470,
+		height : 370,
 		title : '编辑经过经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -463,7 +361,7 @@ $(function(){
 	});
 
 	$("#edit-form").form({
-		url : APP + '/Achievement/Patent/edit' ,
+		url : APP + '/Achievement/Social/edit' ,
 		onSubmit : function(){
 			if ( $("#edit-box").form('validate') ){
 				return true ;
@@ -489,100 +387,50 @@ $(function(){
 	$("#edit-topic").textbox({
 		width : 300,
 		height : 30,
-		label : '发明名称' ,
+		label : '活动主题' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '发明名称非空' ,
+		missingMessage : '活动主题非空' ,
 	});
 
-	$("#edit-author").textbox({
+	$("#edit-location").textbox({
 		width : 300,
 		height : 30,
-		label : '发&ensp;明&ensp;人' ,
+		label : '地&emsp;&emsp;点' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '发明人非空' ,
+		missingMessage : '活动地点非空' ,
 	});
 
-	$("#edit-category").combobox({
+	$("#edit-social_date").datebox({
 		width : 300,
 		height : 30,
-		label : '类&emsp;&emsp;型' ,
-		labelWidth : 70,
-		valueField : 'value',
-		textField : 'text' ,
-		panelHeight : 70,
-		required : true ,
-		editable : false,
-		data : [
-			{
-				text : '发明' ,
-				value : '1'
-			},
-			{
-				text : '实用新型' ,
-				value : '2'
-			},
-			{
-				text : '外观设计' ,
-				value : '3'
-			}
-		],
-	});
-
-	$("#edit-state").combobox({
-		width : 300,
-		height : 30,
-		label : '状&emsp;&emsp;态' ,
-		labelWidth : 70,
-		valueField : 'value',
-		textField : 'text' ,
-		panelHeight : 50,
-		required : true ,
-		editable : false,
-		data : [
-			{
-				text : '已授权-正常' ,
-				value : '1'
-			},
-			{
-				text : '审查中-授权' ,
-				value : '2'
-			}
-		],
-	});
-
-	$("#edit-application_id").textbox({
-		width : 300,
-		height : 30,
-		label : '申&emsp;请&emsp;号' ,
-		labelWidth : 70,
-
-		required : true ,
-		missingMessage : '申请号非空' ,
-	});
-
-	$("#edit-application_date").datebox({
-		width : 300,
-		height : 30,
-		label : '申&emsp;请&emsp;日' ,
+		label : '活动日期' ,
 		labelWidth : 70,
 		editable : false,
 		panelHeight : 250,
 		panelWidth : 250,
 		required : true,
-		value : '2017*-1-1' ,
-		missingMessage : '申请日期非空' ,
+		value : '2017-1-1' ,
+		missingMessage : '活动日期非空' ,
 	});
 
-	$("#edit-auth_date").datebox({
+	$("#edit-note").textbox({
 		width : 300,
 		height : 30,
-		label : '授&emsp;权&emsp;日' ,
+		label : '备&emsp;&emsp;注' ,
 		labelWidth : 70,
-		editable : false,
-		panelHeight : 250,
-		panelWidth : 250,
+	});
+
+
+	$("#edit-file_name").filebox({
+		width : 300,
+		height : 30,
+		label : '附&emsp;&emsp;件' ,
+		labelWidth : 70,
+		prompt : '附件',
+		buttonText : '附件' ,
+		buttonIcon : 'icon-search' ,
 	});
 
 	$("#edit-submit").linkbutton({
@@ -604,15 +452,5 @@ $(function(){
 			$("#edit-form").form('reset') ;
 			$("#edit-box").dialog('close') ;
 		}
-	});
-
-	$("#edit-file_name").filebox({
-		width : 300,
-		height : 30,
-		label : '附&emsp;&emsp;件' ,
-		labelWidth : 70,
-		prompt : '附件',
-		buttonText : '附件' ,
-		buttonIcon : 'icon-search' ,
 	});
 });

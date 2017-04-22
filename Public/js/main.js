@@ -87,6 +87,10 @@ $("#social").linkbutton({
 	width:'100%',
 	height:40,
 	text:'社会活动',
+
+	onClick : function(){
+		addTab('社会活动', APP + '/Achievement/Social') ;
+	}
 });
 
 

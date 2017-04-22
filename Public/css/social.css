@@ -1,0 +1,8 @@
+td{height : 50px}
+#add-form{margin-top:40px; margin-left: 100px}
+#add-submit{float:right}
+#edit-form{margin-top:40px; margin-left: 100px}
+#edit-submit{float:right}
+.pagination-info{line-height: 50px}
+#search-box{height:40px;margin-top: 10px;}
+#search-box .textbox-label{margin-left:20px}
