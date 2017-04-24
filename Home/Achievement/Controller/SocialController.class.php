@@ -69,8 +69,6 @@ class SocialController extends CommonController{
 
             $social = M('Social') ;
 
-            dump($_FILES['add-file_name']['name']) ;
-
             if ( $_FILES['add-file_name']['name'] ){
                 $base = M('Base') ;
                 $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
@@ -83,8 +81,7 @@ class SocialController extends CommonController{
                 );
                 $upload = new \Think\Upload($config);
                 $info = $upload -> upload();
-
-                dump($upload) ;
+                
                 $data['file_name'] = $info['add-file_name']['savename'] ;
             }
 

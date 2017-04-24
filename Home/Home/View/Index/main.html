@@ -28,7 +28,7 @@
           <a id="logout">注销</a>
         </div>
       </div>
-      <div data-options="region:'south'" class="nav-bottom" style="height: 50px">
+      <div data-options="region:'south'" class="nav-bottom" style="height: 40px;overflow:hidden">
         <div class="copy">CopyRight © <a href="http://cs.ujs.edu.cn" style="text-decoration: none;color:black" target="_blank">江苏大学计算机科学与通信工程学院</a></div>
       </div>
       <div data-options="region:'west',title:'功能菜单',hideCollapsedContent:false,expandMode:'dock'" style="width: 200px">

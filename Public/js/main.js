@@ -80,6 +80,10 @@ $("#prize").linkbutton({
 	width:'100%',
 	height:40,
 	text:'获奖情况',
+
+	onClick : function(){
+		addTab('获奖情况', APP + '/Achievement/Prize') ;
+	}
 });
 
 $("#social").linkbutton({

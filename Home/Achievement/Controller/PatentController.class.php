@@ -75,8 +75,6 @@ class PatentController extends CommonController{
 
             $patent = M('Patent') ;
 
-            dump($_FILES['add-file_name']['name']) ;
-
             if ( $_FILES['add-file_name']['name'] ){
                 $base = M('Base') ;
                 $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
@@ -89,8 +87,7 @@ class PatentController extends CommonController{
                 );
                 $upload = new \Think\Upload($config);
                 $info = $upload -> upload();
-
-                dump($upload) ;
+                
                 $data['file_name'] = $info['add-file_name']['savename'] ;
             }
 

@@ -1,0 +1,14 @@
+td{height : 50px}
+#add-form{margin-top:40px; margin-left: 100px}
+#add-submit{float:right}
+#edit-form{margin-top:40px; margin-left: 100px}
+#edit-submit{float:right}
+.pagination-info{line-height: 50px}
+#search-box{height:40px;margin-top: 10px;}
+#search-box .textbox-label{margin-left:20px}
+.prize-item{overflow: hidden;margin-left:10px;margin-top: 10px; width:250px;height:150px;display: inline-block}
+.prize-item img{width: 250px;height:150px; cursor: pointer}
+/*.prize-item:hover{border:solid 1px blue}*/
+#img-dialog{width:700px; height:500px}
+#img-dialog img{width:700px;height:420px}
+.header-cls{text-align: center}
