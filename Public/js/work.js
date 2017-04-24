@@ -170,6 +170,9 @@ $(function(){
 					field : 'unit' ,
 					colspan : 4,
 				}) ;
+				$(".datagrid-pager.pagination").hide();
+			} else {
+				$(".datagrid-pager.pagination").show();
 			}
 		},
 

@@ -148,11 +148,7 @@ $(function(){
 		iconCls : 'icon-clear' ,
 		onClick : function(){
 			$("#search-form").form('clear') ;
-			$("#data-box").datagrid('load',{
-				'lesson' : '',
-				'annual' : '',
-				'classes' : '',
-			}) ;
+			$("#data-box").datagrid('load',{}) ;
 		}
 	});
 
@@ -239,7 +235,32 @@ $(function(){
 		]] ,
 
 		onLoadSuccess : function(data){
-			console.log(data) ;
+			if ( data.total == 0 ){
+				$("#tools-edit").linkbutton('disable') ;
+				$("#tools-delete").linkbutton('disable') ;
+				$("#data-box").datagrid('appendRow',{
+					lesson : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'lesson' ,
+					colspan : 6,
+				}) ;
+				$(".datagrid-pager.pagination").hide();
+			} else {
+				$(".datagrid-pager.pagination").show();
+			}
+		},
+
+		onBeforeLoad : function(){
+			$("#tools-edit").linkbutton('enable') ;
+			$("#tools-delete").linkbutton('enable') ;
+		},
+
+		onBeforeSelect : function(index,row){
+			if ( row == $("#data-box").datagrid('getSelected') ){
+				$("#data-box").datagrid('clearChecked') ;
+				return false ;
+			}
 		}
 	});
 
