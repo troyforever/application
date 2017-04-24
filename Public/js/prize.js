@@ -344,7 +344,7 @@ $(function(){
 				var page = $("#page").pagination('options') ;
 				$("#img-dialog img").attr('src',ROOT + '/Uploads/Prize/Img/' + prize.prize_img + '?temp=' + Math.random()) ;
 				$("#note").text(prize.note ? prize.note : '暂无备注');
-				$(".panel-header-noborder .panel-title").text(prize.topic) ;
+				$(".header-cls.panel-header-noborder .panel-title").text(prize.topic) ;
 				loadData(page.pageNumber) ;
 				$.messager.alert('提示','获奖信息更新成功！','info') ;
 			} else {
@@ -427,7 +427,7 @@ $(function(){
 	}) ;
 
 	$("#img-edit").linkbutton({
-		width : 200,
+		width : 150,
 		height : 40,
 		plain : true,
 		iconCls : 'icon-edit' ,
@@ -445,7 +445,7 @@ $(function(){
 	});
 
 	$("#img-delete").linkbutton({
-		width : 200,
+		width : 150,
 		height : 40,
 		plain : true,
 		iconCls : 'icon-cancel' ,
@@ -477,13 +477,29 @@ $(function(){
 	});
 
 	$("#img-close").linkbutton({
-		width : 200,
+		width : 150,
 		height : 40,
 		plain : true,
 		iconCls : 'icon-reload' ,
 
 		onClick : function(){
 			$("#img-dialog").dialog('close') ;
+		}
+	});
+
+	$("#img-note").linkbutton({
+		width : 150,
+		height : 40,
+		plain : true,
+		iconCls : 'icon-reload' ,
+
+		onClick : function(){
+			var prize = find($("#id").val()) ;
+			if ( prize.file_name ){
+				window.open(ROOT + '/Uploads/Prize/' + prize.file_name) ;
+			} else {
+				$.messager.alert('提示','暂无附件','info') ;
+			}
 		}
 	});
 
@@ -527,7 +543,7 @@ function loadData(page,topic){
 						$("#img-dialog img").attr('src',this.src) ;
 						$("#img-dialog").dialog('open');
 						$("#note").text(prize.note ? prize.note : '暂无备注');
-						$(".panel-header-noborder .panel-title").text(prize.topic) ;
+						$(".header-cls.panel-header-noborder .panel-title").text(prize.topic) ;
 						$("#id").val(prize.id) ;
 				});
 				
