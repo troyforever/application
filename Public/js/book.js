@@ -197,10 +197,7 @@ $(function(){
 		iconCls : 'icon-clear' ,
 		onClick : function(){
 			$("#search-form").form('clear') ;
-			$("#data-box").datagrid('load',{
-				'title' : '',
-				'year' : '',
-			}) ;
+			$("#data-box").datagrid('load',{}) ;
 		}
 	});
 
@@ -300,6 +297,9 @@ $(function(){
 					field : 'title' ,
 					colspan : 5,
 				}) ;
+				$(".pagination").hide();
+			} else {
+				$(".pagination").show();
 			}
 		},
 

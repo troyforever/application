@@ -233,6 +233,9 @@ $(function(){
 					field : 'topic' ,
 					colspan : 5,
 				}) ;
+				$(".pagination").hide();
+			} else {
+				$(".pagination").show();
 			}
 		},
 

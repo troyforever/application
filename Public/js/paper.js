@@ -231,12 +231,7 @@ $(function(){
 		iconCls : 'icon-clear' ,
 		onClick : function(){
 			$("#search-form").form('clear') ;
-			$("#data-box").datagrid('load',{
-				'topic' : '',
-				'author' : '',
-				'from' : '',
-				'to' : ''
-			}) ;
+			$("#data-box").datagrid('load',{}) ;
 		}
 	});
 
@@ -343,6 +338,9 @@ $(function(){
 					field : 'topic' ,
 					colspan : 6,
 				}) ;
+				$(".pagination").hide();
+			} else {
+				$(".pagination").show();
 			}
 		},
 

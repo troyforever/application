@@ -272,6 +272,9 @@ $(function(){
 					field : 'topic' ,
 					colspan : 7,
 				}) ;
+				$(".pagination").hide();
+			} else {
+				$(".pagination").show();
 			}
 		},
 

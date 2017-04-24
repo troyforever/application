@@ -271,6 +271,9 @@ $(function(){
 					field : 'id' ,
 					colspan : 7,
 				}) ;
+				$(".pagination").hide();
+			} else {
+				$(".pagination").show();
 			}
 		},
 
