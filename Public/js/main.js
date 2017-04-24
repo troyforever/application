@@ -36,6 +36,7 @@ $("#paper").linkbutton({
 	width:'100%',
 	height:40,
 	text:'论文',
+	iconCls : 'icon-paper' ,
 
 	onClick : function(){
 		addTab('论文', APP + '/Achievement/Paper') ;
@@ -47,6 +48,7 @@ $("#book").linkbutton({
 	width:'100%',
 	height:40,
 	text:'著作',
+	iconCls : 'icon-book',
 
 	onClick : function(){
 		addTab('著作', APP + '/Achievement/Book') ;
@@ -58,6 +60,7 @@ $("#science").linkbutton({
 	width:'100%',
 	height:40,
 	text:'项目',
+	iconCls : 'icon-project',
 	
 	onClick : function(){
 		addTab('项目', APP + '/Achievement/Project') ;
@@ -69,6 +72,7 @@ $("#patent").linkbutton({
 	width:'100%',
 	height:40,
 	text:'专利',
+	iconCls : 'icon-patent',
 
 	onClick : function(){
 		addTab('专利',APP + '/Achievement/Patent') ;
@@ -80,6 +84,7 @@ $("#prize").linkbutton({
 	width:'100%',
 	height:40,
 	text:'获奖情况',
+	iconCls : 'icon-prize',
 
 	onClick : function(){
 		addTab('获奖情况', APP + '/Achievement/Prize') ;
@@ -91,6 +96,7 @@ $("#social").linkbutton({
 	width:'100%',
 	height:40,
 	text:'社会活动',
+	iconCls : 'icon-social',
 
 	onClick : function(){
 		addTab('社会活动', APP + '/Achievement/Social') ;
@@ -103,6 +109,7 @@ $("#degree").linkbutton({
 	width:'100%',
 	height:40,
 	text:'教育经历',
+	iconCls : 'icon-education',
 
 	onClick : function(){
 		addTab('教育经历', APP + '/Experience/Education') ;
@@ -114,6 +121,7 @@ $("#job").linkbutton({
 	width:'100%',
 	height:40,
 	text:'工作经历',
+	iconCls : 'icon-work',
 
 	onClick : function(){
 		addTab('工作经历', APP + '/Experience/Work');
@@ -125,6 +133,7 @@ $("#position").linkbutton({
 	width:'100%',
 	height:40,
 	text:'职称评选',
+	iconCls : 'icon-title',
 
 	onClick : function(){
 		addTab('职称评选', APP + '/Experience/Title') ;
@@ -136,6 +145,7 @@ $("#teaching").linkbutton({
 	width:'100%',
 	height:40,
 	text:'教学经历',
+	iconCls : 'icon-teaching' ,
 
 	onClick : function(){
 		addTab('教学经历', APP + '/Experience/Teaching') ;
@@ -146,8 +156,8 @@ $("#account").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	iconCls:'icon-edit',
 	text:'账号信息',
+	iconCls : 'icon-account',
 
 	onClick : function() {
 		addTab('账号信息', APP + '/Home/Account/account') ;
@@ -158,7 +168,7 @@ $("#info").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	iconCls:'icon-man',
+	iconCls:'icon-info',
 	text:'个人信息',
 
 	onClick : function() {
@@ -170,7 +180,7 @@ $("#chpwd").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	iconCls:'icon-reload',
+	iconCls:'icon-password',
 	text:'修改密码',
 
 	onClick : function() {

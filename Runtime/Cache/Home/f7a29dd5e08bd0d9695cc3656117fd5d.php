@@ -10,6 +10,7 @@
     <!-- EasyUI -->
     <link href="/application/Public/easyui/themes/default/easyui.css" rel="stylesheet">
     <link href="/application/Public/easyui/themes/icon.css" rel="stylesheet">
+    <link href="/application/Public/css/icon.css" rel="stylesheet">
     <link href="/application/Public/css/account.css" rel="stylesheet">
 
 

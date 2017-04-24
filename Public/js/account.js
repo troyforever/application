@@ -65,6 +65,7 @@ $("#uid").textbox({
 	height : 30,
 	editable : false ,
 	readonly : true ,
+	iconCls : 'icon-account' ,
 	label : '工&emsp;&emsp;号' ,
 	labelWidth : 80,
 });
@@ -72,6 +73,7 @@ $("#uid").textbox({
 $("#phone").textbox({
 	height : 30,
 	label : '联系方式' ,
+	iconCls : 'icon-phone' ,
 	labelWidth : 80,
 	required : true,
 	validType : 'length[11,11]' ,
@@ -82,7 +84,7 @@ $("#phone").textbox({
 $("#email").textbox({
 	height : 30,
 	label : '邮&emsp;&emsp;箱' ,
-	iconCls : 'icon-edit' ,
+	iconCls : 'icon-email' ,
 	labelWidth : 80,
 	required : true,
 	validType : 'email' ,
@@ -95,7 +97,7 @@ $("#state").textbox({
 	height : 30,
 	label : '账户状态' ,
 	labelWidth : 80,
-	iconCls : 'icon-ok' ,
+	iconCls : 'icon-state' ,
 	readonly : true ,
 	value : '正常' ,
 });
@@ -105,6 +107,7 @@ $("#time").textbox({
 	label : '注册时间' ,
 	labelWidth : 80,
 	readonly : true ,
+	iconCls : 'icon-date' ,
 });
  
 $("#submit").linkbutton({

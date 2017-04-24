@@ -28,6 +28,7 @@ $("#uid").textbox({
 	readonly : true ,
 	label : '工&emsp;&emsp;号' ,
 	labelWidth : 80,
+	iconCls : 'icon-account',
 });
 
 $("#name").textbox({
@@ -38,6 +39,7 @@ $("#name").textbox({
 	validType : 'length[1,5]' ,
 	missingMessage : '姓名非空' ,
 	invalidMessage : '无效姓名输入' ,
+	iconCls : 'icon-name'
 });
 
 $("#gender").combobox({

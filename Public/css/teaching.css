@@ -5,4 +5,4 @@ td{height : 50px}
 #edit-cancel{float:right}
 .pagination-info{line-height: 50px}
 #search-box{height:40px;margin-top: 10px;}
-.textbox-label{margin-left:20px}
+#search-form .textbox-label{margin-left:20px}

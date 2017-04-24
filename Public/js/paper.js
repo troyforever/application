@@ -15,7 +15,7 @@ $(function(){
 		width : 100,
 		height : 50,
 		plain : true ,
-		iconCls : 'icon-more' ,
+		iconCls : 'icon-detail' ,
 
 		onClick : function(){
 			var selected = $("#data-box").datagrid('getSelected') ;
@@ -228,7 +228,7 @@ $(function(){
 		height : 30,
 		plain : true ,
 		label : '清空' ,
-		iconCls : 'icon-cancel' ,
+		iconCls : 'icon-clear' ,
 		onClick : function(){
 			$("#search-form").form('clear') ;
 			$("#data-box").datagrid('load',{
@@ -389,7 +389,7 @@ $(function(){
 
 	$("#detail-box").dialog({
 		title : '论文详情信息',
-		iconCls : 'icon-more' ,
+		iconCls : 'icon-detail' ,
 		modal : true ,
 		closed : true ,
 	});

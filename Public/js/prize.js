@@ -95,7 +95,7 @@ $(function(){
 		height : 30,
 		plain : true ,
 		label : '清空' ,
-		iconCls : 'icon-cancel' ,
+		iconCls : 'icon-clear' ,
 		onClick : function(){
 			$("#search-form").form('clear') ;
 			loadData(1,null) ;

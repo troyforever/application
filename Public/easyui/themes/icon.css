@@ -2,10 +2,10 @@
 	background:url('icons/blank.gif') no-repeat center center;
 }
 .icon-add{
-	background:url('icons/edit_add.png') no-repeat center center;
+	background:url('icons/add.png') no-repeat center center;
 }
 .icon-edit{
-	background:url('icons/pencil.png') no-repeat center center;
+	background:url('icons/edit.png') no-repeat center center;
 }
 .icon-clear{
 	background:url('icons/clear.png') no-repeat center center;
@@ -100,4 +100,90 @@
 }
 .icon-admin{
 	background:url('icons/admin.png') no-repeat center center;
+}
+
+.icon-account{
+	background:url('icons/account.png') no-repeat center center;
+}
+
+.icon-book{
+	background:url('icons/book.png') no-repeat center center;
+}
+
+.icon-date{
+	background:url('icons/date.png') no-repeat center center;
+}
+
+.icon-education{
+	background:url('icons/education.png') no-repeat center center;
+}
+
+.icon-email{
+	background:url('icons/email.png') no-repeat center center;
+}
+
+.icon-info{
+	background:url('icons/info.png') no-repeat center center;
+}
+
+.icon-name{
+	background:url('icons/name.png') no-repeat center center;
+}
+
+.icon-paper{
+	background:url('icons/paper.png') no-repeat center center;
+}
+
+.icon-password{
+	background:url('icons/password.png') no-repeat center center;
+}
+
+.icon-patent{
+	background:url('icons/patent.png') no-repeat center center;
+}
+
+.icon-phone{
+	background:url('icons/phone.png') no-repeat center center;
+}
+
+.icon-prize{
+	background:url('icons/prize.png') no-repeat center center;
+}
+
+.icon-project{
+	background:url('icons/project.png') no-repeat center center;
+}
+
+.icon-social{
+	background:url('icons/social.png') no-repeat center center;
+}
+
+.icon-state{
+	background:url('icons/state.png') no-repeat center center;
+}
+
+.icon-teaching{
+	background:url('icons/teaching.png') no-repeat center center;
+}
+
+.icon-title{
+	background:url('icons/title.png') no-repeat center center;
+}
+
+.icon-username{
+	background:url('icons/username.png') no-repeat center center;
+}
+
+.icon-work{
+	background:url('icons/work.png') no-repeat center center;
+}
+
+.icon-detail{
+	background:url('icons/detail.png') no-repeat center center;
+}
+.icon-file{
+	background:url('icons/file.png') no-repeat center center;
+}
+.icon-picture{
+	background:url('icons/picture.png') no-repeat center center;
 }
