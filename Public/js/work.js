@@ -23,64 +23,64 @@ $(function(){
 		}
 	});
 
-	$("#tools-edit").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-edit' ,
+	// $("#tools-edit").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-edit' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑工作经历！','info') ;
-			} else {
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待编辑工作经历！','info') ;
+	// 		} else {
 
-				$("#edit-form").form('load',{
-					'edit-unit' : selected.unit ,
-					'edit-job' : selected.job ,
-					'edit-length' : selected.length
-				});
+	// 			$("#edit-form").form('load',{
+	// 				'edit-unit' : selected.unit ,
+	// 				'edit-job' : selected.job ,
+	// 				'edit-length' : selected.length
+	// 			});
 
-				$("#edit-box").dialog('open') ;
+	// 			$("#edit-box").dialog('open') ;
 				
-			}
-		}
-	});
+	// 		}
+	// 	}
+	// });
 
-	$("#tools-delete").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-cancel' ,
+	// $("#tools-delete").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-cancel' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除工作经历！','info') ;
-			} else {
-				$.messager.confirm('删除提示','您确定要删除这条工作经历吗？',function(r){
-					if ( r ){
-						$.ajax({
-						url : APP + '/Experience/Work/delete' ,
-						method : 'post' ,
-						data : {id:selected.id} ,
-						async : false ,
-						dataType : 'json' ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待删除工作经历！','info') ;
+	// 		} else {
+	// 			$.messager.confirm('删除提示','您确定要删除这条工作经历吗？',function(r){
+	// 				if ( r ){
+	// 					$.ajax({
+	// 					url : APP + '/Experience/Work/delete' ,
+	// 					method : 'post' ,
+	// 					data : {id:selected.id} ,
+	// 					async : false ,
+	// 					dataType : 'json' ,
 
-						success : function(data){
-							if ( data ){
-								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
-							} else {
-								$.messager.alert('提示','删除失败！','info') ;
-							}
-						}
-					});
-					}
-				}) ;
-			}
-		}
-	});
+	// 					success : function(data){
+	// 						if ( data ){
+	// 							$("#data-box").datagrid('reload') ;
+	// 							$.messager.alert('提示','删除成功！','info') ;
+	// 						} else {
+	// 							$.messager.alert('提示','删除失败！','info') ;
+	// 						}
+	// 					}
+	// 				});
+	// 				}
+	// 			}) ;
+	// 		}
+	// 	}
+	// });
 
 	$("#tools-reload").linkbutton({
 		width : 150,
@@ -157,29 +157,44 @@ $(function(){
 					}
 				}
 			},
+			{
+				field : 'operation' ,
+				title : '操作' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return "<div class='operation'>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-edit\"' onclick='edit(" + index + ")'>编辑</a>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-cancel\"' onclick='remove(" + index + ")'>删除</a>" +
+							"</div>" ;
+				}
+			}
 		]] ,
 
 		onLoadSuccess : function(data){
 			if ( data.total == 0 ){
-				$("#tools-edit").linkbutton('disable') ;
-				$("#tools-delete").linkbutton('disable') ;
+				// $("#tools-edit").linkbutton('disable') ;
+				// $("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
 					unit : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'unit' ,
-					colspan : 4,
+					colspan : 5,
 				}) ;
 				$(".datagrid-pager.pagination").hide();
 			} else {
+				$.parser.parse($(".operation")) ;
 				$(".datagrid-pager.pagination").show();
 			}
 		},
 
-		onBeforeLoad : function(){
-			$("#tools-edit").linkbutton('enable') ;
-			$("#tools-delete").linkbutton('enable') ;
-		},
+		// onBeforeLoad : function(){
+		// 	$("#tools-edit").linkbutton('enable') ;
+		// 	$("#tools-delete").linkbutton('enable') ;
+		// },
 
 		onBeforeSelect : function(index,row){
 			if ( row == $("#data-box").datagrid('getSelected') ){
@@ -384,3 +399,39 @@ $(function(){
 		}
 	});
 });
+
+function edit(index){
+	var row = $("#data-box").datagrid('getRows')[index] ;
+	
+	$("#edit-form").form('load',{
+					'edit-unit' : row.unit ,
+					'edit-job' : row.job ,
+					'edit-length' : row.length
+				});
+
+				$("#edit-box").dialog('open') ;
+}
+
+function remove(index){
+	var row = $("#data-box").datagrid('getRows')[index] ;
+			$.messager.confirm('删除提示','您确定要删除这条工作经历吗？',function(r){
+					if ( r ){
+						$.ajax({
+						url : APP + '/Experience/Work/delete' ,
+						method : 'post' ,
+						data : {id:selected.id} ,
+						async : false ,
+						dataType : 'json' ,
+
+						success : function(data){
+							if ( data ){
+								$("#data-box").datagrid('reload') ;
+								$.messager.alert('提示','删除成功！','info') ;
+							} else {
+								$.messager.alert('提示','删除失败！','info') ;
+							}
+						}
+					});
+					}
+				}) ;
+}
