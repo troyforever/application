@@ -11,7 +11,7 @@ $("#register-box").form({}) ;
 
 $("#box").dialog({
 	title:'注册',
-	iconCls:'icon-man',
+	iconCls:'icon-register',
 	width:500,
 	height:450,
 
@@ -26,6 +26,7 @@ $("#username").numberbox({
 	type:'text',
 	prompt:'工号',
 	label : '工&emsp;&emsp;号',
+	iconCls : 'icon-account',
 	labelWidth : 80,
 	required : true ,
 	validType : 'length[10,10]' ,
@@ -39,6 +40,7 @@ $("#phone").numberbox({
 	type:'text',
 	prompt:'联系方式',
 	label : '联系方式',
+	iconCls : 'icon-phone',
 	labelWidth : 80,
 	required : true ,
 	validType : 'length[11,11]' ,
@@ -52,6 +54,7 @@ $("#email").textbox({
 	type:'text',
 	prompt:'邮箱',
 	label : '邮&emsp;&emsp;箱',
+	iconCls : 'icon-email',
 	labelWidth : 80,
 	required : true ,
 	validType : 'email' ,
@@ -135,6 +138,7 @@ $("#register").linkbutton({
 
 $("#login").linkbutton({
 	width:100,
+	iconCls : 'icon-login' ,
 	plain : true ,
 });
 
@@ -144,6 +148,7 @@ $("#code").textbox({
 	max : 9999 ,
 	prompt : '验证码' ,
 	label : '验&ensp;证&ensp;码' ,
+	iconCls : 'icon-code',
 	labelWidth : 80 ,
 	required : true ,
 	missingMessage : '' ,

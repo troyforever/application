@@ -1,6 +1,6 @@
 	$("#box").dialog({
 		title:'登录',
-		iconCls:'icon-man',
+		iconCls:'icon-login',
 		width:500,
 		height:350,
 
@@ -51,7 +51,7 @@
 		height:30,
 		type:'text',
 		prompt:'工号',
-		iconCls:'icon-man',
+		iconCls:'icon-account',
 		label : '工&emsp;&emsp;号' ,
 		labelWidth : 80 ,
 		required : true ,
@@ -73,7 +73,7 @@
 	});
 
 	$("#ok").linkbutton({
-		width:150,
+		width:120,
 		iconCls:'icon-ok' ,
 		onClick : function(){
 			$("#login-box").form('submit') ;
@@ -82,12 +82,14 @@
 	});
 
 	$("#register").linkbutton({
-		width:50,
+		width:70,
+		iconCls : 'icon-register',
 		plain : true ,
 	});
 
 	$("#fgtpwd").linkbutton({
-		width:60,
+		width:80,
+		iconCls : 'icon-password' ,
 		plain : true ,
 	});
 
@@ -97,6 +99,7 @@
 		max : 9999 ,
 		prompt : '验证码' ,
 		label : '验&ensp;证&ensp;码' ,
+		iconCls : 'icon-code',
 		labelWidth : 80,
 		required : true ,
 		missingMessage : '' ,

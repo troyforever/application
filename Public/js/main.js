@@ -39,7 +39,7 @@ $("#paper").linkbutton({
 	iconCls : 'icon-paper' ,
 
 	onClick : function(){
-		addTab('论文', APP + '/Achievement/Paper') ;
+		addTab('论文', APP + '/Achievement/Paper','icon-paper') ;
 	}
 });
 
@@ -51,7 +51,7 @@ $("#book").linkbutton({
 	iconCls : 'icon-book',
 
 	onClick : function(){
-		addTab('著作', APP + '/Achievement/Book') ;
+		addTab('著作', APP + '/Achievement/Book','icon-book') ;
 	}
 });
 
@@ -63,7 +63,7 @@ $("#science").linkbutton({
 	iconCls : 'icon-project',
 	
 	onClick : function(){
-		addTab('项目', APP + '/Achievement/Project') ;
+		addTab('项目', APP + '/Achievement/Project','icon-project') ;
 	}
 });
 
@@ -75,7 +75,7 @@ $("#patent").linkbutton({
 	iconCls : 'icon-patent',
 
 	onClick : function(){
-		addTab('专利',APP + '/Achievement/Patent') ;
+		addTab('专利',APP + '/Achievement/Patent','icon-patent') ;
 	}
 });
 
@@ -87,7 +87,7 @@ $("#prize").linkbutton({
 	iconCls : 'icon-prize',
 
 	onClick : function(){
-		addTab('获奖情况', APP + '/Achievement/Prize') ;
+		addTab('获奖情况', APP + '/Achievement/Prize','icon-prize') ;
 	}
 });
 
@@ -99,7 +99,7 @@ $("#social").linkbutton({
 	iconCls : 'icon-social',
 
 	onClick : function(){
-		addTab('社会活动', APP + '/Achievement/Social') ;
+		addTab('社会活动', APP + '/Achievement/Social','icon-social') ;
 	}
 });
 
@@ -112,7 +112,7 @@ $("#degree").linkbutton({
 	iconCls : 'icon-education',
 
 	onClick : function(){
-		addTab('教育经历', APP + '/Experience/Education') ;
+		addTab('教育经历', APP + '/Experience/Education','icon-education') ;
 	}
 });
 
@@ -124,7 +124,7 @@ $("#job").linkbutton({
 	iconCls : 'icon-work',
 
 	onClick : function(){
-		addTab('工作经历', APP + '/Experience/Work');
+		addTab('工作经历', APP + '/Experience/Work','icon-work');
 	}
 });
 
@@ -136,7 +136,7 @@ $("#position").linkbutton({
 	iconCls : 'icon-title',
 
 	onClick : function(){
-		addTab('职称评选', APP + '/Experience/Title') ;
+		addTab('职称评选', APP + '/Experience/Title','icon-title') ;
 	}
 });
 
@@ -148,7 +148,7 @@ $("#teaching").linkbutton({
 	iconCls : 'icon-teaching' ,
 
 	onClick : function(){
-		addTab('教学经历', APP + '/Experience/Teaching') ;
+		addTab('教学经历', APP + '/Experience/Teaching','icon-teaching') ;
 	}
 });
 
@@ -160,7 +160,7 @@ $("#account").linkbutton({
 	iconCls : 'icon-account',
 
 	onClick : function() {
-		addTab('账号信息', APP + '/Home/Account/account') ;
+		addTab('账号信息', APP + '/Home/Account/account','icon-account') ;
 	}
 });
 
@@ -172,7 +172,7 @@ $("#info").linkbutton({
 	text:'个人信息',
 
 	onClick : function() {
-		addTab('个人信息', APP + '/Home/Account/info') ;
+		addTab('个人信息', APP + '/Home/Account/info','icon-info') ;
 	}
 });
 
@@ -184,7 +184,7 @@ $("#chpwd").linkbutton({
 	text:'修改密码',
 
 	onClick : function() {
-		addTab('修改密码', APP + '/Home/Account/chpwd') ;
+		addTab('修改密码', APP + '/Home/Account/chpwd','icon-password') ;
 	}
 });
 
@@ -217,13 +217,14 @@ $("a.nav").on('click',function(){
 	$(this).css('background','#b7d2ff') ;
 }) ;
 
-function addTab(title,url) {
+function addTab(title,url,icon) {
 	if ( $("#content").tabs('exists',title) ){
 		$("#content").tabs('select',title) ;
 	} else {
 		var content = '<iframe scrolling="no" frameborder="0"  src="'+url+'" style="width:100%;height:99%;"></iframe>';
 		$("#content").tabs('add',{
 			title : title,
+			icon:icon,
 			closable : true ,
 			content : content ,
 		})

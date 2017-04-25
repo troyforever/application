@@ -187,3 +187,15 @@
 .icon-picture{
 	background:url('icons/picture.png') no-repeat center center;
 }
+.icon-home{
+	background:url('icons/home.png') no-repeat center center;
+}
+.icon-login{
+	background:url('icons/login.png') no-repeat center center;
+}
+.icon-register{
+	background:url('icons/register.png') no-repeat center center;
+}
+.icon-code{
+	background:url('icons/code.png') no-repeat center center;
+}

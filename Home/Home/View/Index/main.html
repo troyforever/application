@@ -58,7 +58,7 @@
 	  </div>
       <div data-options="region:'center',minWidth:800">
         <div id="content">
-          <div data-options="title:'欢迎页'"></div>
+          <div data-options="title:'欢迎页',iconCls:'icon-home'"></div>
         </div>
       </div>
     </div>

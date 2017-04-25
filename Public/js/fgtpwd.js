@@ -1,6 +1,6 @@
 $("#box").dialog({
 	title:'找回密码',
-	iconCls:'icon-man',
+	iconCls:'icon-password',
 	width:500,
 	height:270,
 
@@ -15,6 +15,7 @@ $("#email").textbox({
 	type:'text',
 	prompt:'邮箱',
 	label : '邮&emsp;&emsp;箱',
+	iconCls : 'icon-email',
 	labelWidth : 80,
 	required : true ,
 	validType : 'email' ,
@@ -58,6 +59,7 @@ $("#code").textbox({
 	max : 9999 ,
 	prompt : '验证码' ,
 	label : '验&ensp;证&ensp;码' ,
+	iconCls : 'icon-code',
 	labelWidth : 80 ,
 	required : true ,
 	missingMessage : '' ,
@@ -79,9 +81,9 @@ $("#recode").linkbutton({
 					dataType : 'json' ,
 					data : {email:email} ,
 					async : false ,
-					success : function (data){
-						if (data){
-							$("#recode").linkbutton('disable') ;
+
+					beforeSend : function(){
+						$("#recode").linkbutton('disable') ;
 							var time = 60 ;
 							var fun = setInterval(function(){
 								if ( time > 0 ){
@@ -95,6 +97,11 @@ $("#recode").linkbutton({
 									clearInterval(fun) ;
 								}
 							},1000);
+					},
+
+					success : function (data){
+						if (data){
+							
 						} else {
 							$.messager.alert('提示','验证码发送失败！','info') ;
 						}
