@@ -11,74 +11,57 @@ $(function(){
 		resizable : false ,
 	});
 
-	$("#tools-detail").linkbutton({
-		width : 100,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-detail' ,
+	// $("#tools-detail").linkbutton({
+	// 	width : 100,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-detail' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待查看论文信息！','info') ;
-			} else {
-				$.ajax({
-					url : APP + '/Achievement/paper/find' ,
-					method : 'POST' ,
-					data : { id:selected.id} ,
-					dataType : 'JSON' ,
-					async : false ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待查看论文信息！','info') ;
+	// 		} else {
+	// 			$.ajax({
+	// 				url : APP + '/Achievement/paper/find' ,
+	// 				method : 'POST' ,
+	// 				data : { id:selected.id} ,
+	// 				dataType : 'JSON' ,
+	// 				async : false ,
 
-					success : function(data){
-						$("#detail-topic").text(data.topic);
-						$("#detail-first_author").text(data.first_author);
-						$("#detail-other_author").text(data.other_author ? data.other_author : '无');
-						$("#detail-publication").text(data.publication);
-						$("#detail-publication_date").text(data.publication_date);
+	// 				success : function(data){
+	// 					$("#detail-topic").text(data.topic);
+	// 					$("#detail-first_author").text(data.first_author);
+	// 					$("#detail-other_author").text(data.other_author ? data.other_author : '无');
+	// 					$("#detail-publication").text(data.publication);
+	// 					$("#detail-publication_date").text(data.publication_date);
 
-						$("#detail-final_index").text(data.final_index);
-						$("#detail-index_date").text(data.index_date);
-						$("#detail-sci_partition").text(data.sci_partition ? data.sci_partition : '无');
-						$("#detail-if").text(data.if);
+	// 					$("#detail-final_index").text(data.final_index);
+	// 					$("#detail-index_date").text(data.index_date);
+	// 					$("#detail-sci_partition").text(data.sci_partition ? data.sci_partition : '无');
+	// 					$("#detail-if").text(data.if);
 
-						$("#detail-abstract").text(data.abstract ? data.abstract : '无');
-						$("#detail-keywords").text(data.keywords ? data.keywords : '无');
-						$("#detail-note").text(data.note ? data.note : '无');
-						if ( data.file_name ){
-							$("#detail-file_name").text('点击查看') ;
-							$("#detail-file_name").attr('onclick','window.open("' + ROOT + '/Uploads/Paper/' + data.file_name + '")') ;
-						} else {
-							$("#detail-file_name").text('暂无附件').removeAttr('onclick') ;
-						}
-						// $("#edit-form").form('load',{
-						// 	'edit-id' : data.id,
-						// 	'edit-topic' : data.topic ,
-						// 	'edit-first_author' : data.first_author ,
-						// 	'edit-other_author' : data.other_author ,
-						// 	'edit-publication' : data.publication,
-						// 	'edit-publication_date' : data.publication_date,
+	// 					$("#detail-abstract").text(data.abstract ? data.abstract : '无');
+	// 					$("#detail-keywords").text(data.keywords ? data.keywords : '无');
+	// 					$("#detail-note").text(data.note ? data.note : '无');
+	// 					if ( data.file_name ){
+	// 						$("#detail-file_name").text('点击查看') ;
+	// 						$("#detail-file_name").attr('onclick','window.open("' + ROOT + '/Uploads/Paper/' + data.file_name + '")') ;
+	// 					} else {
+	// 						$("#detail-file_name").text('暂无附件').removeAttr('onclick') ;
+	// 					}
+	// 				}
 
-						// 	'edit-final_index' : data.final_index ,
-						// 	'edit-index_date' : data.index_date ,
-						// 	'edit-sci_partition' : data.sci_partition ,
-						// 	'edit-unit' : data.unit_id ,
+	// 			});
 
-						// 	'edit-abstract' : data.abstract,
-						// 	'edit-keywords' : data.keywords,
-						// 	'edit-note' : data.note,
-						// });
-					}
-
-				});
-
-				$("#detail-box").dialog('open') ;
-			}
-		}
-	});
+	// 			$("#detail-box").dialog('open') ;
+	// 		}
+	// 	}
+	// });
 
 	//tools
 	$("#tools-add").linkbutton({
-		width : 100,
+		width : 150,
 		height : 50,
 		plain : true ,
 		iconCls : 'icon-add' ,
@@ -88,89 +71,89 @@ $(function(){
 		}
 	});
 
-	$("#tools-edit").linkbutton({
-		width : 100,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-edit' ,
+	// $("#tools-edit").linkbutton({
+	// 	width : 100,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-edit' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑论文信息！','info') ;
-			} else {
-				$.ajax({
-					url : APP + '/Achievement/paper/find' ,
-					method : 'POST' ,
-					data : { id:selected.id} ,
-					dataType : 'JSON' ,
-					async : false ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待编辑论文信息！','info') ;
+	// 		} else {
+	// 			$.ajax({
+	// 				url : APP + '/Achievement/paper/find' ,
+	// 				method : 'POST' ,
+	// 				data : { id:selected.id} ,
+	// 				dataType : 'JSON' ,
+	// 				async : false ,
 
-					success : function(data){
+	// 				success : function(data){
 
-						$("#edit-form").form('load',{
-							'edit-id' : data.id,
-							'edit-topic' : data.topic ,
-							'edit-first_author' : data.first_author ,
-							'edit-other_author' : data.other_author ,
-							'edit-publication' : data.publication,
-							'edit-publication_date' : data.publication_date,
+	// 					$("#edit-form").form('load',{
+	// 						'edit-id' : data.id,
+	// 						'edit-topic' : data.topic ,
+	// 						'edit-first_author' : data.first_author ,
+	// 						'edit-other_author' : data.other_author ,
+	// 						'edit-publication' : data.publication,
+	// 						'edit-publication_date' : data.publication_date,
 
-							'edit-final_index' : data.final_index ,
-							'edit-index_date' : data.index_date ,
-							'edit-sci_partition' : data.sci_partition ,
-							'edit-unit' : data.unit_id ,
+	// 						'edit-final_index' : data.final_index ,
+	// 						'edit-index_date' : data.index_date ,
+	// 						'edit-sci_partition' : data.sci_partition ,
+	// 						'edit-unit' : data.unit_id ,
 
-							'edit-abstract' : data.abstract,
-							'edit-keywords' : data.keywords,
-							'edit-note' : data.note,
-						});
-					}
+	// 						'edit-abstract' : data.abstract,
+	// 						'edit-keywords' : data.keywords,
+	// 						'edit-note' : data.note,
+	// 					});
+	// 				}
 
-				});
+	// 			});
 
-				$("#edit-box").dialog('open') ;
-			}
-		}
-	});
+	// 			$("#edit-box").dialog('open') ;
+	// 		}
+	// 	}
+	// });
 
-	$("#tools-delete").linkbutton({
-		width : 100,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-cancel' ,
+	// $("#tools-delete").linkbutton({
+	// 	width : 100,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-cancel' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除论文信息！','info') ;
-			} else {
-				$.messager.confirm('删除提示','您确定要删除这条论文信息吗？',function(r){
-					if ( r ){
-						$.ajax({
-						url : APP + '/Achievement/Paper/delete' ,
-						method : 'post' ,
-						data : {id:selected.id} ,
-						async : false ,
-						dataType : 'json' ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待删除论文信息！','info') ;
+	// 		} else {
+	// 			$.messager.confirm('删除提示','您确定要删除这条论文信息吗？',function(r){
+	// 				if ( r ){
+	// 					$.ajax({
+	// 					url : APP + '/Achievement/Paper/delete' ,
+	// 					method : 'post' ,
+	// 					data : {id:selected.id} ,
+	// 					async : false ,
+	// 					dataType : 'json' ,
 
-						success : function(data){
-							if ( data ){
-								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
-							} else {
-								$.messager.alert('提示','删除失败！','info') ;
-							}
-						}
-					});
-					}
-				}) ;
-			}
-		}
-	});
+	// 					success : function(data){
+	// 						if ( data ){
+	// 							$("#data-box").datagrid('reload') ;
+	// 							$.messager.alert('提示','删除成功！','info') ;
+	// 						} else {
+	// 							$.messager.alert('提示','删除失败！','info') ;
+	// 						}
+	// 					}
+	// 				});
+	// 				}
+	// 			}) ;
+	// 		}
+	// 	}
+	// });
 
 	$("#tools-reload").linkbutton({
-		width : 100,
+		width : 150,
 		height : 50,
 		plain : true ,
 		iconCls : 'icon-reload' ,
@@ -317,29 +300,45 @@ $(function(){
 						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Paper/' + value + '\')">查看</a>'
 					}
 				}
+			},
+			{
+				field : 'operation' ,
+				title : '操作' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return "<div class='operation'>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-detail\"' onclick='detail(" + row.id + ")'>详情</a>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-edit\"' onclick='edit(" + row.id + ")'>编辑</a>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-cancel\"' onclick='remove(" + row.id + ")'>删除</a>" +
+							"</div>" ;
+				}
 			}
 		]] ,
 
-		onBeforeLoad : function(){
-			$("#tools-detail").linkbutton('enable') ;
-			$("#tools-edit").linkbutton('enable') ;
-			$("#tools-delete").linkbutton('enable') ;
-		} ,
+		// onBeforeLoad : function(){
+		// 	$("#tools-detail").linkbutton('enable') ;
+		// 	$("#tools-edit").linkbutton('enable') ;
+		// 	$("#tools-delete").linkbutton('enable') ;
+		// } ,
 
 		onLoadSuccess : function(data){
 			if ( data.total == 0 ){
-				$("#tools-detail").linkbutton('disable') ;
-				$("#tools-edit").linkbutton('disable') ;
-				$("#tools-delete").linkbutton('disable') ;
+				// $("#tools-detail").linkbutton('disable') ;
+				// $("#tools-edit").linkbutton('disable') ;
+				// $("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
 					topic : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'topic' ,
-					colspan : 6,
+					colspan : 7,
 				}) ;
 				$(".pagination").hide();
 			} else {
+				$.parser.parse($(".operation")) ;
 				$(".pagination").show();
 			}
 		},
@@ -869,3 +868,96 @@ $(function(){
 		}
 	});
 });
+
+function detail(id){
+	$.ajax({
+					url : APP + '/Achievement/paper/find' ,
+					method : 'POST' ,
+					data : { id:id} ,
+					dataType : 'JSON' ,
+					async : false ,
+
+					success : function(data){
+						$("#detail-topic").text(data.topic);
+						$("#detail-first_author").text(data.first_author);
+						$("#detail-other_author").text(data.other_author ? data.other_author : '无');
+						$("#detail-publication").text(data.publication);
+						$("#detail-publication_date").text(data.publication_date);
+
+						$("#detail-final_index").text(data.final_index);
+						$("#detail-index_date").text(data.index_date);
+						$("#detail-sci_partition").text(data.sci_partition ? data.sci_partition : '无');
+						$("#detail-if").text(data.if);
+
+						$("#detail-abstract").text(data.abstract ? data.abstract : '无');
+						$("#detail-keywords").text(data.keywords ? data.keywords : '无');
+						$("#detail-note").text(data.note ? data.note : '无');
+						if ( data.file_name ){
+							$("#detail-file_name").text('点击查看') ;
+							$("#detail-file_name").attr('onclick','window.open("' + ROOT + '/Uploads/Paper/' + data.file_name + '")') ;
+						} else {
+							$("#detail-file_name").text('暂无附件').removeAttr('onclick') ;
+						}
+					}
+
+				});
+
+				$("#detail-box").dialog('open') ;
+}
+
+function edit(id){
+	$.ajax({
+					url : APP + '/Achievement/paper/find' ,
+					method : 'POST' ,
+					data : { id:id} ,
+					dataType : 'JSON' ,
+					async : false ,
+
+					success : function(data){
+
+						$("#edit-form").form('load',{
+							'edit-id' : data.id,
+							'edit-topic' : data.topic ,
+							'edit-first_author' : data.first_author ,
+							'edit-other_author' : data.other_author ,
+							'edit-publication' : data.publication,
+							'edit-publication_date' : data.publication_date,
+
+							'edit-final_index' : data.final_index ,
+							'edit-index_date' : data.index_date ,
+							'edit-sci_partition' : data.sci_partition ,
+							'edit-unit' : data.unit_id ,
+
+							'edit-abstract' : data.abstract,
+							'edit-keywords' : data.keywords,
+							'edit-note' : data.note,
+						});
+					}
+
+				});
+
+				$("#edit-box").dialog('open') ;
+}
+
+function remove(id){
+	$.messager.confirm('删除提示','您确定要删除这条论文信息吗？',function(r){
+					if ( r ){
+						$.ajax({
+						url : APP + '/Achievement/Paper/delete' ,
+						method : 'post' ,
+						data : {id:id} ,
+						async : false ,
+						dataType : 'json' ,
+
+						success : function(data){
+							if ( data ){
+								$("#data-box").datagrid('reload') ;
+								$.messager.alert('提示','删除成功！','info') ;
+							} else {
+								$.messager.alert('提示','删除失败！','info') ;
+							}
+						}
+					});
+					}
+				}) ;
+}

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Bootstrap 101 Template</title>
-
+    <link rel="shortcut icon" href="/application/Public/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
     <!-- EasyUI -->
     <link href="/application/Public/easyui/themes/default/easyui.css" rel="stylesheet">
     <link href="/application/Public/easyui/themes/icon.css" rel="stylesheet">

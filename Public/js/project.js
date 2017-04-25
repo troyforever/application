@@ -23,68 +23,68 @@ $(function(){
 		}
 	});
 
-	$("#tools-edit").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-edit' ,
+	// $("#tools-edit").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-edit' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑项目管理！','info') ;
-			} else {
-				$("#edit-form").form('load',{
-					'edit-id' : selected.id ,
-					'edit-topic' : selected.topic ,
-					'edit-author' : selected.author ,
-					'edit-other_author' : selected.other_author ,
-					'edit-category' : selected.category ,
-					'edit-project_sum' : selected.project_sum ,
-					'edit-start_date' : selected.start_date ,
-					'edit-end_date' : selected.end_date 
-				});
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待编辑项目管理！','info') ;
+	// 		} else {
+	// 			$("#edit-form").form('load',{
+	// 				'edit-id' : selected.id ,
+	// 				'edit-topic' : selected.topic ,
+	// 				'edit-author' : selected.author ,
+	// 				'edit-other_author' : selected.other_author ,
+	// 				'edit-category' : selected.category ,
+	// 				'edit-project_sum' : selected.project_sum ,
+	// 				'edit-start_date' : selected.start_date ,
+	// 				'edit-end_date' : selected.end_date 
+	// 			});
 
-				$("#edit-box").dialog('open') ;
+	// 			$("#edit-box").dialog('open') ;
 				
-			}
-		}
-	});
+	// 		}
+	// 	}
+	// });
 
-	$("#tools-delete").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-cancel' ,
+	// $("#tools-delete").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-cancel' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除项目管理！','info') ;
-			} else {
-				$.messager.confirm('删除提示','您确定要删除这条项目管理吗？',function(r){
-					if ( r ){
-						$.ajax({
-						url : APP + '/Achievement/Project/delete' ,
-						method : 'post' ,
-						data : {id:selected.id} ,
-						async : false ,
-						dataType : 'json' ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待删除项目管理！','info') ;
+	// 		} else {
+	// 			$.messager.confirm('删除提示','您确定要删除这条项目管理吗？',function(r){
+	// 				if ( r ){
+	// 					$.ajax({
+	// 					url : APP + '/Achievement/Project/delete' ,
+	// 					method : 'post' ,
+	// 					data : {id:selected.id} ,
+	// 					async : false ,
+	// 					dataType : 'json' ,
 
-						success : function(data){
-							if ( data ){
-								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
-							} else {
-								$.messager.alert('提示','删除失败！','info') ;
-							}
-						}
-					});
-					}
-				}) ;
-			}
-		}
-	});
+	// 					success : function(data){
+	// 						if ( data ){
+	// 							$("#data-box").datagrid('reload') ;
+	// 							$.messager.alert('提示','删除成功！','info') ;
+	// 						} else {
+	// 							$.messager.alert('提示','删除失败！','info') ;
+	// 						}
+	// 					}
+	// 				});
+	// 				}
+	// 			}) ;
+	// 		}
+	// 	}
+	// });
 
 	$("#tools-reload").linkbutton({
 		width : 150,
@@ -251,28 +251,43 @@ $(function(){
 					}
 				}
 			},
+			{
+				field : 'operation' ,
+				title : '操作' ,
+				width : 150 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return "<div class='operation'>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-edit\"' onclick='edit(" + index + ")'>编辑</a>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-cancel\"' onclick='remove(\"" + row.id + "\")'>删除</a>" +
+							"</div>" ;
+				}
+			}
 		]] ,
 
-		onBeforeLoad : function(){
-			$("#tools-detail").linkbutton('enable') ;
-			$("#tools-edit").linkbutton('enable') ;
-			$("#tools-delete").linkbutton('enable') ;
-		} ,
+		// onBeforeLoad : function(){
+		// 	$("#tools-detail").linkbutton('enable') ;
+		// 	$("#tools-edit").linkbutton('enable') ;
+		// 	$("#tools-delete").linkbutton('enable') ;
+		// } ,
 
 		onLoadSuccess : function(data){
 			if ( data.total == 0 ){
-				$("#tools-detail").linkbutton('disable') ;
-				$("#tools-edit").linkbutton('disable') ;
-				$("#tools-delete").linkbutton('disable') ;
+				// $("#tools-detail").linkbutton('disable') ;
+				// $("#tools-edit").linkbutton('disable') ;
+				// $("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
 					id : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'id' ,
-					colspan : 7,
+					colspan : 8,
 				}) ;
 				$(".pagination").hide();
 			} else {
+				$.parser.parse($(".operation")) ;
 				$(".pagination").show();
 			}
 		},
@@ -430,7 +445,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#add-form").form('reset') ;
+			$("#add-box").dialog('close') ;
 		}
 	});
 
@@ -605,3 +620,43 @@ $(function(){
 		buttonIcon : 'icon-search' ,
 	});
 });
+
+function edit(index){
+	var row = $("#data-box").datagrid('getRows')[index] ;
+	$("#edit-form").form('load',{
+					'edit-id' : row.id ,
+					'edit-topic' : row.topic ,
+					'edit-author' : row.author ,
+					'edit-other_author' : row.other_author ,
+					'edit-category' : row.category ,
+					'edit-project_sum' : row.project_sum ,
+					'edit-start_date' : row.start_date ,
+					'edit-end_date' : row.end_date 
+				});
+
+				$("#edit-box").dialog('open') ;
+				
+}
+
+function remove(id){
+$.messager.confirm('删除提示','您确定要删除这条项目吗？',function(r){
+					if ( r ){
+						$.ajax({
+						url : APP + '/Achievement/Project/delete' ,
+						method : 'post' ,
+						data : {id:id} ,
+						async : false ,
+						dataType : 'json' ,
+
+						success : function(data){
+							if ( data ){
+								$("#data-box").datagrid('reload') ;
+								$.messager.alert('提示','删除成功！','info') ;
+							} else {
+								$.messager.alert('提示','删除失败！','info') ;
+							}
+						}
+					});
+					}
+				}) ;
+}

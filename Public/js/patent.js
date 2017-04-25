@@ -23,78 +23,78 @@ $(function(){
 		}
 	});
 
-	$("#tools-edit").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-edit' ,
+	// $("#tools-edit").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-edit' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待编辑专利！','info') ;
-			} else {
-				$.ajax({
-					url : APP + '/Achievement/Patent/find' ,
-					data : {id:selected.id} ,
-					dataType : 'JSON' ,
-					method : 'POST' ,
-					async : false,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待编辑专利！','info') ;
+	// 		} else {
+	// 			$.ajax({
+	// 				url : APP + '/Achievement/Patent/find' ,
+	// 				data : {id:selected.id} ,
+	// 				dataType : 'JSON' ,
+	// 				method : 'POST' ,
+	// 				async : false,
 
-					success : function(data){
-						console.log(data) ;
-						$("#edit-form").form('load',{
-							'edit-id' : data.id ,
-							'edit-topic' : data.topic ,
-							'edit-author' : data.author ,
-							'edit-state' : data.state,
-							'edit-category' : data.category ,
-							'edit-application_id' : data.application_id ,
-							'edit-application_date' : data.application_date ,
-							'edit-auth_date' : data.auth_date 
-						});
-					}
-				});
-				$("#edit-box").dialog('open') ;
+	// 				success : function(data){
+	// 					console.log(data) ;
+	// 					$("#edit-form").form('load',{
+	// 						'edit-id' : data.id ,
+	// 						'edit-topic' : data.topic ,
+	// 						'edit-author' : data.author ,
+	// 						'edit-state' : data.state,
+	// 						'edit-category' : data.category ,
+	// 						'edit-application_id' : data.application_id ,
+	// 						'edit-application_date' : data.application_date ,
+	// 						'edit-auth_date' : data.auth_date 
+	// 					});
+	// 				}
+	// 			});
+	// 			$("#edit-box").dialog('open') ;
 				
-			}
-		}
-	});
+	// 		}
+	// 	}
+	// });
 
-	$("#tools-delete").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-cancel' ,
+	// $("#tools-delete").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-cancel' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除专利！','info') ;
-			} else {
-				$.messager.confirm('删除提示','您确定要删除这条专利吗？',function(r){
-					if ( r ){
-						$.ajax({
-						url : APP + '/Achievement/Patent/delete' ,
-						method : 'post' ,
-						data : {id:selected.id} ,
-						async : false ,
-						dataType : 'json' ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待删除专利！','info') ;
+	// 		} else {
+	// 			$.messager.confirm('删除提示','您确定要删除这条专利吗？',function(r){
+	// 				if ( r ){
+	// 					$.ajax({
+	// 					url : APP + '/Achievement/Patent/delete' ,
+	// 					method : 'post' ,
+	// 					data : {id:selected.id} ,
+	// 					async : false ,
+	// 					dataType : 'json' ,
 
-						success : function(data){
-							if ( data ){
-								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
-							} else {
-								$.messager.alert('提示','删除失败！','info') ;
-							}
-						}
-					});
-					}
-				}) ;
-			}
-		}
-	});
+	// 					success : function(data){
+	// 						if ( data ){
+	// 							$("#data-box").datagrid('reload') ;
+	// 							$.messager.alert('提示','删除成功！','info') ;
+	// 						} else {
+	// 							$.messager.alert('提示','删除失败！','info') ;
+	// 						}
+	// 					}
+	// 				});
+	// 				}
+	// 			}) ;
+	// 		}
+	// 	}
+	// });
 
 	$("#tools-reload").linkbutton({
 		width : 150,
@@ -252,28 +252,43 @@ $(function(){
 					}
 				}
 			},
+			{
+				field : 'operation' ,
+				title : '操作' ,
+				width : 150 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return "<div class='operation'>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-edit\"' onclick='edit(" + row.id + ")'>编辑</a>" +
+							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-cancel\"' onclick='remove(" + row.id + ")'>删除</a>" +
+							"</div>" ;
+				}
+			}
 		]] ,
 
-		onBeforeLoad : function(){
-			$("#tools-detail").linkbutton('enable') ;
-			$("#tools-edit").linkbutton('enable') ;
-			$("#tools-delete").linkbutton('enable') ;
-		} ,
+		// onBeforeLoad : function(){
+		// 	$("#tools-detail").linkbutton('enable') ;
+		// 	$("#tools-edit").linkbutton('enable') ;
+		// 	$("#tools-delete").linkbutton('enable') ;
+		// } ,
 
 		onLoadSuccess : function(data){
 			if ( data.total == 0 ){
-				$("#tools-detail").linkbutton('disable') ;
-				$("#tools-edit").linkbutton('disable') ;
-				$("#tools-delete").linkbutton('disable') ;
+				// $("#tools-detail").linkbutton('disable') ;
+				// $("#tools-edit").linkbutton('disable') ;
+				// $("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
 					topic : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'topic' ,
-					colspan : 7,
+					colspan : 8,
 				}) ;
 				$(".pagination").hide();
 			} else {
+				$.parser.parse($(".operation")) ;
 				$(".pagination").show();
 			}
 		},
@@ -440,7 +455,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#add-form").form('reset') ;
+			$("#add-box").dialog('close') ;
 		}
 	});
 
@@ -619,3 +634,50 @@ $(function(){
 		buttonIcon : 'icon-search' ,
 	});
 });
+
+function edit(id){
+	$.ajax({
+					url : APP + '/Achievement/Patent/find' ,
+					data : {id:id} ,
+					dataType : 'JSON' ,
+					method : 'POST' ,
+					async : false,
+
+					success : function(data){
+						$("#edit-form").form('load',{
+							'edit-id' : data.id ,
+							'edit-topic' : data.topic ,
+							'edit-author' : data.author ,
+							'edit-state' : data.state,
+							'edit-category' : data.category ,
+							'edit-application_id' : data.application_id ,
+							'edit-application_date' : data.application_date ,
+							'edit-auth_date' : data.auth_date 
+						});
+					}
+				});
+				$("#edit-box").dialog('open') ;
+}
+
+function remove(id){
+	$.messager.confirm('删除提示','您确定要删除这条专利吗？',function(r){
+					if ( r ){
+						$.ajax({
+						url : APP + '/Achievement/Patent/delete' ,
+						method : 'post' ,
+						data : {id:id} ,
+						async : false ,
+						dataType : 'json' ,
+
+						success : function(data){
+							if ( data ){
+								$("#data-box").datagrid('reload') ;
+								$.messager.alert('提示','删除成功！','info') ;
+							} else {
+								$.messager.alert('提示','删除失败！','info') ;
+							}
+						}
+					});
+					}
+				}) ;
+}
