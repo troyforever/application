@@ -31,9 +31,9 @@
       <div data-options="region:'south'" class="nav-bottom" style="height: 40px;overflow:hidden">
         <div class="copy">CopyRight © <a href="http://cs.ujs.edu.cn" style="text-decoration: none;color:black" target="_blank">江苏大学计算机科学与通信工程学院</a></div>
       </div>
-      <div data-options="region:'west',title:'功能菜单',hideCollapsedContent:false,expandMode:'dock'" style="width: 200px">
+      <div data-options="region:'west',title:'功能菜单',hideCollapsedContent:false,expandMode:'dock'" style="width: 200px;overflow:hidden">
     		<div id="nagivator">
-          <div title="成果管理">
+          <div title="成果管理" style="overflow:hidden">
             <a class="nav" id="paper" href="javascript:;"></a>
             <a class="nav" id="book" href="javascript:;"></a>
             <a class="nav" id="science" href="javascript:;"></a>
@@ -42,14 +42,14 @@
             <a class="nav" id="social" href="javascript:;"></a>
           </div>
 
-          <div title="个人经历">
+          <div title="个人经历" style="overflow:hidden">
             <a class="nav" id="degree" href="javascript:;"></a>
             <a class="nav" id="job" href="javascript:;"></a>
             <a class="nav" id="position" href="javascript:;"></a>
             <a class="nav" id="teaching" href="javascript:;"></a>
           </div>
 
-    			<div title="账号管理">
+    			<div title="账号管理" style="overflow:hidden">
     		<a class="nav" id="account" href="javascript:;"></a>
             <a class="nav" id="info" href="javascript:;"></a>
             <a class="nav" id="chpwd" href="javascript:;"></a>

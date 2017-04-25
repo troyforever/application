@@ -3,7 +3,9 @@ $("#box").layout({
 }) ;
 
 $("#nagivator").accordion({
-	fit:true,
+	width : 200,
+	multiple : true,
+	// fit:true,
 	border:false,
 	headerCls:'panel-header',
 }) ;
@@ -203,6 +205,8 @@ $(function(){
 	$("ul.tabs").on('dblclick',function(){
 		closeCurrentTab();
 	}) ;
+
+	$(".panel-header.accordion-header").height('16px') ;
 });
 
 function closeCurrentTab(){

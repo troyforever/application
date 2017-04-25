@@ -1,5 +1,5 @@
-body{min-height: 650px;min-width: 800px}
+body{min-height: 600px;min-width: 800px}
 .north{height:200px;}
-.panel-header{text-align: center;}
+.panel-header{text-align: center;padding:5px 0;height:16px}
 .nav-top, .nav-bottom{background: #e0ecff; }
 .copy{line-height: 40px; text-align: center}
