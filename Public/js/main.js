@@ -5,8 +5,8 @@ $("#box").layout({
 $("#nagivator").accordion({
 	width : 200,
 	multiple : true,
-	// fit:true,
 	border:false,
+	selected : 0,
 	headerCls:'panel-header',
 }) ;
 
@@ -207,6 +207,7 @@ $(function(){
 	}) ;
 
 	$(".panel-header.accordion-header").height('16px') ;
+	$("#nagivator").accordion('select',1) ;
 });
 
 function closeCurrentTab(){
