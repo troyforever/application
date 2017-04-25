@@ -32,8 +32,8 @@
       <input id="outlook" name="outlook" style="width:300px" data-options="value:'<?php echo $outlook != null ? $outlook : '群众' ?>'"><br><br>
       <input id="unit" name="unit" style="width:300px" data-options="value:<?php echo $unitid != null ? $unitid : 1 ?>"><br><br>
       <input id="department" name="department" style="width:300px" data-options="value:<?php echo $departmentid != null ? $departmentid : 1 ?>"><br><br>
-      <a id="submit">提交</a>
       <a id="cancel" style="float:right">刷新</a>
+      <a id="submit">提交</a>
       </form>
     </div>
     <script type="text/javascript">
