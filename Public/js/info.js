@@ -54,10 +54,11 @@ $("#birth").datebox({
 	height : 30,
 	label : '出生日期' ,
 	labelWidth : 80,
+	panelHeight : 300,
+	panelWidth : 300,
 	editable : false ,
 	currentText : '今天' ,
 	closeText : '关闭' ,
-	panelWidth : 210 ,
 });
 
 $("#nation").combobox({
