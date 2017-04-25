@@ -382,7 +382,7 @@ $(function(){
 
 		onClick : function(){
 			$("#edit-form").form('submit',{
-				url : APP + '/Experience/Work/edit?id=' + $("#data-box").datagrid('getSelected').id ,
+				url : APP + '/Experience/Work/edit' ,
 			}).form('clear') ;
 			$("#edit-box").dialog('close') ;
 		}
@@ -404,6 +404,7 @@ function edit(index){
 	var row = $("#data-box").datagrid('getRows')[index] ;
 	
 	$("#edit-form").form('load',{
+					'edit-id':row.id,
 					'edit-unit' : row.unit ,
 					'edit-job' : row.job ,
 					'edit-length' : row.length
@@ -419,7 +420,7 @@ function remove(index){
 						$.ajax({
 						url : APP + '/Experience/Work/delete' ,
 						method : 'post' ,
-						data : {id:selected.id} ,
+						data : {id:row.id} ,
 						async : false ,
 						dataType : 'json' ,
 

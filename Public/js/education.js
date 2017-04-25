@@ -453,7 +453,7 @@ $(function(){
 
 		onClick : function(){
 			$("#edit-form").form('submit',{
-				url : APP + '/Experience/Education/edit?id=' + $("#data-box").datagrid('getSelected').id ,
+				url : APP + '/Experience/Education/edit',
 			}).form('clear') ;
 			$("#edit-box").dialog('close') ;
 		}
@@ -475,6 +475,7 @@ function edit(index){
 	var row = $("#data-box").datagrid('getRows')[index] ;
 	
 	$("#edit-form").form('load',{
+		'edit-id' : row.id,
 		'edit-school' : row.school ,
 		'edit-major' : row.major ,
 		'edit-degree' : row.degree ,

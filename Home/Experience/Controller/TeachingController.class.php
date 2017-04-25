@@ -94,7 +94,7 @@ class TeachingController extends CommonController{
 
         $teaching = M('Teaching') ;
 
-        $result = $teaching -> where("id=" . I('request.id') ) -> save($data) ;
+        $result = $teaching -> where("id=" . I('request.edit-id') ) -> save($data) ;
 
         $this -> ajaxReturn($result !== false ? true : false) ;
     }

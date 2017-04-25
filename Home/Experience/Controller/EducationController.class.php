@@ -94,7 +94,7 @@ class EducationController extends CommonController{
                 $base = M('Base') ;
                 $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
 
-                $file_name = $education -> where('id='.I('request.id')) -> getField('file_name') ;
+                $file_name = $education -> where('id='.I('request.edit-id')) -> getField('file_name') ;
                 
                 //删除原先文件
                 $file = iconv('utf-8', 'gbk', './Uploads/Education/'.$file_name);
@@ -114,7 +114,7 @@ class EducationController extends CommonController{
                 $data['file_name'] = $info['edit-file_name']['savename'] ;
             }
 
-            $result = $education -> where("id=" . I('request.id') ) -> save($data) ;
+            $result = $education -> where("id=" . I('request.edit-id') ) -> save($data) ;
 
             $this -> ajaxReturn($result !== false ? true : false) ;
         }

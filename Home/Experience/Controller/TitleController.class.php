@@ -78,8 +78,7 @@ class TitleController extends CommonController{
     public function edit(){
 
         $data['title'] = I('post.edit-title') ;
-        $data['from_time'] = I('post.edit-from') ;
-        $data['to_time'] = I('post.edit-to') ;
+        $data['title_time'] = I('post.edit-title_time') ;
 
         $title = M('Title') ;
 
@@ -88,7 +87,7 @@ class TitleController extends CommonController{
                 $base = M('Base') ;
                 $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
 
-                $file_name = $title -> where('id='.I('request.id')) -> getField('file_name') ;
+                $file_name = $title -> where('id='.I('request.edit-id')) -> getField('file_name') ;
                 
                 //删除原先文件
                 $file = iconv('utf-8', 'gbk', './Uploads/Title/'.$file_name);
@@ -108,7 +107,7 @@ class TitleController extends CommonController{
                 $data['file_name'] = $info['edit-file_name']['savename'] ;
             }
 
-        $result = $title -> where("id=" . I('request.id') ) -> save($data) ;
+        $result = $title -> where("id=" . I('request.edit-id') ) -> save($data) ;
 
         $this -> ajaxReturn($result !== false ? true : false) ;
     }
