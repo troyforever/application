@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;项目管理',
+		title : '科研成果&emsp;/&emsp;科研项目',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -161,7 +161,7 @@ $(function(){
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'start_date' ,
-		loadMsg : '项目管理加载中。。。' ,
+		loadMsg : '科研项目信息加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
@@ -192,15 +192,15 @@ $(function(){
 				sortable : true ,
 				sortOrder : 'asc' , 
 			},
-			{
-				field : 'category' ,
-				title : '性质' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'asc' , 
-			},
+			// {
+			// 	field : 'category' ,
+			// 	title : '性质' ,
+			// 	width : 100 ,
+			// 	align : 'center' ,
+			// 	halign : 'center' ,
+			// 	sortable : true ,
+			// 	sortOrder : 'asc' , 
+			// },
 			{
 				field : 'project_sum' ,
 				title : '合同金额' ,
@@ -283,7 +283,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'id' ,
-					colspan : 8,
+					colspan : 7,
 				}) ;
 				$(".pagination").hide();
 			} else {
@@ -319,17 +319,17 @@ $(function(){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
 				$("#add-form").form('reset') ;
-				$.messager.alert('提示','项目信息添加成功！','info') ;
+				$.messager.alert('提示','科研项目信息添加成功！','info') ;
 			} else {
-				$.messager.alert('提示','项目信息添加失败！','info') ;
+				$.messager.alert('提示','科研项目信息添加失败！','info') ;
 			}
 		}
 	});
 
 	$("#add-box").dialog({
 		width : 512,
-		height : 515,
-		title : '添加项目管理信息',
+		height : 470,
+		title : '添加科研项目信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
@@ -341,7 +341,7 @@ $(function(){
 		label : '编&emsp;&emsp;号' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '项目编号非空' ,
+		missingMessage : '科研项目编号非空' ,
 	});
 
 	$("#add-topic").textbox({
@@ -369,29 +369,29 @@ $(function(){
 		labelWidth : 70,
 	});
 
-	$("#add-category").combobox({
-		width : 300,
-		height : 30,
-		label : '性&emsp;&emsp;质' ,
-		labelWidth : 70,
-		valueField : 'value',
-		textField : 'text' ,
-		panelHeight : 50,
-		required : true ,
-		editable : false,
-		data : [
-			{
-				text : '科研项目' ,
-				value : '1'
-			},
-			{
-				text : '教学项目' ,
-				value : '2'
-			}
-		],
+	// $("#add-category").combobox({
+	// 	width : 300,
+	// 	height : 30,
+	// 	label : '性&emsp;&emsp;质' ,
+	// 	labelWidth : 70,
+	// 	valueField : 'value',
+	// 	textField : 'text' ,
+	// 	panelHeight : 50,
+	// 	required : true ,
+	// 	editable : false,
+	// 	data : [
+	// 		{
+	// 			text : '科研项目' ,
+	// 			value : '1'
+	// 		},
+	// 		{
+	// 			text : '教学项目' ,
+	// 			value : '2'
+	// 		}
+	// 	],
 
-		value : 1,
-	});
+	// 	value : 1,
+	// });
 
 	$("#add-project_sum").numberspinner({
 		width : 300,
@@ -463,8 +463,8 @@ $(function(){
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 512,
-		height : 515,
-		title : '编辑经过经历信息',
+		height : 470,
+		title : '编辑科研项目信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
 		closed : true ,
@@ -487,9 +487,9 @@ $(function(){
 				$("#edit-box").dialog('close') ;
 				$("#edit-form").form('reset') ;
 				$("#data-box").datagrid('reload') ;
-				$.messager.alert('提示','项目信息更新成功！','info') ;
+				$.messager.alert('提示','科研项目信息更新成功！','info') ;
 			} else {
-				$.messager.alert('提示','项目信息更新失败！','info') ;
+				$.messager.alert('提示','科研项目信息更新失败！','info') ;
 			}
 		}
 	});
@@ -502,7 +502,7 @@ $(function(){
 		editable : false,
 		editable : false,
 		required : true ,
-		missingMessage : '项目编号非空' ,
+		missingMessage : '科研项目编号非空' ,
 	});
 
 	$("#edit-topic").textbox({
@@ -530,29 +530,29 @@ $(function(){
 		labelWidth : 70,
 	});
 
-	$("#edit-category").combobox({
-		width : 300,
-		height : 30,
-		label : '性&emsp;&emsp;质' ,
-		labelWidth : 70,
-		valueField : 'value',
-		textField : 'text' ,
-		panelHeight : 50,
-		required : true ,
-		editable : false,
-		data : [
-			{
-				text : '科研项目' ,
-				value : 1
-			},
-			{
-				text : '教学项目' ,
-				value : 2
-			}
-		],
+	// $("#edit-category").combobox({
+	// 	width : 300,
+	// 	height : 30,
+	// 	label : '性&emsp;&emsp;质' ,
+	// 	labelWidth : 70,
+	// 	valueField : 'value',
+	// 	textField : 'text' ,
+	// 	panelHeight : 50,
+	// 	required : true ,
+	// 	editable : false,
+	// 	data : [
+	// 		{
+	// 			text : '科研项目' ,
+	// 			value : 1
+	// 		},
+	// 		{
+	// 			text : '教学项目' ,
+	// 			value : 2
+	// 		}
+	// 	],
 
-		value : 1,
-	});
+	// 	value : 1,
+	// });
 
 	$("#edit-project_sum").numberspinner({
 		width : 300,
@@ -639,7 +639,7 @@ function edit(index){
 }
 
 function remove(id){
-$.messager.confirm('删除提示','您确定要删除这条项目吗？',function(r){
+$.messager.confirm('删除提示','您确定要删除这条科研项目吗？',function(r){
 					if ( r ){
 						$.ajax({
 						url : APP + '/Achievement/Project/delete' ,
@@ -651,9 +651,9 @@ $.messager.confirm('删除提示','您确定要删除这条项目吗？',functio
 						success : function(data){
 							if ( data ){
 								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
+								$.messager.alert('提示','科研项目信息删除成功！','info') ;
 							} else {
-								$.messager.alert('提示','删除失败！','info') ;
+								$.messager.alert('提示','科研项目信息删除失败！','info') ;
 							}
 						}
 					});

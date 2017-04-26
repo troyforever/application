@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;获奖情况',
+		title : '科研成果&emsp;/&emsp;获奖信息',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -23,40 +23,40 @@ $(function(){
 		}
 	});
 
-	$("#tools-delete").linkbutton({
-		width : 150,
-		height : 50,
-		plain : true ,
-		iconCls : 'icon-cancel' ,
+	// $("#tools-delete").linkbutton({
+	// 	width : 150,
+	// 	height : 50,
+	// 	plain : true ,
+	// 	iconCls : 'icon-cancel' ,
 
-		onClick : function(){
-			var selected = $("#data-box").datagrid('getSelected') ;
-			if ( selected == null ){
-				$.messager.alert('提示','请先选中待删除获奖情况！','info') ;
-			} else {
-				$.messager.confirm('删除提示','您确定要删除这条获奖情况吗？',function(r){
-					if ( r ){
-						$.ajax({
-						url : APP + '/Achievement/Prize/delete' ,
-						method : 'post' ,
-						data : {id:selected.id} ,
-						async : false ,
-						dataType : 'json' ,
+	// 	onClick : function(){
+	// 		var selected = $("#data-box").datagrid('getSelected') ;
+	// 		if ( selected == null ){
+	// 			$.messager.alert('提示','请先选中待删除获奖信息！','info') ;
+	// 		} else {
+	// 			$.messager.confirm('删除提示','您确定要删除这条获奖情况吗？',function(r){
+	// 				if ( r ){
+	// 					$.ajax({
+	// 					url : APP + '/Achievement/Prize/delete' ,
+	// 					method : 'post' ,
+	// 					data : {id:selected.id} ,
+	// 					async : false ,
+	// 					dataType : 'json' ,
 
-						success : function(data){
-							if ( data ){
-								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
-							} else {
-								$.messager.alert('提示','删除失败！','info') ;
-							}
-						}
-					});
-					}
-				}) ;
-			}
-		}
-	});
+	// 					success : function(data){
+	// 						if ( data ){
+	// 							$("#data-box").datagrid('reload') ;
+	// 							$.messager.alert('提示','删除成功！','info') ;
+	// 						} else {
+	// 							$.messager.alert('提示','删除失败！','info') ;
+	// 						}
+	// 					}
+	// 				});
+	// 				}
+	// 			}) ;
+	// 		}
+	// 	}
+	// });
 
 	$("#tools-reload").linkbutton({
 		width : 150,
@@ -247,7 +247,7 @@ $(function(){
 	$("#add-box").dialog({
 		width : 512,
 		height : 330,
-		title : '添加获奖情况信息',
+		title : '添加获奖信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
@@ -267,8 +267,8 @@ $(function(){
 		height : 30,
 		label : '获奖图片' ,
 		labelWidth : 70,
-		prompt : '附件',
-		buttonText : '附件' ,
+		prompt : '火箭图片',
+		buttonText : '图片' ,
 		buttonIcon : 'icon-search' ,
 		required : true,
 		missingMessage : '获奖图片非空' ,
@@ -330,7 +330,7 @@ $(function(){
 			if ( $("#edit-box").form('validate') ){
 				return true ;
 			} else {
-				$.messager.alert('提示','请输入完整信息!','info') ;
+				$.messager.alert('提示','请输入完整获奖信息!','info') ;
 				return false ;
 			}
 		},
@@ -557,7 +557,7 @@ function loadData(page,topic){
 				$("#page").show();
 			} else {
 				$("#page").hide();
-				$("#prize").append('<h2 style="text-align:center">暂无获奖记录,<a href="javascript:;" onclick="javascript:$(\'#add-box\').dialog(\'open\')">点击添加</a></h2>')
+				$("#prize").append('<h2 style="text-align:center">暂无获奖信息,<a href="javascript:;" onclick="javascript:$(\'#add-box\').dialog(\'open\')">点击添加</a></h2>')
 			}
 		}
 	});

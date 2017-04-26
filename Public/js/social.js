@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;社会活动',
+		title : '科研成果&emsp;/&emsp;社会活动',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -139,7 +139,7 @@ $(function(){
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'social_date' ,
-		loadMsg : '社会活动加载中。。。' ,
+		loadMsg : '社会活动信息加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
@@ -281,9 +281,9 @@ $(function(){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
 				$("#add-form").form('reset') ;
-				$.messager.alert('提示','项目信息添加成功！','info') ;
+				$.messager.alert('提示','社会活动信息添加成功！','info') ;
 			} else {
-				$.messager.alert('提示','项目信息添加失败！','info') ;
+				$.messager.alert('提示','社会活动信息添加失败！','info') ;
 			}
 		}
 	});
@@ -395,9 +395,9 @@ $(function(){
 				$("#edit-box").dialog('close') ;
 				$("#edit-form").form('reset') ;
 				$("#data-box").datagrid('reload') ;
-				$.messager.alert('提示','项目信息更新成功！','info') ;
+				$.messager.alert('提示','社会活动信息更新成功！','info') ;
 			} else {
-				$.messager.alert('提示','项目信息更新失败！','info') ;
+				$.messager.alert('提示','社会活动信息更新失败！','info') ;
 			}
 		}
 	});
@@ -486,7 +486,7 @@ function edit(index){
 }
 
 function remove(id){
-	$.messager.confirm('删除提示','您确定要删除这条社会活动吗？',function(r){
+	$.messager.confirm('删除提示','您确定要删除这条社会活动信息吗？',function(r){
 					if ( r ){
 						$.ajax({
 						url : APP + '/Achievement/Social/delete' ,
@@ -498,9 +498,9 @@ function remove(id){
 						success : function(data){
 							if ( data ){
 								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
+								$.messager.alert('提示','社会活动信息删除成功！','info') ;
 							} else {
-								$.messager.alert('提示','删除失败！','info') ;
+								$.messager.alert('提示','社会活动信息删除失败！','info') ;
 							}
 						}
 					});

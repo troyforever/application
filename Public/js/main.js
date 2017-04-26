@@ -33,39 +33,29 @@ $("#admin").linkbutton({
 	iconCls : 'icon-admin' ,
 }) ;
 
+//科研成果
 $("#paper").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'论文',
+	text:'科研论文',
 	iconCls : 'icon-paper' ,
 
 	onClick : function(){
-		addTab('论文', APP + '/Achievement/Paper','icon-paper') ;
+		addTab('科研论文', APP + '/Achievement/Paper','icon-paper') ;
 	}
 });
 
-$("#book").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'著作',
-	iconCls : 'icon-book',
-
-	onClick : function(){
-		addTab('著作', APP + '/Achievement/Book','icon-book') ;
-	}
-});
 
 $("#science").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'项目',
+	text:'科研项目',
 	iconCls : 'icon-project',
 	
 	onClick : function(){
-		addTab('项目', APP + '/Achievement/Project','icon-project') ;
+		addTab('科研项目', APP + '/Achievement/Project','icon-project') ;
 	}
 });
 
@@ -73,11 +63,11 @@ $("#patent").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'专利',
+	text:'专利授权',
 	iconCls : 'icon-patent',
 
 	onClick : function(){
-		addTab('专利',APP + '/Achievement/Patent','icon-patent') ;
+		addTab('专利授权',APP + '/Achievement/Patent','icon-patent') ;
 	}
 });
 
@@ -85,11 +75,11 @@ $("#prize").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'获奖情况',
+	text:'获奖信息',
 	iconCls : 'icon-prize',
 
 	onClick : function(){
-		addTab('获奖情况', APP + '/Achievement/Prize','icon-prize') ;
+		addTab('获奖信息', APP + '/Achievement/Prize','icon-prize') ;
 	}
 });
 
@@ -105,7 +95,57 @@ $("#social").linkbutton({
 	}
 });
 
+//教学成果
+$("#teach_paper").linkbutton({
+	plain:true,
+	width:'100%',
+	height:40,
+	text:'教学论文',
+	iconCls : 'icon-teach_paper' ,
 
+	onClick : function(){
+		addTab('教学论文', APP + '/Teach/Paper','icon-teach_paper') ;
+	}
+});
+
+
+$("#teach_science").linkbutton({
+	plain:true,
+	width:'100%',
+	height:40,
+	text:'教学项目',
+	iconCls : 'icon-teach_project',
+	
+	onClick : function(){
+		addTab('教学项目', APP + '/Teach/Project','icon-teach_project') ;
+	}
+});
+
+$("#book").linkbutton({
+	plain:true,
+	width:'100%',
+	height:40,
+	text:'著作信息',
+	iconCls : 'icon-book',
+
+	onClick : function(){
+		addTab('著作信息', APP + '/Teach/Book','icon-book') ;
+	}
+});
+
+$("#teaching").linkbutton({
+	plain:true,
+	width:'100%',
+	height:40,
+	text:'教学经历',
+	iconCls : 'icon-teaching' ,
+
+	onClick : function(){
+		addTab('教学经历', APP + '/Teach/Teaching','icon-teaching') ;
+	}
+});
+
+//个人信息
 $("#degree").linkbutton({
 	plain:true,
 	width:'100%',
@@ -142,18 +182,19 @@ $("#position").linkbutton({
 	}
 });
 
-$("#teaching").linkbutton({
+$("#tutor").linkbutton({
 	plain:true,
 	width:'100%',
 	height:40,
-	text:'教学经历',
-	iconCls : 'icon-teaching' ,
+	text:'导员经历',
+	iconCls : 'icon-tutor',
 
 	onClick : function(){
-		addTab('教学经历', APP + '/Experience/Teaching','icon-teaching') ;
+		addTab('导员经历', APP + '/Experience/Tutor','icon-tutor') ;
 	}
 });
 
+//账号管理
 $("#account").linkbutton({
 	plain:true,
 	width:'100%',
@@ -171,10 +212,10 @@ $("#info").linkbutton({
 	width:'100%',
 	height:40,
 	iconCls:'icon-info',
-	text:'个人信息',
+	text:'基本信息',
 
 	onClick : function() {
-		addTab('个人信息', APP + '/Home/Account/info','icon-info') ;
+		addTab('基本信息', APP + '/Home/Account/info','icon-info') ;
 	}
 });
 

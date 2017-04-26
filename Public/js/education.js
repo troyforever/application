@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;教育经历',
+		title : '个人信息&emsp;/&emsp;教育经历',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,

@@ -77,7 +77,7 @@ class PaperController extends CommonController{
             $data['index_date'] = I('add-index_date') ;
             $data['sci_partition'] = I('add-sci_partition') ;
             $data['if'] = I('add-if') ;
-            $data['unit_id'] = I('add-unit') ;
+            // $data['unit_id'] = I('add-unit') ;
 
             $data['abstract'] = I('add-abstract') ;
             $data['keywords'] = I('add-keywords') ;
@@ -139,7 +139,7 @@ class PaperController extends CommonController{
             $data['index_date'] = I('edit-index_date') ;
             $data['sci_partition'] = I('edit-sci_partition') ;
             $data['if'] = I('edit-if') ;
-            $data['unit_id'] = I('edit-unit') ;
+            // $data['unit_id'] = I('edit-unit') ;
 
             $data['abstract'] = I('edit-abstract') ;
             $data['keywords'] = I('edit-keywords') ;

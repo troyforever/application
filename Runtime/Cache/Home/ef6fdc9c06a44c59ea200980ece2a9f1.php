@@ -33,24 +33,30 @@
       </div>
       <div data-options="region:'west',title:'功能菜单',hideCollapsedContent:false,expandMode:'dock'" style="width: 200px;overflow:hidden">
     		<div id="nagivator">
-          <div title="成果管理" style="overflow:hidden">
+          <div title="科研成果" style="overflow:hidden">
             <a class="nav" id="paper" href="javascript:;"></a>
-            <a class="nav" id="book" href="javascript:;"></a>
             <a class="nav" id="science" href="javascript:;"></a>
             <a class="nav" id="patent" href="javascript:;"></a>
             <a class="nav" id="prize" href="javascript:;"></a>
             <a class="nav" id="social" href="javascript:;"></a>
           </div>
 
-          <div title="个人经历" style="overflow:hidden">
-            <a class="nav" id="degree" href="javascript:;"></a>
-            <a class="nav" id="job" href="javascript:;"></a>
-            <a class="nav" id="position" href="javascript:;"></a>
+          <div title="教学成果" style="overflow:hidden">
+            <a class="nav" id="teach_paper" href="javascript:;"></a>
+            <a class="nav" id="teach_science" href="javascript:;"></a>
+            <a class="nav" id="book" href="javascript:;"></a>
             <a class="nav" id="teaching" href="javascript:;"></a>
           </div>
 
+          <div title="个人信息" style="overflow:hidden">
+            <a class="nav" id="degree" href="javascript:;"></a>
+            <a class="nav" id="job" href="javascript:;"></a>
+            <a class="nav" id="position" href="javascript:;"></a>
+            <a class="nav" id="tutor" href="javascript:;"></a>
+          </div>
+
     			<div title="账号管理" style="overflow:hidden">
-    		<a class="nav" id="account" href="javascript:;"></a>
+    		    <a class="nav" id="account" href="javascript:;"></a>
             <a class="nav" id="info" href="javascript:;"></a>
             <a class="nav" id="chpwd" href="javascript:;"></a>
           </div>

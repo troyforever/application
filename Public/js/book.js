@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '成果管理&emsp;/&emsp;著作信息',
+		title : '教学成果&emsp;/&emsp;著作信息',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -23,7 +23,7 @@ $(function(){
 	// 			$.messager.alert('提示','请先选中待查看著作信息！','info') ;
 	// 		} else {
 	// 			$.ajax({
-	// 				url : APP + '/Achievement/Book/find' ,
+	// 				url : APP + '/Teach/Book/find' ,
 	// 				method : 'POST' ,
 	// 				data : { id:selected.id} ,
 	// 				dataType : 'JSON' ,
@@ -79,7 +79,7 @@ $(function(){
 	// 			$.messager.alert('提示','请先选中待编辑著作信息！','info') ;
 	// 		} else {
 	// 			$.ajax({
-	// 				url : APP + '/Achievement/Book/find' ,
+	// 				url : APP + '/Teach/Book/find' ,
 	// 				method : 'POST' ,
 	// 				data : { id:selected.id} ,
 	// 				dataType : 'JSON' ,
@@ -123,7 +123,7 @@ $(function(){
 	// 			$.messager.confirm('删除提示','您确定要删除这条著作信息吗？',function(r){
 	// 				if ( r ){
 	// 					$.ajax({
-	// 					url : APP + '/Achievement/Book/delete' ,
+	// 					url : APP + '/Teach/Book/delete' ,
 	// 					method : 'post' ,
 	// 					data : {id:selected.id} ,
 	// 					async : false ,
@@ -207,7 +207,7 @@ $(function(){
 		fitColumns : true ,
 		singleSelect : true ,
 		width:'100%' ,
-		url : APP + "/Achievement/Book/data" ,
+		url : APP + "/Teach/Book/data" ,
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'publication_date' ,
@@ -329,7 +329,7 @@ $(function(){
 
 	//添加著作信息对话框
 	$("#add-form").form({
-		url : APP + '/Achievement/Book/add' ,
+		url : APP + '/Teach/Book/add' ,
 		onSubmit : function(){
 			return true ;
 			if ( $("#add-box").form('validate') ){
@@ -526,7 +526,7 @@ $(function(){
 
 	//编辑著作信息对话框
 	$("#edit-form").form({
-		url : APP + '/Achievement/Book/edit' ,
+		url : APP + '/Teach/Book/edit' ,
 		onSubmit : function(){
 
 			if ( $("#edit-box").form('validate') ){
@@ -712,7 +712,7 @@ $(function(){
 
 function detail(id){
 	$.ajax({
-					url : APP + '/Achievement/Book/find' ,
+					url : APP + '/Teach/Book/find' ,
 					method : 'POST' ,
 					data : { id:id} ,
 					dataType : 'JSON' ,
@@ -744,7 +744,7 @@ function detail(id){
 
 function edit(id){
 	$.ajax({
-					url : APP + '/Achievement/Book/find' ,
+					url : APP + '/Teach/Book/find' ,
 					method : 'POST' ,
 					data : { id:id} ,
 					dataType : 'JSON' ,
@@ -776,7 +776,7 @@ function remove(id){
 $.messager.confirm('删除提示','您确定要删除这条著作信息吗？',function(r){
 					if ( r ){
 						$.ajax({
-						url : APP + '/Achievement/Book/delete' ,
+						url : APP + '/Teach/Book/delete' ,
 						method : 'post' ,
 						data : {id:id} ,
 						async : false ,

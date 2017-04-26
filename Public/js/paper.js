@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '成果管理&emsp;/&emsp;论文信息',
+		title : '科研成果&emsp;/&emsp;科研论文',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -228,7 +228,7 @@ $(function(){
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'publication_date' ,
-		loadMsg : '论文信息加载中。。。' ,
+		loadMsg : '科研论文信息加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
@@ -289,7 +289,7 @@ $(function(){
 			},
 			{
 				field : 'file_name' ,
-				title : '论文附件' ,
+				title : '附件' ,
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -367,25 +367,25 @@ $(function(){
 		success : function(data){
 			var result = $.parseJSON(data);
 			if ( result ){
-				$.messager.alert('提示','论文信息新增成功！','info') ;
+				$.messager.alert('提示','科研论文信息新增成功！','info') ;
 				$("#add-box").dialog('close') ;
 				$("#add-form").form('reset') ;
 				$("#data-box").datagrid('reload') ;
 			} else {
-				$.messager.alert('提示','论文信息新增失败！','info') ;
+				$.messager.alert('提示','科研论文信息新增失败！','info') ;
 			}
 		}
 	});
 
 	$("#add-box").dialog({
-		title : '添加论文信息',
+		title : '添加科研论文信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
 	});
 
 	$("#detail-box").dialog({
-		title : '论文详情信息',
+		title : '科研论文详情信息',
 		iconCls : 'icon-detail' ,
 		modal : true ,
 		closed : true ,
@@ -504,19 +504,19 @@ $(function(){
 		precision : 2,
 	});
 
-	$("#add-unit").combobox({
-		width : 400,
-		height : 30,
-		url : APP + '/Home/Base/unit' ,
-		valueField : 'id' ,
-		textField : 'name' ,
-		label : '所属单位' ,
-		value : 1,
-		labelWidth : 100,
-		panelHeight : 130,
-		editable : false ,
-		value : '1' ,
-	});
+	// $("#add-unit").combobox({
+	// 	width : 400,
+	// 	height : 30,
+	// 	url : APP + '/Home/Base/unit' ,
+	// 	valueField : 'id' ,
+	// 	textField : 'name' ,
+	// 	label : '所属单位' ,
+	// 	value : 1,
+	// 	labelWidth : 100,
+	// 	panelHeight : 130,
+	// 	editable : false ,
+	// 	value : '1' ,
+	// });
 
 	$("#add-index-prev").linkbutton({
 		width : 250,
@@ -564,10 +564,10 @@ $(function(){
 	$("#add-file_name").filebox({
 		width : 400,
 		height : 30,
-		label : '论文附件' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 100,
-		prompt : '论文附件',
-		buttonText : '论文附件' ,
+		prompt : '附件',
+		buttonText : '附件' ,
 		buttonIcon : 'icon-search' ,
 	});
 
@@ -634,15 +634,15 @@ $(function(){
 				$("#edit-box").dialog('close') ;
 				$("#edit-form").form('reset') ;
 				$("#data-box").datagrid('reload') ;
-				$.messager.alert('提示','论文信息更新成功！','info') ;
+				$.messager.alert('提示','科研论文信息更新成功！','info') ;
 			} else {
-				$.messager.alert('提示','论文信息更新失败！','info') ;
+				$.messager.alert('提示','科研论文信息更新失败！','info') ;
 			}
 		}
 	});
 
 	$("#edit-box").dialog({
-		title : '编辑论文信息',
+		title : '编辑科研论文信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
 		closed : true ,
@@ -761,19 +761,19 @@ $(function(){
 		precision : 2,
 	});
 
-	$("#edit-unit").combobox({
-		width : 400,
-		height : 30,
-		url : APP + '/Home/Base/unit' ,
-		valueField : 'id' ,
-		textField : 'name' ,
-		label : '所属单位' ,
-		value : 1,
-		labelWidth : 100,
-		panelHeight : 130,
-		editable : false ,
-		value : '1' ,
-	});
+	// $("#edit-unit").combobox({
+	// 	width : 400,
+	// 	height : 30,
+	// 	url : APP + '/Home/Base/unit' ,
+	// 	valueField : 'id' ,
+	// 	textField : 'name' ,
+	// 	label : '所属单位' ,
+	// 	value : 1,
+	// 	labelWidth : 100,
+	// 	panelHeight : 130,
+	// 	editable : false ,
+	// 	value : '1' ,
+	// });
 
 	$("#edit-index-prev").linkbutton({
 		width : 250,
@@ -821,10 +821,10 @@ $(function(){
 	$("#edit-file_name").filebox({
 		width : 400,
 		height : 30,
-		label : '论文附件' ,
+		label : '附&emsp;&emsp;件' ,
 		labelWidth : 100,
-		prompt : '论文附件',
-		buttonText : '论文附件' ,
+		prompt : '附件',
+		buttonText : '附件' ,
 		buttonIcon : 'icon-search' ,
 	});
 
@@ -926,7 +926,7 @@ function edit(id){
 							'edit-final_index' : data.final_index ,
 							'edit-index_date' : data.index_date ,
 							'edit-sci_partition' : data.sci_partition ,
-							'edit-unit' : data.unit_id ,
+							// 'edit-unit' : data.unit_id ,
 
 							'edit-abstract' : data.abstract,
 							'edit-keywords' : data.keywords,
@@ -940,7 +940,7 @@ function edit(id){
 }
 
 function remove(id){
-	$.messager.confirm('删除提示','您确定要删除这条论文信息吗？',function(r){
+	$.messager.confirm('删除提示','您确定要删除这条科研信息吗？',function(r){
 					if ( r ){
 						$.ajax({
 						url : APP + '/Achievement/Paper/delete' ,
@@ -952,9 +952,9 @@ function remove(id){
 						success : function(data){
 							if ( data ){
 								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
+								$.messager.alert('提示','科研论文信息删除成功！','info') ;
 							} else {
-								$.messager.alert('提示','删除失败！','info') ;
+								$.messager.alert('提示','科研论文信息删除失败！','info') ;
 							}
 						}
 					});

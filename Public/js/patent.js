@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;专利',
+		title : '科研成果&emsp;/&emsp;专利授权',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -160,7 +160,7 @@ $(function(){
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'application_date' ,
-		loadMsg : '专利加载中。。。' ,
+		loadMsg : '专利授权信息加载中。。。' ,
 		sortOrder : 'desc' ,
 		multiSort : true ,
 		remoteSort : true ,
@@ -320,9 +320,9 @@ $(function(){
 				$("#data-box").datagrid('reload') ;
 				$("#add-box").dialog('close') ;
 				$("#add-form").form('reset') ;
-				$.messager.alert('提示','项目信息添加成功！','info') ;
+				$.messager.alert('提示','专利授权信息添加成功！','info') ;
 			} else {
-				$.messager.alert('提示','项目信息添加失败！','info') ;
+				$.messager.alert('提示','专利授权信息添加失败！','info') ;
 			}
 		}
 	});
@@ -330,7 +330,7 @@ $(function(){
 	$("#add-box").dialog({
 		width : 512,
 		height : 470,
-		title : '添加专利信息',
+		title : '添加专利授权信息信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
@@ -474,7 +474,7 @@ $(function(){
 	$("#edit-box").dialog({
 		width : 512,
 		height : 470,
-		title : '编辑经过经历信息',
+		title : '编辑专利授权信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
 		closed : true ,
@@ -486,7 +486,7 @@ $(function(){
 			if ( $("#edit-box").form('validate') ){
 				return true ;
 			} else {
-				$.messager.alert('提示','请输入完整信息!','info') ;
+				$.messager.alert('提示','请输入完整专利授权信息!','info') ;
 				return false ;
 			}
 		},
@@ -497,9 +497,9 @@ $(function(){
 				$("#edit-box").dialog('close') ;
 				$("#edit-form").form('reset') ;
 				$("#data-box").datagrid('reload') ;
-				$.messager.alert('提示','项目信息更新成功！','info') ;
+				$.messager.alert('提示','专利授权信息更新成功！','info') ;
 			} else {
-				$.messager.alert('提示','项目信息更新失败！','info') ;
+				$.messager.alert('提示','专利授权信息更新失败！','info') ;
 			}
 		}
 	});
@@ -660,7 +660,7 @@ function edit(id){
 }
 
 function remove(id){
-	$.messager.confirm('删除提示','您确定要删除这条专利吗？',function(r){
+	$.messager.confirm('删除提示','您确定要删除这条专利授权信息吗？',function(r){
 					if ( r ){
 						$.ajax({
 						url : APP + '/Achievement/Patent/delete' ,
@@ -672,9 +672,9 @@ function remove(id){
 						success : function(data){
 							if ( data ){
 								$("#data-box").datagrid('reload') ;
-								$.messager.alert('提示','删除成功！','info') ;
+								$.messager.alert('提示','专利授权信息删除成功！','info') ;
 							} else {
-								$.messager.alert('提示','删除失败！','info') ;
+								$.messager.alert('提示','专利授权信息删除失败！','info') ;
 							}
 						}
 					});

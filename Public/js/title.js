@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;职称评选',
+		title : '个人信息&emsp;/&emsp;职称评选',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,

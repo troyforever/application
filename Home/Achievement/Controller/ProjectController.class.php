@@ -60,7 +60,7 @@ class ProjectController extends CommonController{
             $data['topic'] = I('add-topic') ;
             $data['author'] = I('add-author') ;
             $data['other_author'] = I('add-other_author') ;
-            $data['category'] = I('add-category') ;
+            // $data['category'] = I('add-category') ;
 
             $data['project_sum'] = I('add-project_sum') ;
             $data['start_date'] = I('add-start_date') ;
@@ -115,7 +115,7 @@ class ProjectController extends CommonController{
             $data['topic'] = I('edit-topic') ;
             $data['author'] = I('edit-author') ;
             $data['other_author'] = I('edit-other_author') ;
-            $data['category'] = I('edit-category') ;
+            // $data['category'] = I('edit-category') ;
 
             $data['project_sum'] = I('edit-project_sum') ;
             $data['start_date'] = I('edit-start_date') ;

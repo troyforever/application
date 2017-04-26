@@ -1,7 +1,7 @@
 $(function(){
 
 	$("#content").window({
-		title : '个人经历&emsp;/&emsp;教学经历',
+		title : '教学成果&emsp;/&emsp;教学经历',
 		fit : true ,
 		collapsible : false ,
 		minimizable : false ,
@@ -64,7 +64,7 @@ $(function(){
 	// 			$.messager.confirm('删除提示','您确定要删除这条教学经历吗？',function(r){
 	// 				if ( r ){
 	// 					$.ajax({
-	// 					url : APP + '/Experience/Teaching/delete' ,
+	// 					url : APP + '/Teach/Teaching/delete' ,
 	// 					method : 'post' ,
 	// 					data : {id:selected.id} ,
 	// 					async : false ,
@@ -154,7 +154,7 @@ $(function(){
 		fitColumns : true ,
 		singleSelect : true ,
 		width:'100%' ,
-		url : APP + "/Experience/Teaching/data" ,
+		url : APP + "/Teach/Teaching/data" ,
 		striped : true ,
 		checkOnSelect : true ,
 		sortName : 'annual' ,
@@ -278,7 +278,7 @@ $(function(){
 	//添加学历信息对话框
 
 	$("#add-form").form({
-		url : APP + '/Experience/Teaching/add' ,
+		url : APP + '/Teach/Teaching/add' ,
 		onSubmit : function(){
 
 			if ( $("#add-box").form('validate') ){
@@ -560,7 +560,7 @@ $(function(){
 
 		onClick : function(){
 			$("#edit-form").form('submit',{
-				url : APP + '/Experience/Teaching/edit' ,
+				url : APP + '/Teach/Teaching/edit' ,
 			}).form('clear') ;
 			$("#edit-box").dialog('close') ;
 		}
@@ -600,7 +600,7 @@ function remove(index){
 	$.messager.confirm('删除提示','您确定要删除这条教学经历吗？',function(r){
 					if ( r ){
 						$.ajax({
-						url : APP + '/Experience/Teaching/delete' ,
+						url : APP + '/Teach/Teaching/delete' ,
 						method : 'post' ,
 						data : {id:row.id} ,
 						async : false ,
