@@ -1,5 +1,5 @@
 .datagrid td{height : 50px}
 #add-form{margin-top:30px; margin-left: 65px}
-#add-cancel{float:right}
+#add-submit{float:right}
 #edit-form{margin-top:30px; margin-left: 65px}
-#edit-cancel{float:right}
+#edit-submit{float:right}

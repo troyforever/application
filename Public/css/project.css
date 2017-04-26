@@ -1,8 +1,8 @@
 .datagrid td{height : 50px}
 #add-form{margin-top:20px; margin-left: 100px}
-#add-cancel{float:right}
+#add-submit{float:right}
 #edit-form{margin-top:20px; margin-left: 100px}
-#edit-cancel{float:right}
+#edit-submit{float:right}
 .pagination-info{line-height: 50px}
 #search-box{height:40px;margin-top: 10px;}
 #search-box .textbox-label{margin-left:20px}
