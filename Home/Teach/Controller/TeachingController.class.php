@@ -54,6 +54,7 @@ class TeachingController extends CommonController{
             $data['lesson'] = I('post.add-lesson') ;
             $data['credit'] = I('post.add-credit') ;
             $data['quality'] = I('post.add-quality') ;
+            $data['num'] = I('post.add-num') ;
             $data['annual'] = I('post.add-annual') ;
             $data['term'] = I('post.add-term') ;
             $data['classes'] = I('post.add-classes') ;
@@ -87,6 +88,7 @@ class TeachingController extends CommonController{
             $data['lesson'] = I('post.edit-lesson') ;
             $data['credit'] = I('post.edit-credit') ;
             $data['quality'] = I('post.edit-quality') ;
+            $data['num'] = I('post.edit-num') ;
             $data['annual'] = I('post.edit-annual') ;
             $data['term'] = I('post.edit-term') ;
             $data['classes'] = I('post.edit-classes') ;

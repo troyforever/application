@@ -132,7 +132,11 @@ $(function(){
 		iconCls : 'icon-search' ,
 
 		onClick : function(){
-			$("#data-box").datagrid('load',{}) ;
+			$("#data-box").datagrid('load',{
+				'lesson' : $("#search-lesson").textbox('getValue').trim(),
+				'annual' : $("#search-annual").textbox('getValue').trim(),
+				'classes' : $("#search-classes").textbox('getValue').trim()
+			}) ;
 		}
 	});
 
@@ -204,6 +208,13 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
+				field : 'num' ,
+				title : '班级人数' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
 				field : 'annual' ,
 				title : '年度' ,
 				width : 100 ,
@@ -253,7 +264,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'lesson' ,
-					colspan : 7,
+					colspan : 8,
 				}) ;
 				$(".datagrid-pager.pagination").hide();
 			} else {
@@ -303,8 +314,8 @@ $(function(){
 	});
 
 	$("#add-box").dialog({
-		width : 400,
-		height : 400,
+		width : 452,
+		height : 450,
 		title : '添加教学经历信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
@@ -312,7 +323,7 @@ $(function(){
 	});
 
 	$("#add-lesson").textbox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '课程名称' ,
 		labelWidth : 70,
@@ -321,7 +332,7 @@ $(function(){
 	});
 
 	$("#add-credit").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '学&emsp;&emsp;分' ,
 		labelWidth : 70,
@@ -334,7 +345,7 @@ $(function(){
 	});
 
 	$("#add-quality").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		panelHeight : 70,
 		label : '课程性质' ,
@@ -359,8 +370,18 @@ $(function(){
 		required : true ,
 	});
 
+	$("#add-num").numberspinner({
+		width : 300,
+		height : 30,
+		label : '班级人数' ,
+		labelWidth : 70,
+		min : 0,
+		increment : 1,
+		value : 50,
+	});
+
 	$("#add-annual").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '年&emsp;&emsp;度' ,
 		labelWidth : 70,
@@ -374,7 +395,7 @@ $(function(){
 	});
 
 	$("#add-term").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		panelHeight : 50,
 		label : '学&emsp;&emsp;期' ,
@@ -397,7 +418,7 @@ $(function(){
 	});
 
 	$("#add-classes").textbox({
-		width : 260,
+		width : 300,
 		height : 30,
 		panelWidth : 250,
 		label : '教学班级' ,
@@ -431,8 +452,8 @@ $(function(){
 
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
-		width : 400,
-		height : 400,
+		width : 452,
+		height : 450,
 		title : '编辑经过经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -461,7 +482,7 @@ $(function(){
 	});
 
 	$("#edit-lesson").textbox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '课程名称' ,
 		labelWidth : 70,
@@ -470,7 +491,7 @@ $(function(){
 	});
 
 	$("#edit-credit").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '学&emsp;&emsp;分' ,
 		labelWidth : 70,
@@ -483,7 +504,7 @@ $(function(){
 	});
 
 	$("#edit-quality").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		panelHeight : 70,
 		label : '课程性质' ,
@@ -508,8 +529,17 @@ $(function(){
 		required : true ,
 	});
 
+	$("#edit-num").numberspinner({
+		width : 300,
+		height : 30,
+		label : '班级人数' ,
+		labelWidth : 70,
+		min : 0,
+		increment : 1,
+	});
+
 	$("#edit-annual").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '年&emsp;&emsp;度' ,
 		labelWidth : 70,
@@ -522,7 +552,7 @@ $(function(){
 	});
 
 	$("#edit-term").combobox({
-		width : 260,
+		width : 300,
 		height : 30,
 		panelHeight : 50,
 		label : '学&emsp;&emsp;期' ,
@@ -544,7 +574,7 @@ $(function(){
 	});
 
 	$("#edit-classes").textbox({
-		width : 260,
+		width : 300,
 		height : 30,
 		panelWidth : 250,
 		label : '教学班级' ,
@@ -586,6 +616,7 @@ function edit(index){
 					'edit-lesson' : row.lesson ,
 					'edit-credit' : row.credit ,
 					'edit-quality' : row.quality ,
+					'edit-num' : row.num ,
 					'edit-annual' : row.annual,
 					'edit-term' : row.term,
 					'edit-classes' : row.classes

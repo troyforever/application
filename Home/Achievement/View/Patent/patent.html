@@ -31,8 +31,9 @@
       </div>
       <div id="search-box">
         <form id="search-form">
-          <input id="search-topic" name="search-topic" placeholder="编号" />
-          <input id="search-application_id" name="search-application_id" placeholder="课题" />
+          <input id="search-topic" name="search-topic" />
+          <input id="search-application_id" name="search-application_id" />
+          <input id="search-auth_id" name="search-auth_id" />
           <a id="search-ok">查询</a>
           <a id="search-clear">清空</a>
         </form>
@@ -46,10 +47,12 @@
         <form id="add-form" method="post" enctype="multipart/form-data">
           <input id="add-topic" name="add-topic" /><br><br>
           <input id="add-author" name="add-author" value="<?php echo $name ?>" /><br><br>
+          <input id="add-other_author" name="add-other_author" /><br><br>
           <input id="add-category" name="add-category" /><br><br>
           <input id="add-state" name="add-state" /><br><br>
           <input id="add-application_id" name="add-application_id" /><br><br>
           <input id="add-application_date" name="add-application_date" /><br><br>
+          <input id="add-auth_id" name="add-auth_id" /><br><br>
           <input id="add-auth_date" name="add-auth_date" /><br><br>
           <input id="add-file_name" name="add-file_name" /><br><br>
           <div id="#add-btn" style="width:300px">
@@ -64,10 +67,12 @@
           <input id="edit-id" name="edit-id" hidden="hidden"/>
           <input id="edit-topic" name="edit-topic" /><br><br>
           <input id="edit-author" name="edit-author" value="<?php echo $name ?>" /><br><br>
+          <input id="edit-other_author" name="edit-other_author"/><br><br>
           <input id="edit-category" name="edit-category" /><br><br>
           <input id="edit-state" name="edit-state" /><br><br>
           <input id="edit-application_id" name="edit-application_id" /><br><br>
           <input id="edit-application_date" name="edit-application_date" /><br><br>
+          <input id="edit-auth_id" name="edit-auth_id" /><br><br>
           <input id="edit-auth_date" name="edit-auth_date" /><br><br>
           <input id="edit-file_name" name="edit-file_name" /><br><br>
           <div id="#edit-btn" style="width:300px">

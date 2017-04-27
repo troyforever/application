@@ -191,16 +191,25 @@ $(function(){
 				halign : 'center' ,
 				sortable : true ,
 				sortOrder : 'asc' , 
+
+				formatter : function(value,row,index){
+					return "<span title='" + value + "'>" + value + "</span>" ;
+				}
 			},
-			// {
-			// 	field : 'category' ,
-			// 	title : '性质' ,
-			// 	width : 100 ,
-			// 	align : 'center' ,
-			// 	halign : 'center' ,
-			// 	sortable : true ,
-			// 	sortOrder : 'asc' , 
-			// },
+			{
+				field : 'category' ,
+				title : '来源' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'state' ,
+				title : '状态' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
 			{
 				field : 'project_sum' ,
 				title : '合同金额' ,
@@ -221,7 +230,7 @@ $(function(){
 			},
 			{
 				field : 'end_date' ,
-				title : '状态' ,
+				title : '结束日期' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -230,9 +239,9 @@ $(function(){
 
 				formatter : function(value,row,index){
 					if ( ! value ){
-						return "进行中" ;
+						return "尚未结束" ;
 					} else {
-						return "已完成" ;
+						return value ;
 					}
 				}
 			},
@@ -283,7 +292,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'id' ,
-					colspan : 7,
+					colspan : 9,
 				}) ;
 				$(".pagination").hide();
 			} else {
@@ -327,8 +336,8 @@ $(function(){
 	});
 
 	$("#add-box").dialog({
-		width : 512,
-		height : 470,
+		width : 612,
+		height : 480,
 		title : '添加科研项目信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
@@ -336,7 +345,7 @@ $(function(){
 	});
 
 	$("#add-id").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '编&emsp;&emsp;号' ,
 		labelWidth : 70,
@@ -345,7 +354,7 @@ $(function(){
 	});
 
 	$("#add-topic").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '课&emsp;&emsp;题' ,
 		labelWidth : 70,
@@ -354,7 +363,7 @@ $(function(){
 	});
 
 	$("#add-author").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '负&ensp;责&ensp;人' ,
 		labelWidth : 70,
@@ -363,38 +372,81 @@ $(function(){
 	});
 
 	$("#add-other_author").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '参与人员' ,
 		labelWidth : 70,
 	});
 
-	// $("#add-category").combobox({
-	// 	width : 300,
-	// 	height : 30,
-	// 	label : '性&emsp;&emsp;质' ,
-	// 	labelWidth : 70,
-	// 	valueField : 'value',
-	// 	textField : 'text' ,
-	// 	panelHeight : 50,
-	// 	required : true ,
-	// 	editable : false,
-	// 	data : [
-	// 		{
-	// 			text : '科研项目' ,
-	// 			value : '1'
-	// 		},
-	// 		{
-	// 			text : '教学项目' ,
-	// 			value : '2'
-	// 		}
-	// 	],
+	$("#add-category").combobox({
+		width : 240,
+		height : 30,
+		label : '来&emsp;&emsp;源' ,
+		labelWidth : 70,
+		valueField : 'value',
+		textField : 'text' ,
+		panelHeight : 140,
+		required : true ,
+		missingMessage : '项目来源非空' ,
+		data : [
+			{
+				text : '国家自然基金' ,
+				value : '国家自然基金'
+			},
+			{
+				text : '省自然基金' ,
+				value : '省自然基金'
+			},
+			{
+				text : '省自然基金' ,
+				value : '省自然基金项'
+			},
+			{
+				text : '973计划' ,
+				value : '973计划'
+			},
+			{
+				text : '863计划' ,
+				value : '863计划'
+			},
+			{
+				text : '企业项目' ,
+				value : '企业项目'
+			}
+		],
+	});
 
-	// 	value : 1,
-	// });
+	$("#add-state").combobox({
+		width : 156,
+		height : 30,
+		labelAlign:'right' ,
+		label : '状&emsp;&emsp;态' ,
+		labelWidth : 70,
+		valueField : 'value',
+		textField : 'text' ,
+		panelHeight : 70,
+		required : true ,
+		editable : false,
+		data : [
+			{
+				text : '申报' ,
+				value : '申报'
+			},
+			{
+				text : '在研' ,
+				value : '在研'
+			},
+			{
+				text : '已结题' ,
+				value : '已结题'
+			}
+		],
+
+		value : '申报',
+	});
 
 	$("#add-project_sum").numberspinner({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '金额(万)' ,
 		labelWidth : 70,
@@ -407,30 +459,31 @@ $(function(){
 	});
 
 	$("#add-start_date").datebox({
-		width : 300,
+		width : 198,
 		height : 30,
 		label : '开始日期' ,
 		labelWidth : 70,
 		editable : false,
-		panelHeight : 250,
-		panelWidth : 250,
+		panelHeight : 300,
+		panelWidth : 300,
 		required : true,
 		value : '2017*-1-1' ,
 		missingMessage : '开始日期非空' ,
 	});
 
 	$("#add-end_date").datebox({
-		width : 300,
+		width : 198,
 		height : 30,
+		labelAlign : 'right' ,
 		label : '结束日期' ,
 		labelWidth : 70,
 		editable : false,
-		panelHeight : 250,
-		panelWidth : 250
+		panelHeight : 300,
+		panelWidth : 300,
 	});
 
 	$("#add-submit").linkbutton({
-		width : 120,
+		width : 150,
 		height : 30,
 		iconCls : 'icon-ok' ,
 
@@ -440,7 +493,7 @@ $(function(){
 	});
 
 	$("#add-cancel").linkbutton({
-		width : 120,
+		width : 150,
 		height : 30,
 		iconCls : 'icon-cancel' ,
 
@@ -450,7 +503,7 @@ $(function(){
 	});
 
 	$("#add-file_name").filebox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
@@ -462,8 +515,8 @@ $(function(){
 
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
-		width : 512,
-		height : 470,
+		width : 612,
+		height : 480,
 		title : '编辑科研项目信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -495,18 +548,17 @@ $(function(){
 	});
 
 	$("#edit-id").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '编&emsp;&emsp;号' ,
 		labelWidth : 70,
-		editable : false,
 		editable : false,
 		required : true ,
 		missingMessage : '科研项目编号非空' ,
 	});
 
 	$("#edit-topic").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '课&emsp;&emsp;题' ,
 		labelWidth : 70,
@@ -515,7 +567,7 @@ $(function(){
 	});
 
 	$("#edit-author").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '负&ensp;责&ensp;人' ,
 		labelWidth : 70,
@@ -524,38 +576,79 @@ $(function(){
 	});
 
 	$("#edit-other_author").textbox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '参与人员' ,
 		labelWidth : 70,
 	});
 
-	// $("#edit-category").combobox({
-	// 	width : 300,
-	// 	height : 30,
-	// 	label : '性&emsp;&emsp;质' ,
-	// 	labelWidth : 70,
-	// 	valueField : 'value',
-	// 	textField : 'text' ,
-	// 	panelHeight : 50,
-	// 	required : true ,
-	// 	editable : false,
-	// 	data : [
-	// 		{
-	// 			text : '科研项目' ,
-	// 			value : 1
-	// 		},
-	// 		{
-	// 			text : '教学项目' ,
-	// 			value : 2
-	// 		}
-	// 	],
+	$("#edit-category").combobox({
+		width : 240,
+		height : 30,
+		label : '来&emsp;&emsp;源' ,
+		labelWidth : 70,
+		valueField : 'value',
+		textField : 'text' ,
+		panelHeight : 140,
+		required : true ,
+		missingMessage : '项目来源非空' ,
+		data : [
+			{
+				text : '国家自然基金' ,
+				value : '国家自然基金'
+			},
+			{
+				text : '省自然基金' ,
+				value : '省自然基金'
+			},
+			{
+				text : '省自然基金' ,
+				value : '省自然基金项'
+			},
+			{
+				text : '973计划' ,
+				value : '973计划'
+			},
+			{
+				text : '863计划' ,
+				value : '863计划'
+			},
+			{
+				text : '企业项目' ,
+				value : '企业项目'
+			}
+		],
+	});
 
-	// 	value : 1,
-	// });
+	$("#edit-state").combobox({
+		width : 156,
+		height : 30,
+		labelAlign:'right' ,
+		label : '状&emsp;&emsp;态' ,
+		labelWidth : 70,
+		valueField : 'value',
+		textField : 'text' ,
+		panelHeight : 70,
+		required : true ,
+		editable : false,
+		data : [
+			{
+				text : '申报' ,
+				value : '申报'
+			},
+			{
+				text : '在研' ,
+				value : '在研'
+			},
+			{
+				text : '已结题' ,
+				value : '已结题'
+			}
+		],
+	});
 
 	$("#edit-project_sum").numberspinner({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '金额(万)' ,
 		labelWidth : 70,
@@ -568,30 +661,31 @@ $(function(){
 	});
 
 	$("#edit-start_date").datebox({
-		width : 300,
+		width : 198,
 		height : 30,
 		label : '开始日期' ,
 		labelWidth : 70,
 		editable : false,
-		panelHeight : 250,
-		panelWidth : 250,
+		panelHeight : 300,
+		panelWidth : 300,
 		required : true,
 		value : '2017*-1-1' ,
 		missingMessage : '开始日期非空' ,
 	});
 
 	$("#edit-end_date").datebox({
-		width : 300,
+		width : 198,
 		height : 30,
+		labelAlign : 'right' ,
 		label : '结束日期' ,
 		labelWidth : 70,
 		editable : false,
-		panelHeight : 250,
-		panelWidth : 250
+		panelHeight : 300,
+		panelWidth : 300,
 	});
 
 	$("#edit-submit").linkbutton({
-		width : 120,
+		width : 150,
 		height : 30,
 		iconCls : 'icon-ok' ,
 
@@ -601,7 +695,7 @@ $(function(){
 	});
 
 	$("#edit-cancel").linkbutton({
-		width : 120,
+		width : 150,
 		height : 30,
 		iconCls : 'icon-cancel' ,
 
@@ -611,7 +705,7 @@ $(function(){
 	});
 
 	$("#edit-file_name").filebox({
-		width : 300,
+		width : 400,
 		height : 30,
 		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
@@ -629,6 +723,7 @@ function edit(index){
 					'edit-author' : row.author ,
 					'edit-other_author' : row.other_author ,
 					'edit-category' : row.category ,
+					'edit-state' : row.state ,
 					'edit-project_sum' : row.project_sum ,
 					'edit-start_date' : row.start_date ,
 					'edit-end_date' : row.end_date 

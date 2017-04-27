@@ -37,8 +37,8 @@ class BookController extends CommonController{
         //检索
         if ( I('request.title') != '' )
             $search['title'] = array('like','%' . I('request.title') . '%' );
-        if ( I('request.year') != '' )
-            $search['publication_date'] = array('EQ',I('request.year'));
+        // if ( I('request.year') != '' )
+        //     $search['publication_date'] = array('EQ',I('request.year'));
 
         $search['tid'] = session('tid') ;
 

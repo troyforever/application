@@ -34,10 +34,13 @@ class PatentController extends CommonController{
         $sortstr = substr($sortstr,0,-1) ;
 
         //检索
-        if ( I('request.application_id') != '' )
-            $search['application_id'] = array('like','%' . I('request.application_id') . '%' );
         if ( I('request.topic') != '' )
             $search['topic'] = array('like','%' . I('request.topic') . '%' );
+        if ( I('request.application_id') != '' )
+            $search['application_id'] = array('like','%' . I('request.application_id') . '%' );
+        if ( I('request.auth_id') != '' )
+            $search['auth_id'] = array('like','%' . I('request.auth_id') . '%' );
+        
         
         $search['tid'] = session('tid') ;
 
@@ -65,11 +68,14 @@ class PatentController extends CommonController{
 
             $data['topic'] = I('add-topic') ;
             $data['author'] = I('add-author') ;
+            $data['other_author'] = I('add-other_author') ;
             $data['category'] = I('add-category') ;
             $data['state']= I('add-state') ;
 
             $data['application_id'] = I('add-application_id') ;
             $data['application_date'] = I('add-application_date') ;
+            if ( ! empty(I('add-auth_id')) )
+                $data['auth_id'] = I('add-auth_id') ;
             if ( ! empty(I('add-auth_date')) )
                 $data['auth_date'] = I('add-auth_date') ;
 
@@ -121,11 +127,14 @@ class PatentController extends CommonController{
 
             $data['topic'] = I('edit-topic') ;
             $data['author'] = I('edit-author') ;
+            $data['other_author'] = I('edit-other_author') ;
             $data['category'] = I('edit-category') ;
             $data['state']= I('edit-state') ;
 
             $data['application_id'] = I('edit-application_id') ;
             $data['application_date'] = I('edit-application_date') ;
+            if ( ! empty(I('edit-auth_id')) )
+                $data['auth_id'] = I('edit-auth_id') ;
             if ( ! empty(I('edit-auth_date')) )
                 $data['auth_date'] = I('edit-auth_date') ;
             

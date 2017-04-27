@@ -120,6 +120,13 @@ $(function(){
 				hidden : true ,
 			},
 			{
+				field : 'job' ,
+				title : '职务' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
 				field : 'unit' ,
 				title : '工作单位' ,
 				width : 100 ,
@@ -127,15 +134,31 @@ $(function(){
 				halign : 'center' ,
 			},
 			{
-				field : 'job' ,
-				title : '职位' ,
+				field : 'department' ,
+				title : '部门' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 			},
 			{
-				field : 'length' ,
-				title : '工作时间(年)' ,
+				field : 'section' ,
+				title : '科室(系)' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'into_date' ,
+				title : '入职时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' ,
+			},
+			{
+				field : 'exit_date' ,
+				title : '离职时间' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -178,11 +201,11 @@ $(function(){
 				// $("#tools-edit").linkbutton('disable') ;
 				// $("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
-					unit : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+					job : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{
 					index : 0,
-					field : 'unit' ,
-					colspan : 5,
+					field : 'job' ,
+					colspan : 8,
 				}) ;
 				$(".datagrid-pager.pagination").hide();
 			} else {
@@ -232,16 +255,25 @@ $(function(){
 	});
 
 	$("#add-box").dialog({
-		width : 400,
-		height : 330,
+		width : 452,
+		height : 450,
 		title : '添加工作经历信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
 		closed : true ,
 	});
 
+	$("#add-job").textbox({
+		width : 300,
+		height : 30,
+		label : '职&emsp;&emsp;务' ,
+		labelWidth : 70,
+		required : true ,
+		missingMessage : '职务非空' ,
+	});
+
 	$("#add-unit").textbox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '工作单位' ,
 		labelWidth : 70,
@@ -249,35 +281,51 @@ $(function(){
 		missingMessage : '工作单位非空' ,
 	});
 
-	$("#add-job").textbox({
-		width : 260,
+	$("#add-department").textbox({
+		width : 300,
 		height : 30,
-		label : '职&emsp;&emsp;位' ,
+		label : '部&emsp;&emsp;门' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '职位非空' ,
+		missingMessage : '工作部门非空' ,
 	});
 
-	$("#add-length").numberspinner({
-		width : 260,
+	$("#add-section").textbox({
+		width : 300,
 		height : 30,
-		label : '时长(年)' ,
+		label : '科室(系)' ,
 		labelWidth : 70,
-		value : '2' ,
-		min : 1,
-		max : 5,
-		editable: false,
-		increment:1,
-		required : true ,
-		missingMessage : '工作时长非空'
+	});
+
+	$("#add-into_date").datebox({
+		width : 300,
+		height : 30,
+		label : '入职日期' ,
+		labelWidth : 70,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
+		required : true,
+		missingMessage : '入职日期非空' ,
+		value : '2017-1-1' ,
+	});
+
+	$("#add-exit_date").datebox({
+		width : 300,
+		height : 30,
+		label : '离职日期' ,
+		labelWidth : 70,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
 	});
 
 	$("#add-file_name").filebox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		buttonIcon : 'icon-search' ,
+		buttonIcon : 'icon-file' ,
 		buttonText : '附件' ,
 	});
 
@@ -305,8 +353,8 @@ $(function(){
 
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
-		width : 400,
-		height : 330,
+		width : 452,
+		height : 450,
 		title : '编辑工作经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -334,8 +382,17 @@ $(function(){
 		}
 	});
 
+	$("#edit-job").textbox({
+		width : 300,
+		height : 30,
+		label : '职&emsp;&emsp;务' ,
+		labelWidth : 70,
+		required : true ,
+		missingMessage : '职务非空' ,
+	});
+
 	$("#edit-unit").textbox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '工作单位' ,
 		labelWidth : 70,
@@ -343,35 +400,51 @@ $(function(){
 		missingMessage : '工作单位非空' ,
 	});
 
-	$("#edit-job").textbox({
-		width : 260,
+	$("#edit-department").textbox({
+		width : 300,
 		height : 30,
-		label : '职&emsp;&emsp;位' ,
+		label : '部&emsp;&emsp;门' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '工作经历非空' ,
+		missingMessage : '工作部门非空' ,
 	});
 
-	$("#edit-length").numberspinner({
-		width : 260,
+	$("#edit-section").textbox({
+		width : 300,
 		height : 30,
-		label : '时长(年)' ,
+		label : '科室(系)' ,
 		labelWidth : 70,
-		value : '2' ,
-		min : 1,
-		max : 5,
-		editable: false,
-		increment:1,
-		required : true ,
-		missingMessage : '工作时长非空'
+	});
+
+	$("#edit-into_date").datebox({
+		width : 300,
+		height : 30,
+		label : '入职日期' ,
+		labelWidth : 70,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
+		required : true,
+		missingMessage : '入职日期非空' ,
+		value : '2017-1-1' ,
+	});
+
+	$("#edit-exit_date").datebox({
+		width : 300,
+		height : 30,
+		label : '离职日期' ,
+		labelWidth : 70,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
 	});
 
 	$("#edit-file_name").filebox({
-		width : 260,
+		width : 300,
 		height : 30,
 		label : '附&emsp;&emsp;件' ,
 		labelWidth : 70,
-		buttonIcon : 'icon-search' ,
+		buttonIcon : 'icon-file' ,
 		buttonText : '附件' ,
 	});
 
@@ -405,9 +478,12 @@ function edit(index){
 	
 	$("#edit-form").form('load',{
 					'edit-id':row.id,
-					'edit-unit' : row.unit ,
 					'edit-job' : row.job ,
-					'edit-length' : row.length
+					'edit-unit' : row.unit ,
+					'edit-department' : row.department ,
+					'edit-section' : row.section ,
+					'edit-into_date' : row.into_date ,
+					'edit-exit_date' : row.exit_date ,
 				});
 
 				$("#edit-box").dialog('open') ;

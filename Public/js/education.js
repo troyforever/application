@@ -269,7 +269,7 @@ $(function(){
 	$("#degree").combobox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;历' ,
+		label : '学&emsp;&emsp;位' ,
 		labelWidth : 70,
 		editable : false ,
 		textField : 'label' ,
@@ -396,7 +396,7 @@ $(function(){
 	$("#edit-degree").combobox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;历' ,
+		label : '学&emsp;&emsp;位' ,
 		labelWidth : 70,
 		editable : false ,
 		textField : 'label' ,

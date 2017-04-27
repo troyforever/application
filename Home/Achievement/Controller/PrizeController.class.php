@@ -62,7 +62,9 @@ class PrizeController extends CommonController{
             $data['tid'] = session('tid') ;
 
             $data['topic'] = I('add-topic') ;
-
+            $data['level'] = I('add-level') ;
+            $data['unit'] = I('add-unit') ;
+            $data['prize_date'] = I('add-prize_date') ;
             $data['note'] = I('add-note') ;
 
             $prize = M('Prize') ;
@@ -130,7 +132,9 @@ class PrizeController extends CommonController{
             $data['tid'] = session('tid') ;
 
             $data['topic'] = I('edit-topic') ;
-
+            $data['level'] = I('edit-level') ;
+            $data['unit'] = I('edit-unit') ;
+            $data['prize_date'] = I('edit-prize_date') ;
             $data['note'] = I('edit-note') ;
             
             $base = M('Base') ;

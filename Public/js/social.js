@@ -166,13 +166,18 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
+				field : 'unit' ,
+				title : '举办单位' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
 				field : 'location' ,
 				title : '地点' ,
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'asc' , 
 			},
 			{
 				field : 'social_date' ,
@@ -180,6 +185,8 @@ $(function(){
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' , 
 			},
 			{
 				field : 'note' ,
@@ -187,8 +194,6 @@ $(function(){
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'desc' , 
 
 				formatter : function(value,row,index){
 					if ( ! value ){
@@ -245,7 +250,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'topic' ,
-					colspan : 6,
+					colspan : 7,
 				}) ;
 				$(".pagination").hide();
 			} else {
@@ -290,7 +295,7 @@ $(function(){
 
 	$("#add-box").dialog({
 		width : 512,
-		height : 370,
+		height : 420,
 		title : '添加社会活动信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
@@ -304,6 +309,16 @@ $(function(){
 		labelWidth : 70,
 		required : true ,
 		missingMessage : '活动主题非空' ,
+	});
+
+	$("#add-unit").textbox({
+		width : 300,
+		height : 30,
+		label : '主办单位' ,
+		labelWidth : 70,
+		required : true ,
+		missingMessage : '主办单位非空' ,
+		value : '江苏大学' ,
 	});
 
 	$("#add-location").textbox({
@@ -371,7 +386,7 @@ $(function(){
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 512,
-		height : 370,
+		height : 420,
 		title : '编辑经过经历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -409,6 +424,15 @@ $(function(){
 		labelWidth : 70,
 		required : true ,
 		missingMessage : '活动主题非空' ,
+	});
+
+	$("#edit-unit").textbox({
+		width : 300,
+		height : 30,
+		label : '主办单位' ,
+		labelWidth : 70,
+		required : true ,
+		missingMessage : '主办单位非空' ,
 	});
 
 	$("#edit-location").textbox({
@@ -478,6 +502,7 @@ function edit(index){
 	$("#edit-form").form('load',{
 							'edit-id' : row.id ,
 							'edit-topic' : row.topic ,
+							'edit-unit' : row.unit ,
 							'edit-location' : row.location ,
 							'edit-social_date' : row.social_date,
 							'edit-note' : row.note

@@ -164,15 +164,15 @@ $(function(){
 		labelWidth : 40,
 	});
 
-	$("#search-publication_date").numberspinner({
-		width : 200,
-		height : 30,
-		label : '出版年份' ,
-		labelWidth : 60,
-		min : 2000,
-		max : 2017,
-		increment : 1,
-	});
+	// $("#search-publication_date").numberspinner({
+	// 	width : 200,
+	// 	height : 30,
+	// 	label : '出版时间' ,
+	// 	labelWidth : 60,
+	// 	min : 2000,
+	// 	max : 2017,
+	// 	increment : 1,
+	// });
 
 	$("#search-ok").linkbutton({
 		width : 70,
@@ -184,7 +184,7 @@ $(function(){
 		onClick : function(){
 			$("#data-box").datagrid('load',{
 				'title' : $("#search-title").textbox('getValue').trim(),
-				'year' : $("#search-publication_date").numberspinner('getValue'),
+				// 'year' : $("#search-publication_date").numberspinner('getValue'),
 			}) ;
 		}
 	});
@@ -256,7 +256,7 @@ $(function(){
 			},
 			{
 				field : 'publication_date' ,
-				title : '年份' ,
+				title : '出版日期' ,
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
@@ -402,16 +402,17 @@ $(function(){
 		missingMessage : '出版单位非空' ,
 	});
 
-	$("#add-publication_date").numberspinner({
+	$("#add-publication_date").datebox({
 		width : 400,
 		height : 30,
-		label : '出版年份' ,
+		label : '出版日期' ,
 		labelWidth : 100,
-		min : 2000,
-		max : 2017,
-		enable :false,
-		value : 2017,
-		increment : 1,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
+		value : '2017-1-1',
+		required : true,
+		missingMessage : '出版日期非空' ,
 	});
 
 	$("#add-price").numberspinner({
@@ -592,15 +593,18 @@ $(function(){
 		missingMessage : '发表刊物非空' ,
 	});
 
-	$("#edit-publication_date").numberspinner({
+	$("#edit-publication_date").datebox({
 		width : 400,
 		height : 30,
-		label : '出版年份' ,
+		label : '出版日期' ,
 		labelWidth : 100,
-		min : 2000,
-		max : 2017,
-		value : 2017,
-		increment : 1,
+		panelWidth : 300,
+		panelHeight : 300,
+		enable :false,
+		value : '2017-1-1',
+		editable : false,
+		required : true,
+		missingMessage : '出版日期非空' ,
 	});
 
 	$("#edit-price").numberspinner({

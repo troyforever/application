@@ -31,9 +31,14 @@ class WorkController extends CommonController{
 
     public function add(){
         if ( session('?tid') ){
-            $data['unit'] = I('post.add-unit') ;
             $data['job'] = I('post.add-job') ;
-            $data['length'] = I('post.add-length') ;
+            $data['unit'] = I('post.add-unit') ;
+            $data['department'] = I('post.add-department') ;
+            $data['section'] = I('post.add-section') ;
+
+            $data['into_date'] = I('post.add-into_date') ;
+            $data['exit_date'] = I('post.add-exit_date') ;
+
             $data['tid'] = session('tid') ;
 
             if ( $_FILES['add-file_name']['name'] ){
@@ -85,41 +90,47 @@ class WorkController extends CommonController{
 
     public function edit(){
 
-        $data['unit'] = I('post.edit-unit') ;
-        $data['job'] = I('post.edit-job') ;
-        $data['from_time'] = I('post.edit-from') ;
-        $data['to_time'] = I('post.edit-to') ;
+        if ( session('?tid') ){
+            $data['job'] = I('post.edit-job') ;
+            $data['unit'] = I('post.edit-unit') ;
+            $data['department'] = I('post.edit-department') ;
+            $data['section'] = I('post.edit-section') ;
 
-        $work = M('Work') ;
+            $data['into_date'] = I('post.edit-into_date') ;
+            $data['exit_date'] = I('post.edit-exit_date') ;
 
-        if ( $_FILES['edit-file_name']['name'] ){
+            $work = M('Work') ;
 
-                $base = M('Base') ;
-                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
+            if ( $_FILES['edit-file_name']['name'] ){
 
-                $file_name = $work -> where('id='.I('request.edit-id')) -> getField('file_name') ;
-                
-                //删除原先文件
-                $file = iconv('utf-8', 'gbk', './Uploads/Work/'.$file_name);
-                unlink($file);
-                //文件上传
-                $config = array(
-                    'savePath' => './Work/',
-                    'autoSub' => false,
-                    'replace' => true,
-                    'saveName' => session('tid') . '-' . $name . '-' . $data['unit'] . '-' . $data['job']
-                );
+                    $base = M('Base') ;
+                    $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
 
-                $upload = new \Think\Upload($config);
+                    $file_name = $work -> where('id='.I('request.edit-id')) -> getField('file_name') ;
+                    
+                    //删除原先文件
+                    $file = iconv('utf-8', 'gbk', './Uploads/Work/'.$file_name);
+                    unlink($file);
+                    //文件上传
+                    $config = array(
+                        'savePath' => './Work/',
+                        'autoSub' => false,
+                        'replace' => true,
+                        'saveName' => session('tid') . '-' . $name . '-' . $data['unit'] . '-' . $data['job']
+                    );
 
-                $info = $upload -> upload();
+                    $upload = new \Think\Upload($config);
 
-                $data['file_name'] = $info['edit-file_name']['savename'] ;
-            }
+                    $info = $upload -> upload();
 
-        $result = $work -> where("id=" . I('request.edit-id') ) -> save($data) ;
+                    $data['file_name'] = $info['edit-file_name']['savename'] ;
+                }
 
-        $this -> ajaxReturn($result !== false ? true : false) ;
+            $result = $work -> where("id=" . I('request.edit-id') ) -> save($data) ;
+
+            $this -> ajaxReturn($result !== false ? true : false) ;
+        } else 
+            $this -> ajaxReturn(false) ;
     }
 }
 

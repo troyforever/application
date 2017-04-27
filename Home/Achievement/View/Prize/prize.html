@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>社会活动</title>
+    <title>获奖信息</title>
     <link rel="shortcut icon" href="__PUBLIC__/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
     <!-- EasyUI -->
     <link href="__PUBLIC__/easyui/themes/default/easyui.css" rel="stylesheet">
@@ -59,20 +59,24 @@
       <div style="height:40px;padding-left:50px">
           <a id="img-edit" herf="javascript:;">编辑</a>
           <a id="img-delete" href="javascript:;">删除</a>
-          <a id="img-close" href="javascript:;">关闭</a>
           <a id="img-note" href="javascript:;">附件</a>
+          <a id="img-close" href="javascript:;">关闭</a>
+          
         </div>
     </div>
 
     <div id="add-box">
         <form id="add-form" method="post" enctype="multipart/form-data">
           <input id="add-topic" name="add-topic" /><br><br>
+          <input id="add-level" name="add-level" /><br><br>
           <input id="add-prize_img" name="add-prize_img" /><br><br>
+          <input id="add-unit" name="add-unit" /><br><br>
+          <input id="add-prize_date" name="add-prize_date" /><br><br>
           <input id="add-note" name="add-note" /><br><br>
           <input id="add-file_name" name="add-file_name" /><br><br>
           <div id="#add-btn" style="width:300px">
             <a id="add-submit">提交</a>
-            <a id="add-cancel">清空输入</a>
+            <a id="add-cancel">关闭</a>
           </div>
         </form>
       </div>
@@ -81,7 +85,10 @@
       <form id="edit-form" method="post" enctype="multipart/form-data">
           <input id="edit-id" name="edit-id" hidden="hidden" />
           <input id="edit-topic" name="edit-topic" /><br><br>
+          <input id="edit-level" name="edit-level" /><br><br>
           <input id="edit-prize_img" name="edit-prize_img" /><br><br>
+          <input id="edit-unit" name="edit-unit" /><br><br>
+          <input id="edit-prize_date" name="edit-prize_date" /><br><br>
           <input id="edit-note" name="edit-note" /><br><br>
           <input id="edit-file_name" name="edit-file_name" /><br><br>
           <div id="#edit-btn" style="width:300px">

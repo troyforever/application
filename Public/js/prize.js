@@ -74,7 +74,7 @@ $(function(){
 	$("#search-topic").textbox({
 		width : 200,
 		height : 30,
-		label : '活动主题' ,
+		label : '获奖主题' ,
 		labelWidth : 60,
 	});
 
@@ -246,7 +246,7 @@ $(function(){
 
 	$("#add-box").dialog({
 		width : 512,
-		height : 330,
+		height : 470,
 		title : '添加获奖信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
@@ -259,7 +259,42 @@ $(function(){
 		label : '奖&emsp;&emsp;项' ,
 		labelWidth : 70,
 		required : true ,
-		missingMessage : '奖项' ,
+		missingMessage : '奖项非空' ,
+	});
+
+	$("#add-level").combobox({
+		width : 300,
+		height : 30,
+		label : '奖项等级' ,
+		textField : 'text',
+		valueField : 'value',
+		labelWidth : 70,
+		required : true ,
+		panelHeight : 120,
+		missingMessage : '奖项等级非空' ,
+		data : [
+			{
+				text : '特等奖',
+				value : '特等奖'
+			},
+			{
+				text : '一等奖',
+				value : '一等奖'
+			},
+			{
+				text : '二等奖',
+				value : '二等奖'
+			},
+			{
+				text : '三等奖',
+				value : '三等奖'
+			},
+			{
+				text : '优秀奖',
+				value : '优秀奖'
+			}
+		] ,
+		value : '一等奖'
 	});
 
 	$("#add-prize_img").filebox({
@@ -267,11 +302,36 @@ $(function(){
 		height : 30,
 		label : '获奖图片' ,
 		labelWidth : 70,
-		prompt : '火箭图片',
+		prompt : '获奖图片',
 		buttonText : '图片' ,
-		buttonIcon : 'icon-search' ,
+		buttonIcon : 'icon-pic' ,
 		required : true,
 		missingMessage : '获奖图片非空' ,
+	});
+
+	$("#add-unit").textbox({
+		width : 300,
+		height : 30,
+		label : '颁奖单位' ,
+		labelWidth : 70,
+
+		required : true,
+		missingMessage : '颁奖单位非空' ,
+		value : '江苏大学' ,
+	});
+
+	$("#add-prize_date").datebox({
+		width : 300,
+		height : 30,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
+		label : '获奖时间' ,
+		labelWidth : 70,
+
+		required : true,
+		missingMessage : '获奖时间非空' ,
+		value : '2017-1-1' ,
 	});
 
 	$("#add-note").textbox({
@@ -289,7 +349,7 @@ $(function(){
 		labelWidth : 70,
 		prompt : '附件',
 		buttonText : '附件' ,
-		buttonIcon : 'icon-search' ,
+		buttonIcon : 'icon-file' ,
 	});
 
 
@@ -309,7 +369,7 @@ $(function(){
 		iconCls : 'icon-cancel' ,
 
 		onClick : function(){
-			$("#add-form").form('reset') ;
+			$("#add-box").dialog('close') ;
 		}
 	});
 
@@ -317,7 +377,7 @@ $(function(){
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 512,
-		height : 330,
+		height : 470,
 		title : '编辑获奖信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -344,7 +404,7 @@ $(function(){
 				var page = $("#page").pagination('options') ;
 				$("#img-dialog img").attr('src',ROOT + '/Uploads/Prize/Img/' + prize.prize_img + '?temp=' + Math.random()) ;
 				$("#note").text(prize.note ? prize.note : '暂无备注');
-				$(".header-cls.panel-header-noborder .panel-title").text(prize.topic) ;
+				$(".header-cls.panel-header-noborder .panel-title").text(prize.topic + ' - ' + prize.level + ' ( ' + prize.unit + ' ' + prize.prize_date + ' 颁发 )') ;
 				loadData(page.pageNumber) ;
 				$.messager.alert('提示','获奖信息更新成功！','info') ;
 			} else {
@@ -362,14 +422,73 @@ $(function(){
 		missingMessage : '奖项' ,
 	});
 
+	$("#edit-level").combobox({
+		width : 300,
+		height : 30,
+		label : '奖项等级' ,
+		textField : 'text',
+		valueField : 'value',
+		labelWidth : 70,
+		required : true ,
+		panelHeight : 120,
+		missingMessage : '奖项等级非空' ,
+		data : [
+			{
+				text : '特等奖',
+				value : '特等奖'
+			},
+			{
+				text : '一等奖',
+				value : '一等奖'
+			},
+			{
+				text : '二等奖',
+				value : '二等奖'
+			},
+			{
+				text : '三等奖',
+				value : '三等奖'
+			},
+			{
+				text : '优秀奖',
+				value : '优秀奖'
+			}
+		] ,
+		
+	});
+
+
 	$("#edit-prize_img").filebox({
 		width : 300,
 		height : 30,
 		label : '获奖图片' ,
 		labelWidth : 70,
-		prompt : '附件',
-		buttonText : '附件' ,
-		buttonIcon : 'icon-search' ,
+		prompt : '获奖图片',
+		buttonText : '图片' ,
+		buttonIcon : 'icon-pic' ,
+	});
+
+	$("#edit-unit").textbox({
+		width : 300,
+		height : 30,
+		label : '颁奖单位' ,
+		labelWidth : 70,
+
+		required : true,
+		missingMessage : '颁奖单位非空' ,
+	});
+
+	$("#edit-prize_date").datebox({
+		width : 300,
+		height : 30,
+		panelWidth : 300,
+		panelHeight : 300,
+		editable : false,
+		label : '获奖时间' ,
+		labelWidth : 70,
+
+		required : true,
+		missingMessage : '获奖时间非空' ,
 	});
 
 	$("#edit-note").textbox({
@@ -387,7 +506,7 @@ $(function(){
 		labelWidth : 70,
 		prompt : '附件',
 		buttonText : '附件' ,
-		buttonIcon : 'icon-search' ,
+		buttonIcon : 'icon-file' ,
 	});
 
 	$("#edit-submit").linkbutton({
@@ -412,7 +531,8 @@ $(function(){
 	});
 
 	$("#page").pagination({
-		pageList:[6,8] ,
+		height : 50,
+		pageList:[6,8,10,12] ,
 
 		onSelectPage : function(pageNumber,pageSize){
 			loadData(pageNumber,null) ;
@@ -438,6 +558,9 @@ $(function(){
 			$("#edit-form").form('load',{
 							'edit-id' :  prize.id,
 							'edit-topic' : prize.topic ,
+							'edit-level' : prize.level ,
+							'edit-unit' : prize.unit ,
+							'edit-prize_date' : prize.prize_date ,
 							'edit-note' : prize.note
 			});
 			$("#edit-box").dialog('open') ;
@@ -480,7 +603,7 @@ $(function(){
 		width : 150,
 		height : 40,
 		plain : true,
-		iconCls : 'icon-reload' ,
+		iconCls : 'icon-logout' ,
 
 		onClick : function(){
 			$("#img-dialog").dialog('close') ;
@@ -491,7 +614,7 @@ $(function(){
 		width : 150,
 		height : 40,
 		plain : true,
-		iconCls : 'icon-reload' ,
+		iconCls : 'icon-file' ,
 
 		onClick : function(){
 			var prize = find($("#id").val()) ;
@@ -543,7 +666,7 @@ function loadData(page,topic){
 						$("#img-dialog img").attr('src',this.src) ;
 						$("#img-dialog").dialog('open');
 						$("#note").text(prize.note ? prize.note : '暂无备注');
-						$(".header-cls.panel-header-noborder .panel-title").text(prize.topic) ;
+						$(".header-cls.panel-header-noborder .panel-title").text(prize.topic + ' - ' + prize.level + ' ( ' + prize.unit + ' ' + prize.prize_date + ' 颁发 )') ;
 						$("#id").val(prize.id) ;
 				});
 				

@@ -62,6 +62,7 @@ class SocialController extends CommonController{
             $data['tid'] = session('tid') ;
 
             $data['topic'] = I('add-topic') ;
+            $data['unit'] = I('add-unit') ;
             $data['location'] = I('add-location') ;
             $data['social_date']= I('add-social_date') ;
 
@@ -115,6 +116,7 @@ class SocialController extends CommonController{
 
             $data['id'] = I('edit-id') ;
             $data['topic'] = I('edit-topic') ;
+            $data['unit'] = I('edit-unit') ;
             $data['location'] = I('edit-location') ;
             $data['social_date']= I('edit-social_date') ;
 
