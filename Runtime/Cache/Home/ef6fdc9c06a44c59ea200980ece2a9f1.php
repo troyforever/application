@@ -23,9 +23,17 @@
     <div id="box">
       <div data-options="region:'north'" class="nav-top" style="height: 50px;overflow:hidden">
         <img src="/application/Public/images/logo.png" style="width:500px;height:50px"/>
-        <div style="float : right;margin-right:50px; line-height:50px">
-          <a id="admin">后台管理</a>
+        <div id="nav-btn" style="float : right;margin-right:50px; line-height:50px;">
+          <!--<a id="admin">后台管理</a>-->
+          <a id="user" style="font-weight:bold"><?php echo session('tid') ?></a>
           <a id="logout">注销</a>
+        </div>
+        <div id="menu" data-options="width:150,itemHeight:30">
+          <div data-options="iconCls:'icon-account'" onclick="$('#account').click();">账号信息</div>   
+          <div data-options="iconCls:'icon-info'" onclick="$('#info').click();">基本信息</div> 
+          <div data-options="iconCls:'icon-password'" onclick="$('#chpwd').click();">修改密码</div>   
+          <div class="menu-sep"></div>  
+          <div data-options="iconCls:'icon-logout'" onclick="$('#logout').click();">注销</div>   
         </div>
       </div>
       <div data-options="region:'south'" class="nav-bottom" style="height: 40px;overflow:hidden">
@@ -65,6 +73,14 @@
       <div data-options="region:'center',minWidth:800">
         <div id="content">
           <div data-options="title:'欢迎页',iconCls:'icon-home'"></div>
+        </div>
+        <div id="tabmenu">
+          <div data-options="iconCls:'icon-close_current'" name="close_current">关闭当前</div>   
+          <div data-options="iconCls:'icon-close_other'" name="close_other">关闭其它</div> 
+          <div data-options="iconCls:'icon-close_all'" name="close_all">关闭全部</div>   
+          <div class="menu-sep"></div>  
+          <div data-options="iconCls:'icon-close_left'" name="close_left">关闭左侧</div>
+          <div data-options="iconCls:'icon-close_right'" name="close_right">关闭右侧</div>
         </div>
       </div>
     </div>

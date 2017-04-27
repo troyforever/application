@@ -16,8 +16,8 @@ $("#content").tabs({
 });
 
 $("#logout").linkbutton({
-	width : 80,
-	height : 30,
+	width : 100,
+	height : 46,
 	plain : true,
 	iconCls : 'icon-logout' ,
 
@@ -26,9 +26,27 @@ $("#logout").linkbutton({
 	}
 }) ;
 
+$("#menu").menu({
+	onClick : function(item){
+		console.log(item) ;
+	}
+});
+
+$("#user").menubutton({
+	width : 100,
+	height : 46,
+	plain : true,
+	hasDownArrow : false,
+	iconCls : 'icon-username' ,
+	menu : '#menu',
+
+	onClick : function(){
+	}
+}) ;
+
 $("#admin").linkbutton({
-	width : 80,
-	height : 30,
+	width : 100,
+	height : 46,
 	plain : true,
 	iconCls : 'icon-admin' ,
 }) ;
@@ -231,6 +249,55 @@ $("#chpwd").linkbutton({
 	}
 });
 
+$("#tabmenu").menu({
+	width : 150,
+	itemHeight : 30,
+
+	onClick : function(item){
+		if ( item.name == 'close_current' ){
+			closeCurrentTab();
+		} else if ( item.name == 'close_all' ){
+			var tabs = $('#content').tabs('tabs');
+			for ( var i = tabs.length - 1 ; i > 0 ; i -- ){
+				var index = $("#content").tabs('getTabIndex',tabs[i]);
+				$("#content").tabs('close',index) ;
+			}
+		} else if ( item.name == 'close_other'){
+			var tabs = $('#content').tabs('tabs');
+			var current = $("#content").tabs('getSelected') ;
+			var currentIndex = $("#content").tabs('getTabIndex',current) ;
+
+			for ( var i = tabs.length - 1 ; i > 0 ; i -- ){
+				if ( i != currentIndex ){
+					var index = $("#content").tabs('getTabIndex',tabs[i]);
+					$("#content").tabs('close',index) ;
+				}
+			}
+
+			$("#content").tabs('select',1) ;
+		} else if ( item.name == 'close_left' ){
+			var tabs = $('#content').tabs('tabs');
+			var current = $("#content").tabs('getSelected') ;
+			var currentIndex = $("#content").tabs('getTabIndex',current) ;
+			for ( var i = currentIndex - 1 ; i > 0 ; i -- ){
+				var index = $("#content").tabs('getTabIndex',tabs[i]);
+				$("#content").tabs('close',index) ;
+			}
+
+			$("#content").tabs('select',1) ;
+		} else if ( item.name == 'close_right'){
+			var tabs = $('#content').tabs('tabs');
+			var current = $("#content").tabs('getSelected') ;
+			var currentIndex = $("#content").tabs('getTabIndex',current) ;
+
+			for ( var i = tabs.length - 1 ; i > currentIndex ; i -- ){
+				var index = $("#content").tabs('getTabIndex',tabs[i]);
+				$("#content").tabs('close',index) ;
+			}
+		}
+	}
+});
+
 $(function(){
 	$("#box").layout('resize') ;
 	$("a.nav").css('outline','none') ;
@@ -246,6 +313,14 @@ $(function(){
 	$("ul.tabs").on('dblclick',function(){
 		closeCurrentTab();
 	}) ;
+
+	$("ul.tabs").on('contextmenu',function(e){
+		e.preventDefault();
+        $('#tabmenu').menu('show', {
+            left: e.pageX,
+            top: e.pageY
+        });
+	});
 
 	$(".panel-header.accordion-header").height('16px') ;
 	$("#nagivator").accordion('select',1) ;

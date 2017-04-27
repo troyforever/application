@@ -214,3 +214,18 @@
 .icon-file{
 	background:url('icons/file.png') no-repeat center center;
 }
+.icon-close_left{
+	background:url('icons/close_left.png') no-repeat center center;
+}
+.icon-close_right{
+	background:url('icons/close_right.png') no-repeat center center;
+}
+.icon-close_all{
+	background:url('icons/close_all.png') no-repeat center center;
+}
+.icon-close_current{
+	background:url('icons/close_current.png') no-repeat center center;
+}
+.icon-close_other{
+	background:url('icons/close_other.png') no-repeat center center;
+}
