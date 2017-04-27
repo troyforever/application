@@ -3,6 +3,7 @@
 		iconCls:'icon-login',
 		width:500,
 		height:350,
+		shadow : false,
 
 		draggable:false,
 		resizable:false,
@@ -106,13 +107,6 @@
 		invalidMessage : '' ,
 	}) ;
 
-
-
-	function resize(){
-
-		$("#box").dialog('center') ;
-	}
-
 	function changeCode (){
 		$("#code").textbox('clear') ;
 		$("#recode").attr('src',APP + '/login/Verify/verify?temp=' + Math.random()) ;
@@ -146,3 +140,18 @@ $(function(){
 		}
 	}) ;
 });
+
+function resize(){
+
+	var width = ($('body').width() - $(".panel.window").width()) / 2;
+	var height = ($(window).height() - $(".panel.window").height()) / 2;
+
+	width = width >= 0 ? width : 0;
+	height = height >= 0 ? height : 25;
+	
+	$(".panel.window").css('position','absolute');
+	$(".panel.window").css('top','0px');
+	$(".panel.window").css('left','0px');
+
+	$(".panel.window").css('margin',height + 'px ' + width + 'px') ;
+}

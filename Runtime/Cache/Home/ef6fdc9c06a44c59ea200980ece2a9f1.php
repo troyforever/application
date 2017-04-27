@@ -19,7 +19,7 @@
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="font-size:20px">
+  <body style="min-width:1000px">
     <div id="box">
       <div data-options="region:'north'" class="nav-top" style="height: 50px;overflow:hidden">
         <img src="/application/Public/images/logo.png" style="width:500px;height:50px"/>
