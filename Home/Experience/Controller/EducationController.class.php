@@ -26,6 +26,7 @@ class EducationController extends CommonController{
         if ( session('?tid') ){
             $data['school'] = I('school') ;
             $data['major'] = I('major') ;
+            $data['education'] = I('education') ;
             $data['degree'] = I('degree') ;
             $data['graduation_time'] = I('post.graduation_time') ;
             $data['tid'] = session('tid') ;
@@ -83,6 +84,7 @@ class EducationController extends CommonController{
         if ( session('?tid') ){
             $data['school'] = I('edit-school') ;
             $data['major'] = I('edit-major') ;
+            $data['education'] = I('edit-education') ;
             $data['degree'] = I('edit-degree') ;
             $data['graduation_time'] = I('post.edit-graduation_time') ;
             $data['tid'] = session('tid') ;

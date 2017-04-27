@@ -135,6 +135,13 @@ $(function(){
 				halign : 'center' ,
 			},
 			{
+				field : 'education' ,
+				title : '学历' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
 				field : 'degree' ,
 				title : '学位' ,
 				width : 100 ,
@@ -190,7 +197,7 @@ $(function(){
 				}).datagrid('mergeCells',{
 					index : 0,
 					field : 'school' ,
-					colspan : 6,
+					colspan : 7,
 				}) ;
 			}  else {
 				$.parser.parse($(".operation"));
@@ -241,7 +248,7 @@ $(function(){
 
 	$("#add-box").dialog({
 		width : 400,
-		height : 350,
+		height : 400,
 		title : '添加学历信息',
 		iconCls : 'icon-add' ,
 		modal : true ,
@@ -266,17 +273,17 @@ $(function(){
 		missingMessage : '专业非空' ,
 	});
 
-	$("#degree").combobox({
+	$("#education").combobox({
 		width : 260,
 		height : 30,
-		label : '学&emsp;&emsp;位' ,
+		label : '学&emsp;&emsp;历' ,
 		labelWidth : 70,
 		editable : false ,
 		textField : 'label' ,
 		valueField : 'value' ,
-		panelHeight : 115,
+		panelHeight : 90,
 		required : true ,
-		value : '本科' ,
+		value : '硕士研究生' ,
 		data : [
 			{
 				label : '专科',
@@ -287,7 +294,34 @@ $(function(){
 				value : '本科'
 			},
 			{
-				label : '硕士',
+				label : '硕士研究生',
+				value : '硕士研究生'
+			},
+			{
+				label : '博士研究生',
+				value : '博士研究生'
+			}
+		],
+	});
+
+	$("#degree").combobox({
+		width : 260,
+		height : 30,
+		label : '学&emsp;&emsp;位' ,
+		labelWidth : 70,
+		editable : false ,
+		textField : 'label' ,
+		valueField : 'value' ,
+		panelHeight : 90,
+		required : true ,
+		value : '硕士' ,
+		data : [
+			{
+				label : '学士',
+				value : '学士'
+			},
+			{
+				label : '硕士' ,
 				value : '硕士'
 			},
 			{
@@ -295,9 +329,9 @@ $(function(){
 				value : '博士'
 			},
 			{
-				label : '其它',
-				value : '其它'
-			},
+				label : '无学位',
+				value : '无学位'
+			}
 		],
 	});
 
@@ -347,7 +381,7 @@ $(function(){
 	//编辑学历信息对话框
 	$("#edit-box").dialog({
 		width : 400,
-		height : 350,
+		height : 400,
 		title : '编辑学历信息',
 		iconCls : 'icon-edit' ,
 		modal : true ,
@@ -393,6 +427,35 @@ $(function(){
 		missingMessage : '专业非空' ,
 	});
 
+	$("#edit-education").combobox({
+		width : 260,
+		height : 30,
+		label : '学&emsp;&emsp;位' ,
+		labelWidth : 70,
+		editable : false ,
+		textField : 'label' ,
+		valueField : 'value' ,
+		panelHeight : 90,
+		data : [
+			{
+				label : '专科',
+				value : '专科'
+			},
+			{
+				label : '本科' ,
+				value : '本科'
+			},
+			{
+				label : '硕士研究生',
+				value : '硕士研究生'
+			},
+			{
+				label : '博士研究生',
+				value : '博士研究生'
+			}
+		],
+	});
+
 	$("#edit-degree").combobox({
 		width : 260,
 		height : 30,
@@ -401,18 +464,14 @@ $(function(){
 		editable : false ,
 		textField : 'label' ,
 		valueField : 'value' ,
-		panelHeight : 115,
+		panelHeight : 90,
 		data : [
 			{
-				label : '专科',
-				value : '专科'
+				label : '学士',
+				value : '学士'
 			},
 			{
-				label : '本科',
-				value : '本科'
-			},
-			{
-				label : '硕士',
+				label : '硕士' ,
 				value : '硕士'
 			},
 			{
@@ -420,9 +479,9 @@ $(function(){
 				value : '博士'
 			},
 			{
-				label : '其它',
-				value : '其它'
-			},
+				label : '无学位',
+				value : '无学位'
+			}
 		],
 	});
 
@@ -478,6 +537,7 @@ function edit(index){
 		'edit-id' : row.id,
 		'edit-school' : row.school ,
 		'edit-major' : row.major ,
+		'edit-education' : row.education ,
 		'edit-degree' : row.degree ,
 		'edit-graduation_time' : row.graduation_time ,
 	});
