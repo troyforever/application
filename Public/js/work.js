@@ -146,6 +146,13 @@ $(function(){
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "无" ;
+					} else {
+						return value ;
+					}
+				}
 			},
 			{
 				field : 'into_date' ,
@@ -164,6 +171,13 @@ $(function(){
 				halign : 'center' ,
 				sortable : true ,
 				sortOrder : 'desc' ,
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "无" ;
+					} else {
+						return value ;
+					}
+				}
 			},
 			{
 				field : 'file_name' ,

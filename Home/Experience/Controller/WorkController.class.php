@@ -37,7 +37,8 @@ class WorkController extends CommonController{
             $data['section'] = I('post.add-section') ;
 
             $data['into_date'] = I('post.add-into_date') ;
-            $data['exit_date'] = I('post.add-exit_date') ;
+            if ( ! empty(I('add-exit_date')) )
+                $data['exit_date'] = I('add-exit_date') ;
 
             $data['tid'] = session('tid') ;
 
@@ -97,7 +98,8 @@ class WorkController extends CommonController{
             $data['section'] = I('post.edit-section') ;
 
             $data['into_date'] = I('post.edit-into_date') ;
-            $data['exit_date'] = I('post.edit-exit_date') ;
+            if ( ! empty(I('edit-exit_date')) )
+                $data['exit_date'] = I('edit-exit_date') ;
 
             $work = M('Work') ;
 
