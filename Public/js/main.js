@@ -54,9 +54,9 @@ $("#help").linkbutton({
 		$("#tip").tooltip('show') ;
 	}
 }).tooltip({
-	content: '<p>1. <code>Alt + W</code> - 关闭<strong>当前</strong>选项卡</p>' + 
+	content: '<div style="width:300px;height:80px;margin-left:20px"><p>1. <code>Alt + W</code> - 关闭<strong>当前</strong>选项卡</p>' + 
 			 '<p>2. <strong>双击</strong>选项卡标题栏 - 关闭<strong>当前</strong>选项卡</p>'+
-			 '<p>2. <strong>右击</strong>选项卡标题栏 - 触发选项卡<strong>上下文菜单</strong></p>',
+			 '<p>2. <strong>右击</strong>选项卡标题栏 - 触发选项卡<strong>上下文菜单</strong></p></div>',
 }) ;
 
 $("#admin").linkbutton({
