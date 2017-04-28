@@ -3,6 +3,7 @@ $("#box").dialog({
 	iconCls:'icon-password',
 	width:500,
 	height:270,
+	shadow : false,
 
 	draggable:false,
 	resizable:false,
@@ -74,16 +75,8 @@ $("#recode").linkbutton({
 
 		if ( $("#email").textbox('isValid') ){
 			if ( checkMail() ){
-				var email = $("#email").textbox('getValue') ;
-				$.ajax({
-					url : APP + '/Login/Password/sendMail' ,
-					method : 'post' ,
-					dataType : 'json' ,
-					data : {email:email} ,
-					async : false ,
 
-					beforeSend : function(){
-						$("#recode").linkbutton('disable') ;
+				$("#recode").linkbutton('disable') ;
 							var time = 60 ;
 							var fun = setInterval(function(){
 								if ( time > 0 ){
@@ -97,12 +90,20 @@ $("#recode").linkbutton({
 									clearInterval(fun) ;
 								}
 							},1000);
-					},
+				
+				var email = $("#email").textbox('getValue') ;
+				$.ajax({
+					url : APP + '/Login/Password/sendMail' ,
+					method : 'post' ,
+					dataType : 'json' ,
+					data : {email:email} ,
+					async : false ,
 
 					success : function (data){
 						if (data){
-							
+							// window.location.href= APP + '/Login/Password/setpwd' ;
 						} else {
+							clearInterval(fun) ;
 							$.messager.alert('提示','验证码发送失败！','info') ;
 						}
 					}
@@ -124,7 +125,17 @@ $(function(){
 
 function resize(){
 
-	$("#box").dialog('center') ;
+	var width = ($('body').width() - $(".panel.window").width()) / 2;
+	var height = ($(window).height() - $(".panel.window").outerHeight()) / 2;
+
+	width = width >= 0 ? width : 0;
+	height = height >= 0 ? height : 25;
+	
+	$(".panel.window").css('position','absolute');
+	$(".panel.window").css('top','0px');
+	$(".panel.window").css('left','0px');
+
+	$(".panel.window").css('margin',height + 'px ' + width + 'px') ;
 }
 
 function checkMail(){

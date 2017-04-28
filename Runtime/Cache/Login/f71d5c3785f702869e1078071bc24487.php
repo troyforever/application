@@ -19,7 +19,7 @@
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body onresize="resize()">
+  <body onresize="resize()" onload="resize()">
     <div id="box">
       <form id="setpwd-box" method="POST">
         <div class="css5">工号：<b><?php echo $tid ?></b></div>

@@ -16,7 +16,7 @@ $("#content").tabs({
 });
 
 $("#logout").linkbutton({
-	width : 100,
+	width : 80,
 	height : 46,
 	plain : true,
 	iconCls : 'icon-logout' ,
@@ -33,7 +33,7 @@ $("#menu").menu({
 });
 
 $("#user").menubutton({
-	width : 100,
+	width : 80,
 	height : 46,
 	plain : true,
 	hasDownArrow : false,
@@ -44,8 +44,23 @@ $("#user").menubutton({
 	}
 }) ;
 
+$("#help").linkbutton({
+	width : 80,
+	height : 46,
+	plain : true,
+	iconCls : 'icon-help' ,
+
+	onClick : function(){
+		$("#tip").tooltip('show') ;
+	}
+}).tooltip({
+	content: '<p>1. <code>Alt + W</code> - 关闭<strong>当前</strong>选项卡</p>' + 
+			 '<p>2. <strong>双击</strong>选项卡标题栏 - 关闭<strong>当前</strong>选项卡</p>'+
+			 '<p>2. <strong>右击</strong>选项卡标题栏 - 触发选项卡<strong>上下文菜单</strong></p>',
+}) ;
+
 $("#admin").linkbutton({
-	width : 100,
+	width : 80,
 	height : 46,
 	plain : true,
 	iconCls : 'icon-admin' ,

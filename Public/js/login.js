@@ -144,7 +144,7 @@ $(function(){
 function resize(){
 
 	var width = ($('body').width() - $(".panel.window").width()) / 2;
-	var height = ($(window).height() - $(".panel.window").height()) / 2;
+	var height = ($(window).height() - $(".panel.window").outerHeight()) / 2;
 
 	width = width >= 0 ? width : 0;
 	height = height >= 0 ? height : 25;

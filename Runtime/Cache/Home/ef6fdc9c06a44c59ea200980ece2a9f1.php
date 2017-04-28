@@ -25,9 +25,14 @@
         <img src="/application/Public/images/logo.png" style="width:500px;height:50px"/>
         <div id="nav-btn" style="float : right;margin-right:50px; line-height:50px;">
           <!--<a id="admin">后台管理</a>-->
-          <a id="user" style="font-weight:bold"><?php echo session('tid') ?></a>
+          <a id="user" style="font-weight:bold"><?php echo $name ?></a>
+          <a id="help">提示</a>
           <a id="logout">注销</a>
         </div>
+        
+        <div id="help-dialog">
+        </div>
+
         <div id="menu" data-options="width:150,itemHeight:30">
           <div data-options="iconCls:'icon-account'" onclick="$('#account').click();">账号信息</div>   
           <div data-options="iconCls:'icon-info'" onclick="$('#info').click();">基本信息</div> 
