@@ -42,6 +42,7 @@ class LoginController extends Controller {
                     if ( in_array('ADMIN',array_keys($accessList)) ){
                         session('admin',$data['tid']) ;
                         session(C('USER_AUTH_KEY'),$data['tid']) ;
+                        \Org\Util\Rbac::saveAccess() ;
                         $this -> ajaxReturn(1002) ;
                     } else {
                         $this -> ajaxReturn(1003) ;
@@ -59,6 +60,7 @@ class LoginController extends Controller {
         session(C('ADMIN_AUTH_KEY'),null) ;
         session('admin',null) ;
         session(C('USER_AUTH_KEY'),null) ;
+        session('_ACCESS_LIST',null) ;
         $this -> redirect('/Login/Login') ;
     }
 }

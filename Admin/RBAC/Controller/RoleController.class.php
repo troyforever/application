@@ -36,6 +36,10 @@ class RoleController extends CommonController{
 
         $role = M('Role') ;
 
+        M('Access') -> where('role_id='.I('id')) -> delete() ;
+
+        M('RoleUser') -> where('role_id='.I('id')) -> delete() ;
+
         $this -> ajaxReturn ( $role -> delete(I('id')) == 1 ? true : false ) ;
     }
 
@@ -122,6 +126,23 @@ class RoleController extends CommonController{
         $role = M('Role') ;
 
         $this -> ajaxReturn($role -> where('id='.I('edit-id')) -> save($data) == 1 ? true : false ) ;
+    }
+
+    public function setAccess(){
+        $id = I('id') ;
+
+        M('Access') -> where('role_id='.$id) -> delete() ;
+
+        $nodes = explode(',',I('str')) ;
+
+        foreach ( $nodes as $node ){
+            $access['role_id'] = $id ;
+            $access['node_id'] = $node ;
+
+            M('Access') -> add($access) ;
+        }
+
+        $this -> ajaxReturn(true) ;
     }
 }
 

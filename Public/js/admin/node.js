@@ -342,6 +342,7 @@ $(function(){
 		height : 30,
 		label : '节点名称' ,
 		labelWidth : 70,
+		disabled : true,
 		required : true ,
 		missingMessage : '节点名称非空' ,
 	});

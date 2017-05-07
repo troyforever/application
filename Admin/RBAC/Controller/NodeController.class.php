@@ -66,12 +66,17 @@ class NodeController extends CommonController{
 
         $node = M('Node') ;
 
+        if ( count($node -> where('pid='.I('id')) -> select() ) != 0 )
+            $this -> ajaxReturn(false) ;
+
+        M('Access') -> where('node_id='.I('id')) -> delete() ;
+
         $this -> ajaxReturn ( $node -> delete(I('id')) == 1 ? true : false ) ;
     }
 
     public function edit(){
 
-        $data['name'] = I('edit-name') ;
+        // $data['name'] = I('edit-name') ;
         $data['title'] = I('edit-title') ;
         $data['sort'] = I('edit-sort') ;
         $data['level'] = I('edit-level') ;

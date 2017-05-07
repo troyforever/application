@@ -45,7 +45,17 @@
       </div>
       <div data-options="region:'west',title:'功能菜单',hideCollapsedContent:false,expandMode:'dock'" style="width: 200px;overflow:hidden">
     		<div id="nagivator">
-          <div title="科研成果" style="overflow:hidden">
+          <?php foreach( $nodes as $node ){ if ( $node['level'] == 2 ) { ?>
+            <div title="<?php echo $node['title'] ?>" style="overflow:hidden">
+              <?php foreach( $nodes as $node1 ){ if ( $node1['level'] == 3 && $node1['pid'] == $node['id'] ) { ?>
+                <!--<?php echo json_encode($node1) ?>-->
+                <a class="nav easyui-linkbutton" class="easyui-linkbutton" href="javascript:;" data-options="plain:true,width:'100%',height:40,iconCls:'icon-<?php echo strtolower($node1['name']) ?>',onClick:function(){addTab('<?php echo $node1['title'] ?>', APP + '/<?php echo $node['name'] ?>/<?php echo $node1['name'] ?>','icon-<?php echo strtolower($node1['name']) ?>') ;}"><?php echo $node1['title'] ?></a>
+                <!--<a href="javascript:;" class="nav easyui-linkbutton" data-options="plain:true,width:'100%',iconCls:'icon-search'">easyui</a>-->
+
+              <?php } } ?>
+            </div>
+          <?php } } ?>
+          <!--<div title="科研成果" style="overflow:hidden">
             <a class="nav" id="paper" href="javascript:;"></a>
             <a class="nav" id="science" href="javascript:;"></a>
             <a class="nav" id="patent" href="javascript:;"></a>
@@ -60,12 +70,12 @@
             <a class="nav" id="teaching" href="javascript:;"></a>
           </div>
 
-          <!--<div title="教师管理" style="overflow:hidden">
+          <div title="教师管理" style="overflow:hidden">
             <a class="nav" id="degree" href="javascript:;"></a>
             <a class="nav" id="job" href="javascript:;"></a>
             <a class="nav" id="position" href="javascript:;"></a>
             <a class="nav" id="tutor" href="javascript:;"></a>
-          </div>-->
+          </div>
 
           <div title="权限管理" style="overflow:hidden">
             <a class="nav" id="users" href="javascript:;"></a>
@@ -76,7 +86,7 @@
     			<div title="账号管理" style="overflow:hidden">
     		    <a class="nav" id="account" href="javascript:;"></a>
             <a class="nav" id="chpwd" href="javascript:;"></a>
-          </div>
+          </div>-->
     		</div>
 	  </div>
       <div data-options="region:'center',minWidth:900">

@@ -61,6 +61,8 @@ class UsersController extends CommonController{
 
         $user = M('User') ;
 
+        M('RoleUser') -> where('user_id='.I('id')) -> delete() ;
+
         $this -> ajaxReturn ( M('User') -> delete(I('id')) == 1 ? true : false ) ;
     }
 

@@ -64,227 +64,227 @@ $("#admin").linkbutton({
 }) ;
 
 //科研成果
-$("#paper").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'科研论文',
-	iconCls : 'icon-paper' ,
+// $("#paper").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'科研论文',
+// 	iconCls : 'icon-paper' ,
 
-	onClick : function(){
-		addTab('科研论文', APP + '/Achievement/Paper','icon-paper') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('科研论文', APP + '/Achievement/Paper','icon-paper') ;
+// 	}
+// });
 
 
-$("#science").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'科研项目',
-	iconCls : 'icon-project',
+// $("#science").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'科研项目',
+// 	iconCls : 'icon-project',
 	
-	onClick : function(){
-		addTab('科研项目', APP + '/Achievement/Project','icon-project') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('科研项目', APP + '/Achievement/Project','icon-project') ;
+// 	}
+// });
 
-$("#patent").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'专利授权',
-	iconCls : 'icon-patent',
+// $("#patent").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'专利授权',
+// 	iconCls : 'icon-patent',
 
-	onClick : function(){
-		addTab('专利授权',APP + '/Achievement/Patent','icon-patent') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('专利授权',APP + '/Achievement/Patent','icon-patent') ;
+// 	}
+// });
 
-$("#prize").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'获奖信息',
-	iconCls : 'icon-prize',
+// $("#prize").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'获奖信息',
+// 	iconCls : 'icon-prize',
 
-	onClick : function(){
-		addTab('获奖信息', APP + '/Achievement/Prize','icon-prize') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('获奖信息', APP + '/Achievement/Prize','icon-prize') ;
+// 	}
+// });
 
-$("#social").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'社会活动',
-	iconCls : 'icon-social',
+// $("#social").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'社会活动',
+// 	iconCls : 'icon-social',
 
-	onClick : function(){
-		addTab('社会活动', APP + '/Achievement/Social','icon-social') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('社会活动', APP + '/Achievement/Social','icon-social') ;
+// 	}
+// });
 
-//教学成果
-$("#teach_paper").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'教学论文',
-	iconCls : 'icon-teach_paper' ,
+// //教学成果
+// $("#teach_paper").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'教学论文',
+// 	iconCls : 'icon-teach_paper' ,
 
-	onClick : function(){
-		addTab('教学论文', APP + '/Teach/Paper','icon-teach_paper') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('教学论文', APP + '/Teach/Paper','icon-teach_paper') ;
+// 	}
+// });
 
 
-$("#teach_science").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'教学项目',
-	iconCls : 'icon-teach_project',
+// $("#teach_science").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'教学项目',
+// 	iconCls : 'icon-teach_project',
 	
-	onClick : function(){
-		addTab('教学项目', APP + '/Teach/Project','icon-teach_project') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('教学项目', APP + '/Teach/Project','icon-teach_project') ;
+// 	}
+// });
 
-$("#book").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'著作信息',
-	iconCls : 'icon-book',
+// $("#book").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'著作信息',
+// 	iconCls : 'icon-book',
 
-	onClick : function(){
-		addTab('著作信息', APP + '/Teach/Book','icon-book') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('著作信息', APP + '/Teach/Book','icon-book') ;
+// 	}
+// });
 
-$("#teaching").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'教学经历',
-	iconCls : 'icon-teaching' ,
+// $("#teaching").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'教学经历',
+// 	iconCls : 'icon-teaching' ,
 
-	onClick : function(){
-		addTab('教学经历', APP + '/Teach/Teaching','icon-teaching') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('教学经历', APP + '/Teach/Teaching','icon-teaching') ;
+// 	}
+// });
 
-//个人信息
-$("#degree").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'教育经历',
-	iconCls : 'icon-education',
+// //个人信息
+// $("#degree").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'教育经历',
+// 	iconCls : 'icon-education',
 
-	onClick : function(){
-		addTab('教育经历', APP + '/Experience/Education','icon-education') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('教育经历', APP + '/Experience/Education','icon-education') ;
+// 	}
+// });
 
-$("#job").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'工作经历',
-	iconCls : 'icon-work',
+// $("#job").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'工作经历',
+// 	iconCls : 'icon-work',
 
-	onClick : function(){
-		addTab('工作经历', APP + '/Experience/Work','icon-work');
-	}
-});
+// 	onClick : function(){
+// 		addTab('工作经历', APP + '/Experience/Work','icon-work');
+// 	}
+// });
 
-$("#position").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'职称评选',
-	iconCls : 'icon-title',
+// $("#position").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'职称评选',
+// 	iconCls : 'icon-title',
 
-	onClick : function(){
-		addTab('职称评选', APP + '/Experience/Title','icon-title') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('职称评选', APP + '/Experience/Title','icon-title') ;
+// 	}
+// });
 
-$("#tutor").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'导员经历',
-	iconCls : 'icon-tutor',
+// $("#tutor").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'导员经历',
+// 	iconCls : 'icon-tutor',
 
-	onClick : function(){
-		addTab('导员经历', APP + '/Experience/Tutor','icon-tutor') ;
-	}
-});
+// 	onClick : function(){
+// 		addTab('导员经历', APP + '/Experience/Tutor','icon-tutor') ;
+// 	}
+// });
 
-//账号管理
-$("#account").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	text:'账号信息',
-	iconCls : 'icon-account',
+// //账号管理
+// $("#account").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	text:'账号信息',
+// 	iconCls : 'icon-account',
 
-	onClick : function() {
-		addTab('账号信息', APP + '/Account/Account','icon-account') ;
-	}
-});
+// 	onClick : function() {
+// 		addTab('账号信息', APP + '/Account/Account','icon-account') ;
+// 	}
+// });
 
-$("#chpwd").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	iconCls:'icon-password',
-	text:'修改密码',
+// $("#chpwd").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	iconCls:'icon-password',
+// 	text:'修改密码',
 
-	onClick : function() {
-		addTab('修改密码', APP + '/Account/password','icon-password') ;
-	}
-});
+// 	onClick : function() {
+// 		addTab('修改密码', APP + '/Account/password','icon-password') ;
+// 	}
+// });
 
-//权限管理
-$("#users").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	iconCls:'icon-user',
-	text:'用户管理',
+// //权限管理
+// $("#users").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	iconCls:'icon-user',
+// 	text:'用户管理',
 
-	onClick : function() {
-		addTab('用户管理', APP + '/RBAC/Users','icon-user') ;
-	}
-});
+// 	onClick : function() {
+// 		addTab('用户管理', APP + '/RBAC/Users','icon-user') ;
+// 	}
+// });
 
-$("#role").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	iconCls:'icon-role',
-	text:'角色管理',
+// $("#role").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	iconCls:'icon-role',
+// 	text:'角色管理',
 
-	onClick : function() {
-		addTab('角色管理', APP + '/RBAC/Role','icon-role') ;
-	}
-});
+// 	onClick : function() {
+// 		addTab('角色管理', APP + '/RBAC/Role','icon-role') ;
+// 	}
+// });
 
-$("#node").linkbutton({
-	plain:true,
-	width:'100%',
-	height:40,
-	iconCls:'icon-node',
-	text:'节点管理',
+// $("#node").linkbutton({
+// 	plain:true,
+// 	width:'100%',
+// 	height:40,
+// 	iconCls:'icon-node',
+// 	text:'节点管理',
 
-	onClick : function() {
-		addTab('节点管理', APP + '/RBAC/Node','icon-node') ;
-	}
-});
+// 	onClick : function() {
+// 		addTab('节点管理', APP + '/RBAC/Node','icon-node') ;
+// 	}
+// });
 
 $("#tabmenu").menu({
 	width : 150,

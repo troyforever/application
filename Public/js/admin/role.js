@@ -98,7 +98,7 @@ $(function(){
 
 				formatter : function(value,row,index){
 					return "<div class='operation'>" +
-							"<a class='easyui-linkbutton' data-options='width:80,plain:true,iconCls:\"icon-node\"' onclick='access(" + row.id + ")'>配置权限</a>" +
+							"<a class='easyui-linkbutton' data-options='width:80,plain:true,iconCls:\"icon-node\"' onclick='access(" + index + ")'>配置权限</a>" +
 							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-edit\"' onclick='edit(" + index + ")'>编辑</a>" +
 							"<a class='easyui-linkbutton' data-options='width:60,plain:true,iconCls:\"icon-cancel\"' onclick='remove(" + index + ")'>删除</a>" +
 							"</div>" ;
@@ -268,7 +268,7 @@ $(function(){
 
 	//权限配置框
 	$("#access-box").dialog({
-		width : 800,
+		width : 850,
 		height : 500,
 		title : '权限配置框',
 		iconCls : 'icon-node' ,
@@ -294,7 +294,7 @@ $(function(){
 		iconCls : 'icon-reload' ,
 
 		onClick : function(){
-			access($("#role-revent").attr('value')) ;
+			revent($("#role-revent").attr('value')) ;
 		}
 	});
 
@@ -305,7 +305,8 @@ $(function(){
 		iconCls : 'icon-ok' ,
 
 		onClick : function(){
-			$("#access-box").dialog('close') ;
+			
+			submit($("#role-submit").attr('value')) ;
 		}
 	});
 });
@@ -346,17 +347,18 @@ function remove(index){
 				}) ;
 }
 
-function access(id){
-	$.ajax({
-		url : APP + '/RBAC/Role/getAccess' ,
-		method : 'POST' ,
-		data : {id:id} ,
-		dataType : 'JSON' ,
-		async : false ,
 
-		success : function(data){
-			
-			$("#access-box").dialog('open') ;
+function access(index){
+
+	var row = $("#data-box").datagrid('getRows')[index] ;
+
+	var id = row.id ;
+
+	var data = getAccess(id) ;
+
+	$("#role-name").text(row.name) ;
+
+	$("#access-box").dialog('open') ;
 			
 			$("#set-box").empty();
 			
@@ -388,67 +390,8 @@ function access(id){
 
 				$("#" + id ).click() ;
 			});
-			// $('p span').click(function(e){
-			// 	var level = $(e.target).attr('level') ;
 
-			// 	var id = $(e.target).attr('value') ;
-
-			// 	if ( level == 1 ){
-			// 		//判断项目勾选情况
-			// 		if ( $("#" + id).is(':checked') ){
-			// 			//项目取消勾选
-			// 			$("#" + id).removeAttr('checked') ;
-			// 			//子项取消勾选
-			// 			$("input[aid=" + id + "]").removeAttr('checked') ;
-			// 		} else {
-			// 			//项目设置勾选
-			// 			$("#" + id).prop('checked',true) ;
-
-			// 			//子项全部勾选
-			// 			$("input[aid=" + id + "]").prop('checked',true) ;
-			// 		}
-			// 	} else if ( level == 2 ) {
-			// 		var aid = $("#" + id ).attr('aid') ;
-			// 		//判断模块勾选情况
-			// 		if ( $("#" + id).is(':checked') ){
-			// 			//模块取消勾选
-			// 			$("#" + id).removeAttr('checked') ;
-			// 			//子项取消勾选
-			// 			$("input[mid=" + id + "]").removeAttr('checked') ;
-			// 		} else {
-			// 			//模块设置勾选
-			// 			$("#" + id).prop('checked',true) ;
-
-			// 			//子项全部勾选
-			// 			$("input[mid=" + id + "]").prop('checked',true) ;
-
-			// 			//应用设置勾选
-			// 			$("#" + aid ).prop('checked',true) ;
-			// 		}
-			// 	} else {
-			// 		var aid = $("#" + id ).attr('aid') ;
-			// 		var mid = $("#" + id ).attr('mid') ;
-			// 		//判断子菜单勾选情况
-			// 		if ( $("#" + id).is(':checked') ){
-			// 			//子菜单取消勾选
-			// 			$("#" + id).removeAttr('checked') ;
-
-			// 			//子项取消勾选
-			// 			// $("input[mid=" + id + "]").removeAttr('checked') ;
-			// 		} else {
-			// 			//子菜单设置勾选
-			// 			$("#" + id).prop('checked',true) ;
-
-			// 			//模块勾选
-			// 			$("#" + mid ).prop('checked',true) ;
-
-			// 			//应用设置勾选
-			// 			$("#" + aid ).prop('checked',true) ;
-			// 		}
-			// 	}
-			// });
-
-			$("input[type='checkbox'][name='access']").change(function(e){
+			$("input[name='access'][name='access']").change(function(e){
 
 				var level = $(e.target).attr('level') ;// 1-应用 2-模块 3-子菜单
 
@@ -515,6 +458,63 @@ function access(id){
 			});
 
 			$("#role-revent").attr('value',id) ;
+			$("#role-submit").attr('value',id) ;
+
+			revent(id) ;
+}
+
+function revent(id){
+	var data = getAccess(id) ;
+
+	$("input[name='access']").removeAttr('checked');
+
+	for ( var i = 0 ; i < data.length ; i ++ ){
+		if ( data[i].access ){
+			$("#" + data[i].id ).prop('checked',true) ;
+		}
+	}
+}
+
+function submit(id){
+	var access = $("input[name='access']:checked") ;
+
+	var str = '' ;
+
+	for ( var i = 0 ; i < access.length ; i ++ ){
+		str += access[i].id + ',' ;
+	}
+
+	str = str.substr(0,str.length-1) ;
+	
+	$.ajax({
+		url : APP + '/RBAC/Role/setAccess' ,
+		data : {id:id,str:str} ,
+		method : 'POST' ,
+		async : false,
+		dataType : 'JSON' ,
+
+		success : function(data){
+			if ( data ){
+				$.messager.alert('提示','角色权限配置成功！','info') ;
+			} else {
+				$.messager.alert('提示','角色权限配置失败！','info') ;
+			}
 		}
 	});
+}
+
+function getAccess(id){
+	var result ;
+	$.ajax({
+		url : APP + '/RBAC/Role/getAccess' ,
+		method : 'POST' ,
+		data : {id:id} ,
+		dataType : 'JSON' ,
+		async : false ,
+
+		success : function(data){
+			result = data ;
+		}
+	});
+	return result ;
 }

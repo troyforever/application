@@ -90,6 +90,28 @@ class Rbac {
         return ;
     }
 
+    static function saveAccess($authId=null){
+        if(null===$authId)   $authId = $_SESSION[C('USER_AUTH_KEY')];
+        // 如果使用普通权限模式，保存当前用户的访问权限列表
+        // 对管理员开发所有权限
+        if(C('USER_AUTH_TYPE') !=2 && !$_SESSION[C('ADMIN_AUTH_KEY')] ){
+            $roles = M('RoleUser') -> where("user_id='%s'",$authId) -> select() ;
+
+            foreach ( $roles as $role ){
+                $nodes = M('Access') -> field('node_id') -> where('role_id='.$role['role_id']) -> select() ;
+
+                foreach ( $nodes as $node ){
+                    if ( !in_array($node['node_id'],$data) ){
+                        $data[] = $node['node_id'] ;
+                    }
+                }
+            }
+        }
+
+        $_SESSION['_ACCESS_LIST'] = $data ; 
+        return ;
+    }
+
 	// 取得模块的所属记录访问权限列表 返回有权限的记录ID数组
 	static function getRecordAccessList($authId=null,$module='') {
         if(null===$authId)   $authId = $_SESSION[C('USER_AUTH_KEY')];
