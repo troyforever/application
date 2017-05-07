@@ -1,0 +1,7 @@
+#nav-btn a{vertical-align:top}
+body{min-height: 650px;min-width: 800px}
+.north{height:200px;}
+.panel-header{text-align: center;padding:5px 0;height:16px}
+.nav-top, .nav-bottom{background: #e0ecff; }
+.copy{line-height: 40px; text-align: center}
+code{background: #e0ecff;border:solid 1px #e0ecff; padding: 2px; font-weight: bold}

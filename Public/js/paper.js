@@ -268,6 +268,8 @@ $(function(){
 				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' ,
 			},
 			{
 				field : 'final_index' ,
@@ -279,7 +281,7 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'if' ,
+				field : 'if_num' ,
 				title : '影响因子' ,
 				width : 50 ,
 				align : 'center' ,
@@ -492,7 +494,7 @@ $(function(){
 		labelWidth : 100,
 	});
 
-	$("#add-if").numberspinner({
+	$("#add-if_num").numberspinner({
 		width : 400,
 		height : 30,
 		label : '影响因子' ,
@@ -749,7 +751,7 @@ $(function(){
 		labelWidth : 100,
 	});
 
-	$("#edit-if").numberspinner({
+	$("#edit-if_num").numberspinner({
 		width : 400,
 		height : 30,
 		label : '影响因子' ,
@@ -887,7 +889,7 @@ function detail(id){
 						$("#detail-final_index").text(data.final_index);
 						$("#detail-index_date").text(data.index_date);
 						$("#detail-sci_partition").text(data.sci_partition ? data.sci_partition : '无');
-						$("#detail-if").text(data.if);
+						$("#detail-if_num").text(data.if_num);
 
 						$("#detail-abstract").text(data.abstract ? data.abstract : '无');
 						$("#detail-keywords").text(data.keywords ? data.keywords : '无');

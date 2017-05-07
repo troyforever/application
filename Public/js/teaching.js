@@ -208,6 +208,15 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
+				field : 'classes' ,
+				title : '教学班级' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'asc' , 
+			},
+			{
 				field : 'num' ,
 				title : '班级人数' ,
 				width : 100 ,
@@ -229,15 +238,6 @@ $(function(){
 				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
-			},
-			{
-				field : 'classes' ,
-				title : '教学班级' ,
-				width : 100 ,
-				align : 'center' ,
-				halign : 'center' ,
-				sortable : true ,
-				sortOrder : 'asc' , 
 			},
 			{
 				field : 'operation' ,

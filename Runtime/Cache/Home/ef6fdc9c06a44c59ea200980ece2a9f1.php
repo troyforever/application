@@ -25,7 +25,7 @@
         <img src="/application/Public/images/logo.png" style="width:500px;height:50px"/>
         <div id="nav-btn" style="float : right;margin-right:50px; line-height:50px;">
           <!--<a id="admin">后台管理</a>-->
-          <a id="user" style="font-weight:bold"><?php echo $name ?></a>
+          <?php if(!empty($name)) { ?><a id="user" style="font-weight:bold"><?php echo $name ?></a><?php } ?>
           <a id="help">提示</a>
           <a id="logout">注销</a>
         </div>

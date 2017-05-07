@@ -1,0 +1,30 @@
+[
+	{
+		"credit" : 1,
+		"value" : 1
+	},
+    {
+		"credit" : 2,
+		"value" : 2
+	},
+    {
+		"credit" : 3,
+		"value" : 3
+	},
+    {
+		"credit" : 4,
+		"value" : 4
+	},
+    {
+		"credit" : 5,
+		"value" : 5
+	},
+    {
+		"credit" : 6,
+		"value" : 6
+	},
+    {
+		"credit" : 15,
+		"value" : 15
+	}
+]

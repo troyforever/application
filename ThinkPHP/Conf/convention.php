@@ -164,4 +164,20 @@ return  array(
     'FILE_UPLOAD_TYPE'      =>  'Local',    // 文件上传方式
     'DATA_CRYPT_TYPE'       =>  'Think',    // 数据加密方式
 
+    // 配置文件增加设置
+    'RBAC_SUPERADMIN' => 'admin',   //超级管理员账号
+    'ADMIN_AUTH_KEY' => 'superadmin',    //超级管理员识别
+
+    'USER_AUTH_ON' => true,    //是否需要认证
+    'USER_AUTH_TYPE' => 1, //认证类型
+    'USER_AUTH_KEY' => 'tid', //认证识别号
+    // 'REQUIRE_AUTH_MODULE'  //需要认证模块
+    'NOT_AUTH_MODULE' => 'Login', //无需认证模块
+    //'USER_AUTH_GATEWAY' =>  //认证网关
+    //'RBAC_DB_DSN' =>   //数据库连接DSN
+    'RBAC_ROLE_TABLE' => 'ctmas_role', //角色表名称
+    'RBAC_USER_TABLE' => 'ctmas_role_user', //用户表名称
+    'RBAC_ACCESS_TABLE' => 'ctmas_access', //权限表名称
+    'RBAC_NODE_TABLE' => 'ctmas_node', //节点表名称
+
 );

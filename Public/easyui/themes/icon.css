@@ -232,3 +232,31 @@
 .icon-help{
 	background:url('icons/help.png') no-repeat center center;
 }
+.icon-import{
+	background:url('icons/import.png') no-repeat center center;
+}
+.icon-download{
+	background:url('icons/download.png') no-repeat center center;
+}
+.icon-all{
+	background:url('icons/all.png') no-repeat center center;
+}
+.icon-select{
+	background:url('icons/select.png') no-repeat center center;
+}
+
+.icon-node{
+	background:url('icons/node.png') no-repeat center center;
+}
+
+.icon-role{
+	background:url('icons/role.png') no-repeat center center;
+}
+
+.icon-teacher{
+	background:url('icons/teacher.png') no-repeat center center;
+}
+
+.icon-user{
+	background:url('icons/user.png') no-repeat center center;
+}

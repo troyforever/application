@@ -279,7 +279,7 @@ $(function(){
 				sortOrder : 'asc' , 
 			},
 			{
-				field : 'if' ,
+				field : 'if_num' ,
 				title : '影响因子' ,
 				width : 50 ,
 				align : 'center' ,

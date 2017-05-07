@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户管理</title>
+    <link rel="shortcut icon" href="__PUBLIC__/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+    <!-- EasyUI -->
+    <link href="__PUBLIC__/easyui/themes/default/easyui.css" rel="stylesheet">
+    <link href="__PUBLIC__/easyui/themes/icon.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/admin/users.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't tutor if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div id="content">
+
+      <div id="tools">
+        <a id="tools-add">添加</a>
+        <a id="tools-reload">刷新</a>
+      </div>
+
+      <table id="data-box"></table>
+    </div>
+
+    <div id="add-box">
+        <form id="add-form" method="post">
+          <input id="add-tid" name="add-tid" /><br><br>
+          <input id="roles" name="roles" hidden="hidden" />
+          <input id="add-email" name="add-email" /><br><br>
+          <input id="add-phone" name="add-phone" /><br><br>
+          <input id="add-role" name="add-role" /><br><br>
+          <input id="add-password" name="add-password" /><br><br>
+          <input id="add-repassword" name="add-repassword" /><br><br>
+
+          <div id="#add-btn" style="width:300px">
+            <a id="add-cancel">关闭</a>
+            <a id="add-submit">提交</a>
+          </div>
+        </form>
+      </div>
+
+      <div id="edit-box">
+        <form id="edit-form" method="POST">
+          <input id="id" name="id" hidden="hidden" />
+          <input id="edit-tid" name="edit-tid" /><br><br>
+          <input id="edit-email" name="edit-email" /><br><br>
+          <input id="edit-phone" name="edit-phone" /><br><br>
+          <div id="#edit-btn" style="width:300px">
+            <a id="edit-cancel">关闭</a>
+            <a id="edit-submit">提交</a>
+          </div>
+        </form>
+      </div>
+
+      <div id="pwd-box">
+        <form id="pwd-form" method="POST">
+          <input id="id" name="id" hidden="hidden" />
+          <input id="pwd-password" name="pwd-password" /><br><br>
+          <input id="pwd-repassword" name="pwd-repassword" /><br><br><br>
+
+          <div id="#edit-btn" style="width:300px">
+            <a id="pwd-cancel">关闭</a>
+            <a id="pwd-submit">提交</a>
+          </div>
+        </form>
+      </div>
+
+      <div id="role-box">
+        <form id="role-form" method="POST">
+          <input id="id" name="id" hidden="hidden" />
+          <input id="role-roles" name="role-roles" hidden="hidden" />
+            <input id="role" name="role" /><br><br><br>
+
+          <div id="#edit-btn" style="width:300px">
+            <a id="role-cancel">关闭</a>
+            <a id="role-submit">提交</a>
+          </div>
+        </form>
+      </div>
+
+    <script>
+      var APP = "__APP__" ;
+      var ROOT = "__ROOT__";
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__PUBLIC__/easyui/jquery.easyui.min.js"></script>
+    <script src="__PUBLIC__/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script src="__PUBLIC__/js/admin/users.js"></script>
+  </body>
+</html>

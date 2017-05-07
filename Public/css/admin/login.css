@@ -1,0 +1,8 @@
+body{min-width: 550px; min-height: 400px}
+.css1{margin-left: 100px; margin-top: 50px}
+.css2{margin-top: 30px}
+.css3{width:300px; margin-left: 100px; margin-top: 40px}
+.css4{width:100px;height:30px; margin-top: 30px}
+.css5{width: 90px;height:30px;padding-right: 100px; float:right}
+#recode{cursor: pointer;width: 95px;height:30px;margin-right: 100px; float:right}
+.pull-right{float: right;}

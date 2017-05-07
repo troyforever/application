@@ -195,7 +195,7 @@ $(function(){
 				sortOrder : 'asc' , 
 
 				formatter : function(value,row,index){
-					return '<span title="' + value + '">' + value + '</span>' ;
+					return "<span title='" + value + "'>" + value + "</span>" ;
 				}
 			},
 			{

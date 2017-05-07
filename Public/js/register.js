@@ -15,6 +15,7 @@ $("#box").dialog({
 	width:500,
 	height:450,
 
+	shadow : false,
 	draggable:false,
 	resizable:false,
 	closable:false,
@@ -162,7 +163,17 @@ $(function(){
 
 function resize(){
 
-	$("#box").dialog('center') ;
+	var width = ($('body').width() - $(".panel.window").width()) / 2;
+	var height = ($(window).height() - $(".panel.window").outerHeight()) / 2;
+
+	width = width >= 0 ? width : 0;
+	height = height >= 0 ? height : 25;
+	
+	$(".panel.window").css('position','absolute');
+	$(".panel.window").css('top','0px');
+	$(".panel.window").css('left','0px');
+
+	$(".panel.window").css('margin',height + 'px ' + width + 'px') ;
 }
 
 function changeCode (){

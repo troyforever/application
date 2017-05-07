@@ -156,6 +156,7 @@ class Rbac {
 
     //权限认证的过滤器方法
     static public function AccessDecision($appName=MODULE_NAME) {
+        dump($appName) ;
         //检查是否需要认证
         if(self::checkAccess()) {
             //存在认证识别号，则进行进一步的访问决策
