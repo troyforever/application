@@ -47,7 +47,7 @@ $(function(){
 		singleSelect : true ,
 		fit : true,
 		width:'100%' ,
-		url : APP + "/RBAC/Users/data" ,
+		url : APP + "/RBAC/Users/data1" ,
 		striped : true ,
 		checkOnSelect : true ,
 		loadMsg : '用户加载中。。。' ,

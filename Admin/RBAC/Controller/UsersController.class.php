@@ -29,6 +29,25 @@ class UsersController extends CommonController{
         $this -> ajaxReturn($data) ;
     }
 
+    public function data1(){
+
+        $userRole = D('UserRoleView') ;
+
+        $users = M('User') -> field('password',true) -> where("tid!='admin'") -> select () ;
+
+        foreach($users as $user){
+            $roles = D('UserRoleView') -> where("user_id='%s'",$user['tid']) -> select() ;
+            if ( count($roles) <= 1 && $roles[0]['role_id'] == 4 ){
+
+            } else {
+                $user['roles'] = $roles ;
+                $data[] = $user ;
+            }
+        }
+
+        $this -> ajaxReturn($data) ;
+    }
+
     public function add(){
         
         $data['tid'] = I('add-tid') ;
