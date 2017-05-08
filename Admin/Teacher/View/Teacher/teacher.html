@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>获奖信息</title>
+    <title>用户管理</title>
     <link rel="shortcut icon" href="__PUBLIC__/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
     <!-- EasyUI -->
     <link href="__PUBLIC__/easyui/themes/default/easyui.css" rel="stylesheet">
     <link href="__PUBLIC__/easyui/themes/icon.css" rel="stylesheet">
-    <link href="__PUBLIC__/css/admin/prize.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/admin/teacher.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesn't tutor if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -21,53 +21,54 @@
   </head>
   <body>
 
-    <div id="content" style="overflow:hidden">
-
-      <div id="search-box">
-        <form id="search-form">
-          <input id="search-topic" name="search-topic"/>
-          <input id="search-unit" name="search-topic" />
+    <div id="content">
+      <div id="tools">
+          <input id="search-tid" />
+          <input id="search-name" />
+          <input id="search-unit" />
           <a id="search-ok">查询</a>
           <a id="search-clear">清空</a>
-          <a id="tools-reload">刷新</a>
+        <a id="tools-reload">刷新</a>
+      </div>
+
+      <table id="data-box"></table>
+    </div>
+
+      <div id="pwd-box">
+        <form id="pwd-form" method="POST">
+          <input id="id" name="id" hidden="hidden" />
+          <input id="pwd-password" name="pwd-password" /><br><br>
+          <input id="pwd-repassword" name="pwd-repassword" /><br><br><br>
+
+          <div id="#edit-btn" style="width:300px">
+            <a id="pwd-cancel">关闭</a>
+            <a id="pwd-submit">提交</a>
+          </div>
         </form>
       </div>
-      
 
-      <!--<table id="data-box"></table>-->
-      <hr>
-      <div id="prize" style="margin-bottom:20px;min-width:1040px;">
+      <div id="role-box">
+        <form id="role-form" method="POST">
+          <input id="id" name="id" hidden="hidden" />
+          <input id="role-roles" name="role-roles" hidden="hidden" />
+            <input id="role" name="role" /><br><br><br>
 
+          <div id="#edit-btn" style="width:300px">
+            <a id="role-cancel">关闭</a>
+            <a id="role-submit">提交</a>
+          </div>
+        </form>
       </div>
-      <br>
-      <div id="page" style="background:#efefef;border:1px solid #ccc;">
-      </div>
-    </div>
-
-    <div id="img-dialog">
-      <input id="id" hidden="hidden" />
-      <img />
-      <div style="height:25px; margin:5px 10px">
-        <span style="font-weight:bold">备注:</span>
-        <span id="note"></span>
-      </div>
-      <div style="text-align:center">
-          <a id="img-note" href="javascript:;">附件</a>
-          <a id="img-close" href="javascript:;">关闭</a>
-          
-        </div>
-    </div>
 
     <script>
       var APP = "__APP__" ;
-      var PUBLIC = "__PUBLIC__" ;
-      var ROOT = "__ROOT__" ;
+      var ROOT = "__ROOT__";
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="__PUBLIC__/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="__PUBLIC__/easyui/jquery.easyui.min.js"></script>
     <script src="__PUBLIC__/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <script src="__PUBLIC__/js/admin/prize.js"></script>
+    <script src="__PUBLIC__/js/admin/teacher.js"></script>
   </body>
 </html>

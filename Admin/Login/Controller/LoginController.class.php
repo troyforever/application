@@ -36,10 +36,11 @@ class LoginController extends Controller {
                     $this -> ajaxReturn(1002) ;
                 } else {
                     //非超级管理员，验证是否有登录权限
-                    $accessList = \Org\Util\Rbac::getAccessList($data['tid']) ;
 
+                    //获取用户的权限
+                    $accessList = \Org\Util\Rbac::saveAccess($data['tid'],false) ;
                     //判断是否有后台权限
-                    if ( in_array('ADMIN',array_keys($accessList)) ){
+                    if ( in_array('2',$accessList) ){
                         session('admin',$data['tid']) ;
                         session(C('USER_AUTH_KEY'),$data['tid']) ;
                         \Org\Util\Rbac::saveAccess() ;

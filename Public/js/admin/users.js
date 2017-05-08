@@ -132,7 +132,7 @@ $(function(){
 
 				formatter : function(value,row,index){
 					return "<div class='operation'>" +
-							"<a class='easyui-linkbutton' data-options='width:80,plain:true,iconCls:\"icon-role\"' onclick='setrole(" + row.tid + ")'>配置角色</a>" +
+							"<a class='easyui-linkbutton' data-options='width:80,plain:true,iconCls:\"icon-role\"' onclick='setrole(\"" + row.tid + "\")'>配置角色</a>" +
 							"<a class='easyui-linkbutton' data-options='width:80,plain:true,iconCls:\"icon-edit\"' onclick='edit(" + index + ")'>编辑</a>" +
 							"<a class='easyui-linkbutton' data-options='width:80,plain:true,iconCls:\"icon-password\"' onclick='setpwd(" + row.tid + ")'>重置密码</a>" +
 							"</div>" ;

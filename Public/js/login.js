@@ -37,8 +37,8 @@
 				changeCode() ;
 			} else if ( data == 1002 ){
 				window.location.href= APP ;
-			// } else if ( data == 1004 ) {
-			// 	window.location.href= APP + '/Login/Activate' ;
+			} else if ( data == 1003 ) {
+				$.messager.alert('提示','无应用访问用权限！','info') ;
 			} else{
 				$('#password').passwordbox('clear') ;
 				$.messager.alert('提示','用户名、密码不匹配！','info') ;

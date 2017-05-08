@@ -48,9 +48,8 @@
           <?php foreach( $nodes as $node ){ if ( $node['level'] == 2 ) { ?>
             <div title="<?php echo $node['title'] ?>" style="overflow:hidden">
               <?php foreach( $nodes as $node1 ){ if ( $node1['level'] == 3 && $node1['pid'] == $node['id'] ) { ?>
-                <!--<?php echo json_encode($node1) ?>-->
-                <a class="nav easyui-linkbutton" class="easyui-linkbutton" href="javascript:;" data-options="plain:true,width:'100%',height:40,iconCls:'icon-<?php echo strtolower($node1['name']) ?>',onClick:function(){addTab('<?php echo $node1['title'] ?>', APP + '/<?php echo $node['name'] ?>/<?php echo $node1['name'] ?>','icon-<?php echo strtolower($node1['name']) ?>') ;}"><?php echo $node1['title'] ?></a>
-                <!--<a href="javascript:;" class="nav easyui-linkbutton" data-options="plain:true,width:'100%',iconCls:'icon-search'">easyui</a>-->
+
+                <a id="<?php echo strtolower($node1['name']) ?>" class="nav easyui-linkbutton" class="easyui-linkbutton" href="javascript:;" data-options="plain:true,width:'100%',height:40,iconCls:'icon-<?php echo strtolower($node1['name']) ?>',onClick:function(){addTab('<?php echo $node1['title'] ?>', APP + '/<?php echo $node['name'] ?>/<?php echo $node1['name'] ?>','icon-<?php echo strtolower($node1['name']) ?>') ;}"><?php echo $node1['title'] ?></a>
 
               <?php } } ?>
             </div>

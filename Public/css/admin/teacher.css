@@ -1,0 +1,10 @@
+.datagrid td{height : 50px}
+#add-form{margin-top:30px; margin-left: 65px}
+#add-submit{float:right}
+#edit-form{margin-top:30px; margin-left: 65px}
+#pwd-form{margin-top:30px; margin-left: 65px}
+#role-form{margin-top:30px; margin-left: 65px}
+#edit-submit{float:right}
+#pwd-submit{float:right}
+#role-submit{float:right}
+.pagination-info{line-height: 50px}

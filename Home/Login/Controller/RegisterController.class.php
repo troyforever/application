@@ -2,7 +2,9 @@
 namespace Login\Controller;
 use Think\Controller ;
 class RegisterController extends Controller {
-    
+
+	public static $TEACHER_ROLE = 4 ;
+
     public function index(){
     	$this->display("register") ;
     }
@@ -26,7 +28,9 @@ class RegisterController extends Controller {
     		$this -> ajaxReturn (1003) ; 
     	}
     	if ( $user -> data($data) -> add() == 1 ){
-    		// session('register.tid',$data['tid']) ;
+			$role_user['role_id'] = self::$TEACHER_ROLE ;
+			$role_user['user_id'] = $data['tid'] ;
+			M('RoleUser') -> add($role_user) ;
     		$this -> ajaxReturn( 1000 ) ;
     	}
 

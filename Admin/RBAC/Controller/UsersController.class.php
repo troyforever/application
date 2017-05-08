@@ -12,15 +12,18 @@ class UsersController extends CommonController{
 
     public function data(){
 
-        $user = M('User') ;
-
         $userRole = D('UserRoleView') ;
 
-        $users = M('User') -> field('password',true) -> where("tid!='admin'") -> select () ;
+        $users = D('TeacherRelation') -> field('password',true) -> where("tid!='admin'") -> select () ;
 
         foreach($users as $user){
-            $user['roles'] = D('UserRoleView') -> where("user_id='%s'",$user['tid']) -> select() ;
-            $data[] = $user ;
+            $roles = D('UserRoleView') -> where("user_id='%s'",$user['tid']) -> select() ;
+            if ( count($roles) <= 1 && $roles[0]['role_id'] == 4 ){
+
+            } else {
+                $user['roles'] = $roles ;
+                $data[] = $user ;
+            }
         }
 
         $this -> ajaxReturn($data) ;
@@ -108,6 +111,12 @@ class UsersController extends CommonController{
         }
 
         $this -> ajaxReturn(true) ;
+    }
+
+    public function test(){
+        $base = D('UserBaseView') ;
+
+        dump ( $base -> fetchSql() -> select() ) ;
     }
 }
 

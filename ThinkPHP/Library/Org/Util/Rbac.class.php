@@ -90,7 +90,7 @@ class Rbac {
         return ;
     }
 
-    static function saveAccess($authId=null){
+    static function saveAccess($authId=null, $flag=true){
         if(null===$authId)   $authId = $_SESSION[C('USER_AUTH_KEY')];
         // 如果使用普通权限模式，保存当前用户的访问权限列表
         // 对管理员开发所有权限
@@ -108,8 +108,9 @@ class Rbac {
             }
         }
 
-        $_SESSION['_ACCESS_LIST'] = $data ; 
-        return ;
+        if ( flag )
+            $_SESSION['_ACCESS_LIST'] = $data ; 
+        return $data;
     }
 
 	// 取得模块的所属记录访问权限列表 返回有权限的记录ID数组
@@ -178,7 +179,6 @@ class Rbac {
 
     //权限认证的过滤器方法
     static public function AccessDecision($appName=MODULE_NAME) {
-        dump($appName) ;
         //检查是否需要认证
         if(self::checkAccess()) {
             //存在认证识别号，则进行进一步的访问决策

@@ -1,9 +1,11 @@
 <?php 
 
-namespace Experience\Controller;
+namespace Teacher\Controller;
 use Common\Controller\CommonController;
 
 class TeacherController extends CommonController{
+
+    public static $TEACHER_ROLE = 4 ;
 
     public function index(){
 
@@ -12,116 +14,115 @@ class TeacherController extends CommonController{
 
     public function data(){
 
-        $sort = I('request.sort') != null ? I('request.sort') : 'graduation_time' ;
-        $order = I('request.order') != null ? I('request.order') : 'desc' ;
+        if ( !empty(I('tid')) )
+            $search['tid'] = array('LIKE','%'.I('tid').'%') ;
 
-        $education = M('Education') ;
+        $users = D('TeacherRelation') -> relation(true) -> field('password',true) -> where($search) -> where("tid!='admin'") -> select () ;
 
-        $data = $education -> where("tid='%s'",session('tid')) -> order($sort . " " . $order) -> select () ;
-
-        $this -> ajaxReturn($data) ;
-    }
-
-    public function add(){
-        if ( session('?tid') ){
-            $data['school'] = I('school') ;
-            $data['major'] = I('major') ;
-            $data['education'] = I('education') ;
-            $data['degree'] = I('degree') ;
-            $data['graduation_time'] = I('post.graduation_time') ;
-            $data['tid'] = session('tid') ;
-
-            if ( $_FILES['file_name']['name'] ){
-
-                $base = M('Base') ;
-                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
-
-                //文件上传
-                $config = array(
-                    'savePath' => './Education/',
-                    'autoSub' => false,
-                    'replace' => true,
-                    'saveName' => session('tid') . '-' . $name . '-' . $data['school'] . '-' . $data['major']
-                );
-
-                $upload = new \Think\Upload($config);
-
-                $info = $upload -> upload();
-
-                $data['file_name'] = $info['file_name']['savename'] ;
+        foreach ( $users as $index => $user ){
+            if ( !empty(I('name')) ){
+                if ( strpos($user['name'], I('name' ) ) === false ){
+                    unset($users[$index]);
+                }
             }
 
-            $education = M('Education') ;
-
-            $this -> ajaxReturn($education -> add($data) !== false ? true : false) ;
+            if ( !empty(I('unit')) ){
+                if( $user['unit_id'] != I('unit') ){
+                    unset($users[$index]) ;
+                }
+            }
         }
 
-        $this -> ajaxReturn(false) ;
+        foreach($users as $user){
+            $roles = D('UserRoleView') -> field('role_id,name') -> where("user_id='%s'",$user['tid']) -> select() ;
+
+            $user['roles'] = $roles ;
+
+            unset($data) ;
+
+            foreach ( $roles as $role ){
+                $data[] = $role['role_id'] ;
+            }
+
+            if ( in_array(self::$TEACHER_ROLE, $data) ){
+                $teachers[] = $user ;
+            }
+        }
+
+        $result['rows'] = $teachers ;
+        $result['total'] = count($teachers) ;
+        if ( $result['total'] == 0 ){
+            $result['rows'] = array();
+        }
+        $this -> ajaxReturn($result) ;
     }
 
     public function delete(){
-        
-        if ( session('?tid') && I('post.id') != null ){
-            $education = M("Education") ;
 
-            $data = $education -> where("id=" . I('post.id')) -> find() ;
+        $user = M('User') ;
 
-            if ( $data != null && $data['tid'] == session('tid') ){
-                //删除原先文件
-                $file_name = $data['file_name'] ;
-                $file = iconv('utf-8', 'gbk', './Uploads/Education/'.$file_name);
-                unlink($file);
+        M('RoleUser') -> where('user_id='.I('id')) -> delete() ;
 
-                $this -> ajaxReturn($education -> delete(I('post.id')) == 1 ? true : false ) ;
-            }
-        }
-
-        $this -> ajaxReturn(false) ;
+        $this -> ajaxReturn ( M('User') -> delete(I('id')) == 1 ? true : false ) ;
     }
 
     public function edit(){
 
-        if ( session('?tid') ){
-            $data['school'] = I('edit-school') ;
-            $data['major'] = I('edit-major') ;
-            $data['education'] = I('edit-education') ;
-            $data['degree'] = I('edit-degree') ;
-            $data['graduation_time'] = I('post.edit-graduation_time') ;
-            $data['tid'] = session('tid') ;
+        $user = M('User') -> where("tid='%s'",I('id')) -> find() ;
 
-            $education = M('Education') ;
+        $data['email'] = I('edit-email') ;
+        $data['phone'] = I('edit-phone') ;
 
-            if ( $_FILES['edit-file_name']['name'] ){
-
-                $base = M('Base') ;
-                $name = $base -> where("userid='%s'",session('tid')) -> getField('name') ;
-
-                $file_name = $education -> where('id='.I('request.edit-id')) -> getField('file_name') ;
-                
-                //删除原先文件
-                $file = iconv('utf-8', 'gbk', './Uploads/Education/'.$file_name);
-                unlink($file);
-                //文件上传
-                $config = array(
-                    'savePath' => './Education/',
-                    'autoSub' => false,
-                    'replace' => true,
-                    'saveName' => session('tid') . '-' . $name . '-' . $data['school'] . '-' . $data['major']
-                );
-
-                $upload = new \Think\Upload($config);
-
-                $info = $upload -> upload();
-
-                $data['file_name'] = $info['edit-file_name']['savename'] ;
-            }
-
-            $result = $education -> where("id=" . I('request.edit-id') ) -> save($data) ;
-
-            $this -> ajaxReturn($result !== false ? true : false) ;
+        if ( $user['email'] != $data['email'] && M('User') -> where("email='%s'",$data['email']) -> find() ){
+            $this -> ajaxReturn(1001) ;
         }
-        $this -> ajaxReturn(false) ;
+
+        if ( $user['phone'] != $data['phone'] && M('User') -> where("phone='%s'",$data['phone']) -> find() ){
+            $this -> ajaxReturn(1002) ;
+        }
+
+        $this -> ajaxReturn(M('User') -> where("tid='%s'",I('id')) -> save($data) !== false ? true : false ) ;
     }
+
+    public function password(){
+
+        $data['password'] = I('pwd-password','','md5') ;
+
+        $this -> ajaxReturn(M('User') -> where("tid='%s'",I('id')) -> save($data) !== false ? true : false) ;
+    }
+
+    public function getRoles(){
+        $this -> ajaxReturn(M('RoleUser') -> field('role_id') -> where("user_id='%s'",I('id')) -> select()) ;
+    }
+
+    public function role(){
+        $roles = explode(',',I('role-roles')) ;
+
+        M('RoleUser') -> where("user_id='%s'",I('id')) -> delete();
+
+        foreach ( $roles as $role ){
+            $role_user['role_id'] = $role ;
+            $role_user['user_id'] = I('id') ;
+
+            M('RoleUser') -> add($role_user) ;
+        }
+
+        $this -> ajaxReturn(true) ;
+    }
+
+    public function test(){
+
+        if ( !empty(I('tid')) )
+            $search['tid'] = array('LIKE',I('tid')) ;
+        if ( !empty(I('name')))
+            $search['name'] = array('LIKE',I('name')) ;
+        if ( !empty(I('unit')) )
+            $search['unit_id'] = I('unit') ;
+
+        $users = D('TeacherRelation') -> relation(true) -> field('password',true) -> where($search) -> where("tid!='admin'") -> select () ;
+
+        $this -> ajaxReturn($users) ;
+    }   
 }
 
 ?>
