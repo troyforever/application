@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>用户管理</title>
+    <title>教师管理</title>
     <link rel="shortcut icon" href="__PUBLIC__/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
     <!-- EasyUI -->
     <link href="__PUBLIC__/easyui/themes/default/easyui.css" rel="stylesheet">
@@ -23,12 +23,15 @@
 
     <div id="content">
       <div id="tools">
+        <a id="download-all">导出数据</a>
+        <a id="tools-reload">刷新</a>
+      </div>
+      <div id="tools">
           <input id="search-tid" />
           <input id="search-name" />
           <input id="search-unit" />
           <a id="search-ok">查询</a>
           <a id="search-clear">清空</a>
-        <a id="tools-reload">刷新</a>
       </div>
 
       <table id="data-box"></table>
@@ -60,9 +63,30 @@
         </form>
       </div>
 
+      <div id="improve-box">
+        <table id="improve-data"></table>
+      </div>
+
+      <div id="education-box">
+        <table id="education-data"></table>
+      </div>
+
+      <div id="work-box">
+        <table id="work-data"></table>
+      </div>
+
+      <div id="title-box">
+        <table id="title-data"></table>
+      </div>
+
+      <div id="tutor-box">
+        <table id="tutor-data"></table>
+      </div>
+
     <script>
       var APP = "__APP__" ;
       var ROOT = "__ROOT__";
+      var CONTROLLER = "__CONTROLLER__" ;
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="__PUBLIC__/js/jquery.min.js"></script>

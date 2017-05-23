@@ -46,12 +46,12 @@ $(function(){
 		remoteSort : true ,
 		method : 'POST' ,
 		pageSize : 5,
-		pageList : [5],
+		pageList : [5,10,15,20,25,30],
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'id' ,
 				title : 'id' ,

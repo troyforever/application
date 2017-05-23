@@ -168,6 +168,8 @@ class PaperController extends CommonController{
             }
 
             $this -> ajaxReturn( $paper -> where('id='.I('post.edit-id')) -> save($data) !== false ? true : false ) ;
+
+            $this -> ajaxReturn($paper -> delete(I('post.id')) == 1 ? true : false ) ;
         }
 
         $this -> ajaxReturn(false) ;

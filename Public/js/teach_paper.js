@@ -235,12 +235,12 @@ $(function(){
 		method : 'POST' ,
 		pagination : true ,
 		pageSize : 5,
-		pageList : [5],
+		pageList : [5,10,15,20,25,30],
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'id' ,
 				title : 'id' ,
@@ -318,17 +318,9 @@ $(function(){
 			}
 		]] ,
 
-		// onBeforeLoad : function(){
-		// 	$("#tools-detail").linkbutton('enable') ;
-		// 	$("#tools-edit").linkbutton('enable') ;
-		// 	$("#tools-delete").linkbutton('enable') ;
-		// } ,
 
 		onLoadSuccess : function(data){
 			if ( data.total == 0 ){
-				// $("#tools-detail").linkbutton('disable') ;
-				// $("#tools-edit").linkbutton('disable') ;
-				// $("#tools-delete").linkbutton('disable') ;
 				$("#data-box").datagrid('appendRow',{
 					topic : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
 				}).datagrid('mergeCells',{

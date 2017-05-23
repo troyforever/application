@@ -94,10 +94,8 @@ $(function(){
 			var unit = $("#search-unit").combobox('getValue').trim() ;
 			var application_id = $("#search-application_id").textbox('getValue').trim();
 			var auth_id = $("#search-auth_id").textbox('getValue').trim();
-			if ( selects.length == 0 ){
-				$.messager.confirm('下载提示','确定导出全部附件?',function(result){
-					if ( result ){
-						$.ajax({
+			
+			$.ajax({
 							url : APP + '/Achievement/Patent/downloadAll' ,
 							data : {topic:topic,unit:unit,application_id:application_id,auth_id:auth_id},
 							method : 'POST' ,
@@ -112,33 +110,6 @@ $(function(){
 								}
 							}
 						});
-					}
-				}) ;
-			} else {
-				var str = '' ;
-
-				for ( var i = 0 ; i < selects.length ; i ++ ){
-					str += selects[i].id + '-' ;
-				}
-
-				str = str.substr(0,str.length-1) ;
-				
-				$.ajax({
-					url : APP + '/Achievement/Patent/downloadSelect' ,
-					data : {selects:str} ,
-					method : 'POST' ,
-					dataType : 'JSON' ,
-					async : false,
-
-					success : function(data){
-						if ( data ){
-							window.open(ROOT + '/Uploads/Patent/File/' + data ) ;
-						} else {
-							$.messager.alert('下载提示','尚无附件下载','info') ;
-						}
-					}
-				});
-			}
 		}
 	});
 
@@ -234,12 +205,12 @@ $(function(){
 		method : 'POST' ,
 		pagination : true ,
 		pageSize : 5,
-		pageList : [5],
+		pageList : [5,10,15,20,25,30],
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'id' ,
 				hidden : true,

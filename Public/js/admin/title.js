@@ -110,10 +110,10 @@ $(function(){
 		remoteSort : true ,
 		method : 'POST' ,
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'id' ,
 				title : 'id' ,

@@ -44,6 +44,7 @@ $(function(){
 
 	$("#data-box").datagrid({
 		fitColumns : true ,
+		fit : true,
 		singleSelect : true ,
 		fit : true,
 		width:'100%' ,
@@ -53,13 +54,13 @@ $(function(){
 		loadMsg : '用户加载中。。。' ,
 		remoteSort : true ,
 		method : 'POST' ,
-		pageSize : 5,
-		pageList : [5],
+		// pageSize : 5,
+		// pageList : [5],
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'tid' ,
 				title : '账号' ,
@@ -233,8 +234,8 @@ $(function(){
 		height : 30,
 		label : '授权角色' ,
 		panelHeight:'auto',
-		multiple : true,
-		multivalue : true,
+		// multiple : true,
+		// multivalue : true,
 		labelWidth : 70,
 		textField : 'name',
 		valueField : 'id' ,
@@ -521,8 +522,8 @@ $("#pwd-repassword").passwordbox({
 		height : 30,
 		label : '授权角色' ,
 		panelHeight:'auto',
-		multiple : true,
-		multivalue : true,
+		// multiple : true,
+		// multivalue : true,
 		labelWidth : 70,
 		textField : 'name',
 		valueField : 'id' ,

@@ -62,6 +62,7 @@
           </div>
 
           <div title="个人信息" style="overflow:hidden">
+            <a class="nav" id="improve" href="javascript:;"></a>
             <a class="nav" id="degree" href="javascript:;"></a>
             <a class="nav" id="job" href="javascript:;"></a>
             <a class="nav" id="position" href="javascript:;"></a>

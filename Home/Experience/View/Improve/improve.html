@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>教学项目</title>
+    <title>工作经历</title>
     <link rel="shortcut icon" href="__PUBLIC__/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
     <!-- EasyUI -->
     <link href="__PUBLIC__/easyui/themes/default/easyui.css" rel="stylesheet">
     <link href="__PUBLIC__/easyui/themes/icon.css" rel="stylesheet">
-    <link href="__PUBLIC__/css/admin/teach_project.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/improve.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesn't improve if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -24,39 +24,28 @@
     <div id="content">
 
       <div id="tools">
-        <!--<a id="download-select">导出选中</a>-->
-        <a id="download-all">导出数据</a>
-        <a id="download-file">下载附件</a>
+        <a id="tools-add">添加</a>
+        <!--<a id="tools-edit">编辑</a>
+        <a id="tools-delete">删除</a>-->
         <a id="tools-reload">刷新</a>
       </div>
-      <div id="search-box">
-        <form id="search-form">
-          <input id="search-id" name="search-id" placeholder="编号" />
-          <input id="search-topic" name="search-topic" placeholder="课题" />
-          <input id="search-unit" />
-          <input id="search-start_date" />
-          <a id="search-ok">查询</a>
-          <a id="search-clear">清空</a>
-        </form>
-      </div>
-      
 
       <table id="data-box"></table>
     </div>
 
     <div id="add-box">
         <form id="add-form" method="post" enctype="multipart/form-data">
-          <input id="add-id" name="add-id" /><br><br>
           <input id="add-topic" name="add-topic" /><br><br>
-          <input id="add-author" name="add-author" value="<?php echo $name ?>" /><br><br>
-          <input id="add-other_author" name="add-other_author" /><br><br>
-          <input id="add-category" name="add-category" />
-          <input id="add-state" name="add-state" /><br><br>
-          <input id="add-project_sum" name="add-project_sum" /><br><br>
-          <input id="add-start_date" name="add-start_date" />
+          <input id="add-unit" name="add-unit" /><br><br>
+          <input id="add-location" name="add-location" /><br><br>
+          
+          <input id="add-start_date" name="add-start_date" /><br><br>
           <input id="add-end_date" name="add-end_date" /><br><br>
-          <input id="add-file_name" name="add-file_name" /><br><br>
-          <div id="#add-btn" style="width:400px">
+
+          <input id="add-note" name="add-note" /><br><br>
+
+          <input id="add-file_name" name="add-file_name" ><br><br>
+          <div id="#add-btn" style="width:300px">
             <a id="add-cancel">关闭</a>
             <a id="add-submit">提交</a>
           </div>
@@ -64,18 +53,18 @@
       </div>
 
       <div id="edit-box">
-      <form id="edit-form" method="post" enctype="multipart/form-data">
-          <input id="edit-id" name="edit-id" /><br><br>
+        <form id="edit-form" method="POST" enctype="multipart/form-data">
+          <input id="edit-id" name="edit-id" hidden="hidden" />
           <input id="edit-topic" name="edit-topic" /><br><br>
-          <input id="edit-author" name="edit-author" /><br><br>
-          <input id="edit-other_author" name="edit-other_author" /><br><br>
-          <input id="edit-category" name="edit-category" />
-          <input id="edit-state" name="edit-state" /><br><br>
-          <input id="edit-project_sum" name="edit-project_sum" /><br><br>
-          <input id="edit-start_date" name="edit-start_date" />
+          <input id="edit-unit" name="edit-unit" /><br><br>
+          <input id="edit-location" name="edit-location" /><br><br>
+          
+          <input id="edit-start_date" name="edit-start_date" /><br><br>
           <input id="edit-end_date" name="edit-end_date" /><br><br>
-          <input id="edit-file_name" name="edit-file_name" /><br><br>
-          <div id="#edit-btn" style="width:400px">
+
+          <input id="edit-note" name="edit-note" /><br><br>
+          <input id="edit-file_name" name="edit-file_name" ><br><br>
+          <div id="#edit-btn" style="width:300px">
             <a id="edit-cancel">关闭</a>
             <a id="edit-submit">提交</a>
           </div>
@@ -84,14 +73,13 @@
 
     <script>
       var APP = "__APP__" ;
-      var PUBLIC = "__PUBLIC__" ;
-      var ROOT = "__ROOT__" ;
+      var ROOT = "__ROOT__";
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="__PUBLIC__/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="__PUBLIC__/easyui/jquery.easyui.min.js"></script>
     <script src="__PUBLIC__/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <script src="__PUBLIC__/js/admin/teach_project.js"></script>
+    <script src="__PUBLIC__/js/improve.js"></script>
   </body>
 </html>

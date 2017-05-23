@@ -36,6 +36,7 @@ $(function(){
 
 	$("#data-box").datagrid({
 		fitColumns : true ,
+		fit : true,
 		singleSelect : true ,
 		fit : true,
 		width:'100%' ,
@@ -45,12 +46,11 @@ $(function(){
 		loadMsg : '角色加载中。。。' ,
 		remoteSort : true ,
 		method : 'POST' ,
-		pageSize : 5,
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'id' ,
 				title : 'id' ,

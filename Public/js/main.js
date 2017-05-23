@@ -176,6 +176,19 @@ $("#teaching").linkbutton({
 });
 
 //个人信息
+$("#improve").linkbutton({
+	plain:true,
+	width:'100%',
+	height:40,
+	text:'进修信息',
+	iconCls : 'icon-improve',
+
+	onClick : function(){
+		addTab('进修信息', APP + '/Experience/Improve','icon-improve') ;
+	}
+});
+
+
 $("#degree").linkbutton({
 	plain:true,
 	width:'100%',

@@ -51,15 +51,18 @@
         clearstatcache();  
     } 
 
-    function zip($filename,$files){
+    function zip($filename,$files,$xls_file=null){
         $zip = new \ZipArchive (); // 使用本类，linux需开启zlib，windows需取消php_zip.dll前的注释
-        if ($zip->open ( $filename, \ZIPARCHIVE::CREATE ) !== TRUE) {
+
+        if ( $zip->open ( $filename, \ZIPARCHIVE::OVERWRITE ) !== TRUE && $zip->open ( $filename, \ZIPARCHIVE::CREATE ) !== TRUE )
             exit ( '无法打开文件，或者文件创建失败' );
-        }
 
         foreach ( $files as $val ) {
             $zip->addFile ( $val, basename ( $val ) ); // 第二个参数是放在压缩包中的文件名称，如果文件可能会有重复，就需要注意一下
         }
+
+        $zip -> addFile ( $xls_file, basename($xls_file) ) ;
+
         $basename = basename($zip->filename) ;
         $zip->close (); // 关闭
 

@@ -76,6 +76,34 @@ $(function(){
 		}
 	});
 
+	$("#download-all").linkbutton({
+		width : 150,
+		height : 50,
+		plain : true ,
+		iconCls : 'icon-all' ,
+
+		onClick : function(){
+			var tid = $("#search-tid").textbox('getValue').trim();
+			var name = $("#search-name").textbox('getValue').trim();
+			var unit = $("#search-unit").combobox('getValue') ;
+			$.ajax({
+				url : APP + '/Teacher/Teacher/exportAll' ,
+				method : 'POST' ,
+				async : false,
+				dataType : 'JSON' ,
+				data : {tid:tid,unit:unit,name:name},
+
+				success : function(data){
+					if ( data ){
+						window.open(ROOT + '/Uploads/Teacher/File/' + data) ;
+					} else {
+						$.messager.alert('提示','暂无数据导出','info') ;
+					}
+				}
+			});
+		}
+	});
+
 	$("#tools-reload").linkbutton({
 		width : 100,
 		height : 50,
@@ -90,7 +118,8 @@ $(function(){
 	$("#data-box").datagrid({
 		fitColumns : true ,
 		singleSelect : true ,
-		fit : true,
+		// fit : true,
+		pagination : true,
 		width:'100%' ,
 		url : APP + "/Teacher/teacher/data" ,
 		striped : true ,
@@ -99,12 +128,12 @@ $(function(){
 		remoteSort : true ,
 		method : 'POST' ,
 		pageSize : 5,
-		pageList : [5],
+		pageList : [5,10,15,20,25,30],
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'tid' ,
 				title : '工号' ,
@@ -115,7 +144,7 @@ $(function(){
 			{
 				field : 'name' ,
 				title : '姓名' ,
-				width : 100 ,
+				width : 50 ,
 				align : 'center' ,
 				halign : 'center' ,
 
@@ -195,7 +224,7 @@ $(function(){
 			{
 				field : 'email' ,
 				title : '邮箱' ,
-				width : 150 ,
+				width : 100 ,
 				align : 'center' ,
 				halign : 'center' ,
 			},
@@ -236,31 +265,86 @@ $(function(){
 					}
 				}
 			},
+			// {
+			// 	field : 'roles' ,
+			// 	title : '角色' ,
+			// 	width : 100 ,
+			// 	align : 'center' ,
+			// 	halign : 'center' ,
+
+			// 	formatter : function(value,row,index){
+			// 		if ( value ){
+			// 			var str = '' ;
+			// 			for ( var i = 0 ; i < value.length ; i ++ ){
+			// 				str += value[i].name + ',' ;
+			// 			}
+
+			// 			return str.substr(0,str.length - 1 ) ;
+			// 		}
+			// 	}
+			// },
 			{
-				field : 'roles' ,
-				title : '角色' ,
-				width : 100 ,
+				field : 'improve' ,
+				title : '进修' ,
+				width : 50 ,
 				align : 'center' ,
-				halign : 'center' ,
+				halign : 'center' , 
 
 				formatter : function(value,row,index){
-					if ( value ){
-						var str = '' ;
-						for ( var i = 0 ; i < value.length ; i ++ ){
-							str += value[i].name + ',' ;
-						}
-
-						return str.substr(0,str.length - 1 ) ;
-					}
+					return '<a href="javascript:;" onclick="improve(\'' + row.tid +  '\')">进修</a>' ;
 				}
 			},
 			{
-				field : 'add_time' ,
-				title : '注册时间' ,
-				width : 100 ,
+				field : 'education' ,
+				title : '学历' ,
+				width : 50 ,
 				align : 'center' ,
 				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return '<a href="javascript:;" onclick="education(\'' + row.tid +  '\')">学历</a>' ;
+				}
 			},
+			{
+				field : 'work' ,
+				title : '工作' ,
+				width : 50 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return '<a href="javascript:;" onclick="work(\'' + row.tid +  '\')">工作</a>' ;
+				}
+			},
+			{
+				field : 'title' ,
+				title : '职称' ,
+				width : 50 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return '<a href="javascript:;" onclick="titleData(\'' + row.tid +  '\')">职称</a>' ;
+				}
+			},
+			{
+				field : 'tutor' ,
+				title : '导员' ,
+				width : 50 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					return '<a href="javascript:;" onclick="tutorData(\'' + row.tid +  '\')">导员</a>' ;
+				}
+			},
+			// {
+			// 	field : 'add_time' ,
+			// 	title : '注册时间' ,
+			// 	width : 100 ,
+			// 	align : 'center' ,
+			// 	halign : 'center' , 
+			// },
 			{
 				field : 'operation' ,
 				title : '操作' ,
@@ -425,8 +509,8 @@ $("#pwd-repassword").passwordbox({
 		height : 30,
 		label : '授权角色' ,
 		panelHeight:'auto',
-		multiple : true,
-		multivalue : true,
+		// multiple : true,
+		// multivalue : true,
 		labelWidth : 70,
 		textField : 'name',
 		valueField : 'id' ,
@@ -467,7 +551,595 @@ $("#pwd-repassword").passwordbox({
 			$("#role-box").dialog('close') ;
 		}
 	});
+
+	$("#improve-box").dialog({
+		width : 712,
+		height : 450,
+		title : '进修经历',
+		iconCls : 'icon-improve' ,
+		closed : true,
+
+		buttons : [
+			{
+				text : '关闭',
+				width : 500,
+				height : 50,
+				iconCls : 'icon-cancel',
+				plain : true,
+
+				handler:function(){
+					$("#improve-box").dialog('close') ;
+				}
+
+			},
+		],
+	});
+
+	$("#education-box").dialog({
+		width : 712,
+		height : 450,
+		title : '学历信息',
+		iconCls : 'icon-education' ,
+		closed : true,
+
+		buttons : [
+			{
+				text : '关闭',
+				width : 500,
+				height : 50,
+				iconCls : 'icon-cancel',
+				plain : true,
+
+				handler:function(){
+					$("#education-box").dialog('close') ;
+				}
+
+			},
+		],
+	});
+
+	$("#work-box").dialog({
+		width : 712,
+		height : 450,
+		title : '工作经历',
+		iconCls : 'icon-work' ,
+		closed : true,
+
+		buttons : [
+			{
+				text : '关闭',
+				width : 500,
+				height : 50,
+				iconCls : 'icon-cancel',
+				plain : true,
+
+				handler:function(){
+					$("#work-box").dialog('close') ;
+				}
+
+			},
+		],
+	});
+
+	$("#title-box").dialog({
+		width : 712,
+		height : 450,
+		title : '职称经历',
+		iconCls : 'icon-title' ,
+		closed : true,
+
+		buttons : [
+			{
+				text : '关闭',
+				width : 500,
+				height : 50,
+				iconCls : 'icon-cancel',
+				plain : true,
+
+				handler:function(){
+					$("#title-box").dialog('close') ;
+				}
+
+			},
+		],
+	});
+
+	$("#tutor-box").dialog({
+		width : 712,
+		height : 450,
+		title : '导员经历',
+		iconCls : 'icon-tutor' ,
+		closed : true,
+
+		buttons : [
+			{
+				text : '关闭',
+				width : 500,
+				height : 50,
+				iconCls : 'icon-cancel',
+				plain : true,
+
+				handler:function(){
+					$("#tutor-box").dialog('close') ;
+				}
+
+			},
+		],
+	});
+
+	$("#improve-data").datagrid({
+		fitColumns : true ,
+		singleSelect : true ,
+		fit : true,
+		url : CONTROLLER + '/getData' ,
+		width:'100%' ,
+		striped : true ,
+		checkOnSelect : true ,
+		loadMsg : '进修信息加载中。。。' ,
+		method : 'POST' ,
+
+			columns : [[
+			{
+				field : 'id' ,
+				title : 'id' ,
+				hidden : true ,
+			},
+			{
+				field : 'topic' ,
+				title : '进修主题' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'asc' ,
+			},
+			{
+				field : 'unit' ,
+				title : '进修单位' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'note' ,
+				title : '简介' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'location' ,
+				title : '地点' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'start_date' ,
+				title : '开始时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'asc' ,
+			},
+			{
+				field : 'end_date' ,
+				title : '结束时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'asc' ,
+			},
+			{
+				field : 'file_name' ,
+				title : '附件' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Improve/' + value + '\')">查看</a>'
+					}
+				}
+			},
+		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#improve-data").datagrid('appendRow',{
+					topic : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'topic' ,
+					colspan : 7,
+				}) ;
+			}
+		},
+	}) ;
+
+	$("#education-data").datagrid({
+		fitColumns : true ,
+		fit : true,
+		singleSelect : true ,
+		width:'100%' ,
+		url : CONTROLLER + "/getData" ,
+		striped : true ,
+		checkOnSelect : true ,
+		sortName : 'graduation_time' ,
+		loadMsg : '教育经历加载中。。。' ,
+		sortOrder : 'desc' ,
+		multiSort : true ,
+		remoteSort : true ,
+		method : 'POST' ,
+		columns : [[
+			{
+				field : 'id' ,
+				title : 'id' ,
+				hidden : true ,
+			},
+			{
+				field : 'school' ,
+				title : '院校' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'major' ,
+				title : '专业' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'education' ,
+				title : '学历' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'degree' ,
+				title : '学位' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'graduation_time' ,
+				title : '毕业日期' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' , 
+			},
+			{
+				field : 'file_name' ,
+				title : '附件' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Education/' + value + '\')">查看</a>'
+					}
+				}
+			},
+		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#education-data").datagrid('appendRow',{
+					school : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'school' ,
+					colspan : 6,
+				}) ;
+			}
+		},
+	});
+
+	$("#work-data").datagrid({
+		fitColumns : true ,
+		fit : true,
+		singleSelect : true ,
+		width:'100%' ,
+		url : CONTROLLER + '/getData' ,
+		striped : true ,
+		checkOnSelect : true ,
+		sortName : 'add_time' ,
+		loadMsg : '工作经历加载中。。。' ,
+		sortOrder : 'desc' ,
+		multiSort : true ,
+		remoteSort : true ,
+		method : 'POST' ,
+		columns : [[
+			{
+				field : 'id' ,
+				title : 'id' ,
+				hidden : true ,
+			},
+			{
+				field : 'job' ,
+				title : '职务' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'unit' ,
+				title : '工作单位' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'department' ,
+				title : '部门' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'section' ,
+				title : '科室(系)' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "无" ;
+					} else {
+						return value ;
+					}
+				}
+			},
+			{
+				field : 'into_date' ,
+				title : '入职时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' ,
+			},
+			{
+				field : 'exit_date' ,
+				title : '离职时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' ,
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "无" ;
+					} else {
+						return value ;
+					}
+				}
+			},
+			{
+				field : 'file_name' ,
+				title : '附件' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Work/' + value + '\')">查看</a>'
+					}
+				}
+			},
+		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#work-data").datagrid('appendRow',{
+					job : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'job' ,
+					colspan : 7,
+				}) ;
+			}
+		},
+	});
+
+	$("#title-data").datagrid({
+		fitColumns : true ,
+		singleSelect : true ,
+		fit : true,
+		width:'100%' ,
+		url : CONTROLLER + '/getData' ,
+		striped : true ,
+		checkOnSelect : true ,
+		sortName : 'title_time' ,
+		loadMsg : '职称经历加载中。。。' ,
+		sortOrder : 'desc' ,
+		multiSort : true ,
+		remoteSort : true ,
+		method : 'POST' ,
+		columns : [[
+			{
+				field : 'id' ,
+				title : 'id' ,
+				hidden : true ,
+			},
+			{
+				field : 'title' ,
+				title : '职称' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'title_time' ,
+				title : '评定时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' , 
+			},
+			{
+				field : 'file_name' ,
+				title : '附件' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Title/' + value + '\')">查看</a>'
+					}
+				}
+			},
+		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				$("#title-data").datagrid('appendRow',{
+					title : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'title' ,
+					colspan : 3,
+				}) ;
+			}
+		},
+	});
+
+	$("#tutor-data").datagrid({
+		fitColumns : true ,
+		fit : true,
+		singleSelect : true ,
+		width:'100%' ,
+		url : CONTROLLER + '/getData' ,
+		striped : true ,
+		checkOnSelect : true ,
+		sortName : 'add_time' ,
+		loadMsg : '导员经历加载中。。。' ,
+		sortOrder : 'desc' ,
+		multiSort : true ,
+		remoteSort : true ,
+		method : 'POST' ,
+		columns : [[
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
+			{
+				field : 'id' ,
+				title : 'id' ,
+				hidden : true ,
+			},
+			{
+				field : 'tutor' ,
+				title : '导员职称' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+			},
+			{
+				field : 'tutor_date' ,
+				title : '评定时间' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' ,
+				sortable : true ,
+				sortOrder : 'desc' ,
+			},
+			{
+				field : 'file_name' ,
+				title : '附件' ,
+				width : 100 ,
+				align : 'center' ,
+				halign : 'center' , 
+
+				formatter : function(value,row,index){
+					if ( ! value ){
+						return "暂无" ;
+					} else {
+						return '<a href="javascript:;" style="text-decoration:none;" onclick="window.open(\'' + ROOT + '/Uploads/Tutor/' + value + '\')">查看</a>'
+					}
+				}
+			},
+		]] ,
+
+		onLoadSuccess : function(data){
+			if ( data.total == 0 ){
+				// $("#tools-edit").linkbutton('disable') ;
+				// $("#tools-delete").linkbutton('disable') ;
+				$("#tutor-data").datagrid('appendRow',{
+					tutor : '<div style="text-align:center;font-size:16px;color:red">暂无相关记录!</div>'
+				}).datagrid('mergeCells',{
+					index : 0,
+					field : 'tutor' ,
+					colspan : 3,
+				}) ;
+			}
+		},
+	});
+
+
 });
+
+
+function improve(tid){
+	$("#improve-data").datagrid('load',{
+		'model' : 'Improve',
+		'tid' : tid
+	});
+	$("#improve-box").dialog('open') ;
+}
+
+function education(tid){
+	$("#education-data").datagrid('load',{
+		'model' : 'Education' ,
+		'tid' : tid
+	});
+	$("#education-box").dialog('open') ;
+}
+
+function work(tid){
+	$("#work-data").datagrid('load',{
+		'model' : 'Work' ,
+		'tid' : tid
+	});
+	$("#work-box").dialog('open') ;
+}
+
+function titleData(tid){
+	$("#title-data").datagrid('load',{
+		'model' : 'Title' ,
+		'tid' : tid
+	});
+	$("#title-box").dialog('open') ;
+}
+
+function tutorData(tid){
+	$("#tutor-data").datagrid('load',{
+		'model' : 'Tutor' ,
+		'tid' : tid
+	});
+	$("#tutor-box").dialog('open') ;
+}
 
 function setpwd(tid){
 

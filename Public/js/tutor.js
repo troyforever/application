@@ -95,6 +95,7 @@ $(function(){
 
 	$("#data-box").datagrid({
 		fitColumns : true ,
+		fit : true,
 		singleSelect : true ,
 		width:'100%' ,
 		url : APP + "/Experience/Tutor/data" ,
@@ -106,14 +107,14 @@ $(function(){
 		multiSort : true ,
 		remoteSort : true ,
 		method : 'POST' ,
-		pagination : true ,
-		pageSize : 5,
-		pageList : [5],
+		// pagination : true ,
+		// pageSize : 5,
+		// pageList : [5,10,15,20,25,30],
 		columns : [[
-			{
-				field : 'ck' ,
-				checkbox : 'true' ,
-			},
+			// {
+			// 	field : 'ck' ,
+			// 	checkbox : 'true' ,
+			// },
 			{
 				field : 'id' ,
 				title : 'id' ,
